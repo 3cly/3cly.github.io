@@ -117,12 +117,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipex2cdtbj20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciub8ja1j20zk0m81ky.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicliwyw55j20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicljitigmj20zk0m87fp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciryrr3rj20zk0m8nhk.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipewkhf1zj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciundwu5j20zk0m8n9e.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipesng5oej20zk0m87d4.jpg"></li>
         </ul>
       </div>
     </header>
@@ -168,14 +168,14 @@
   <div class="body md" itemprop="articleBody">
     
 
-    <h1 id="original-entry-point-原始入口点"><a class="anchor" href="#original-entry-point-原始入口点">#</a> original entry point 原始入口点</h1>
+    <h1 id="original-entry-point-原始入口点"><a class="markdownIt-Anchor" href="#original-entry-point-原始入口点">#</a> original entry point 原始入口点</h1>
 <p>常见脱壳知识：1.PUSHAD （压栈） 代表程序的入口点 <br>
 2.POPAD （出栈） 代表程序的出口点，与 PUSHAD 对应，一般找到这个 OEP 就在附近拉！ <br>
 3.OEP：程序的入口点，注意这点：软件加壳就是隐藏了 OEP（或者用了假的 OEP）， <br>
 只要我们找到程序真正的 OEP，就可以立刻脱壳。</p>
 <p>网上说的 esp 定律脱壳时都说到 “当 esp 变红时下访问断点” 却没说明为什么，其实 od 当寄存器变化时就会变红，也就是说实质是留意堆栈什么时候变化。</p>
 <p>而把壳当成一个 call，当调用壳这个 call 时会压栈，esp 变红。</p>
-<h1 id="c中数值的后缀"><a class="anchor" href="#c中数值的后缀">#</a> C++ 中数值的后缀</h1>
+<h1 id="c中数值的后缀"><a class="markdownIt-Anchor" href="#c中数值的后缀">#</a> C++ 中数值的后缀</h1>
 <p>在 C++ 中，数字表达提供了一系列的后缀进行表示，如下：<br>
  u 或 U  表示数字是无符号整型数，如：123u，但并不说明是长整型还是短整型</p>
 <p>l 或 L  表示数字是长整型数，如：123l；而 123ul 就是无符号长整型数；而 34.4l 就是长双精度浮点数，等效于双精度浮点数</p>
@@ -184,12 +184,12 @@
 <p>e 或 E  表示数字的次幂，如：34.4e-2 就是 0.344；0.2544e3f 表示一个单精度浮点数，值为 254.4<br>
    <br>
    当什么后缀都没写时，则根据有无小数点及位数来决定其具体类型，如：123 表示的是有符号整型数，而 12341434 则是有符号长整型数；而 34.43 表示双精度浮点数。</p>
-<h1 id="杂"><a class="anchor" href="#杂">#</a> 杂</h1>
+<h1 id="杂"><a class="markdownIt-Anchor" href="#杂">#</a> 杂</h1>
 <p>IDA 中右击代码选择<em> Hide casts</em><br>
 ，可以隐藏那些看着比较乱的指针</p>
 <p><em>rsp 是栈指针寄存器，64 位。指向栈顶。相当于 32 位汇编里的 esp,16 位的 sp</em></p>
 <p>如何理解栈？把瓶子倒过来</p>
-<h1 id="huibian"><a class="anchor" href="#huibian">#</a> huibian</h1>
+<h1 id="huibian"><a class="markdownIt-Anchor" href="#huibian">#</a> huibian</h1>
 <p><img data-src="/images/QQ%E5%9B%BE%E7%89%8720221215153253.png" alt="Untitled"></p>
 <p>xor eax,eax</p>
 <p>是异或运算，两数相反为 1；两数相同为 0。由于这两个数相同，异或后等于清 0</p>
@@ -256,10 +256,10 @@
     <div class="item right">
       
 
-  <a href="/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicis3attqj20zk0m8k7l.jpg" title="博客简介">
+  <a href="/2022/12/15/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciryrr3rj20zk0m8nhk.jpg" title="搭建过程">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> Hexo</span>
-  <h3>博客简介</h3>
+  <h3>搭建过程</h3>
   </a>
 
     </div>
@@ -374,20 +374,10 @@
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E9%9A%8F%E7%AC%94/" title="分类于 随笔">随笔</a>
-</div>
-
-    <span><a href="/2022/12/15/%E9%9A%8F%E7%AC%94/" title="以前的杂记">以前的杂记</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
 <a href="/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="分类于 基本ROP学习">基本ROP学习</a>
 </div>
 
-    <span><a href="/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/" title="PLT表与GOT表の延迟绑定机制学习">PLT表与GOT表の延迟绑定机制学习</a></span>
+    <span><a href="/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="基本ROP学习">基本ROP学习</a></span>
   </li>
 
       
@@ -407,7 +397,7 @@
 <a href="/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="分类于 基本ROP学习">基本ROP学习</a>
 </div>
 
-    <span><a href="/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="基本ROP学习">基本ROP学习</a></span>
+    <span><a href="/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/" title="PLT表与GOT表の延迟绑定机制学习">PLT表与GOT表の延迟绑定机制学习</a></span>
   </li>
 
       
@@ -418,6 +408,16 @@
 </div>
 
     <span><a href="/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/" title="博客简介">博客简介</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E9%9A%8F%E7%AC%94/" title="分类于 随笔">随笔</a>
+</div>
+
+    <span><a href="/2022/12/15/%E9%9A%8F%E7%AC%94/" title="以前的杂记">以前的杂记</a></span>
   </li>
 
   </ul>
