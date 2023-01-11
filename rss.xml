@@ -18,9 +18,9 @@
         <category term="c++" />
         <category term="c" />
         <item>
-            <guid isPermalink="true">https://3cly.github.io/2022/12/30/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/</guid>
+            <guid isPermalink="true">https://3cly.github.io/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/</guid>
             <title>PLT表与GOT表の延迟绑定机制学习</title>
-            <link>https://3cly.github.io/2022/12/30/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/</link>
+            <link>https://3cly.github.io/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/</link>
             <category term="基本ROP学习" scheme="https://3cly.github.io/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" />
             <category term="二进制" scheme="https://3cly.github.io/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/" />
             <pubDate>Fri, 30 Dec 2022 21:42:08 +0800</pubDate>
@@ -105,9 +105,9 @@
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://3cly.github.io/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/</guid>
+            <guid isPermalink="true">https://3cly.github.io/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/</guid>
             <title>基本ROP学习</title>
-            <link>https://3cly.github.io/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/</link>
+            <link>https://3cly.github.io/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/</link>
             <category term="基本ROP学习" scheme="https://3cly.github.io/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" />
             <category term="二进制" scheme="https://3cly.github.io/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/" />
             <pubDate>Thu, 15 Dec 2022 21:12:06 +0800</pubDate>
@@ -202,9 +202,9 @@
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://3cly.github.io/2022/12/15/Hexo/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/</guid>
+            <guid isPermalink="true">https://3cly.github.io/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/</guid>
             <title>博客简介</title>
-            <link>https://3cly.github.io/2022/12/15/Hexo/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/</link>
+            <link>https://3cly.github.io/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/</link>
             <category term="Hexo" scheme="https://3cly.github.io/categories/Hexo/" />
             <category term="笔记" scheme="https://3cly.github.io/tags/%E7%AC%94%E8%AE%B0/" />
             <pubDate>Thu, 15 Dec 2022 15:02:58 +0800</pubDate>
@@ -214,9 +214,9 @@
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://3cly.github.io/2022/12/15/Hexo/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/</guid>
+            <guid isPermalink="true">https://3cly.github.io/2022/12/15/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/</guid>
             <title>搭建过程</title>
-            <link>https://3cly.github.io/2022/12/15/Hexo/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/</link>
+            <link>https://3cly.github.io/2022/12/15/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/</link>
             <category term="Hexo" scheme="https://3cly.github.io/categories/Hexo/" />
             <category term="笔记" scheme="https://3cly.github.io/tags/%E7%AC%94%E8%AE%B0/" />
             <pubDate>Thu, 15 Dec 2022 15:02:58 +0800</pubDate>
@@ -248,9 +248,9 @@ hexo d&lt;br&gt;
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://3cly.github.io/2022/12/15/%E9%9A%8F%E7%AC%94/%E9%9A%8F%E7%AC%94/</guid>
+            <guid isPermalink="true">https://3cly.github.io/2022/12/15/%E9%9A%8F%E7%AC%94/</guid>
             <title>以前的杂记</title>
-            <link>https://3cly.github.io/2022/12/15/%E9%9A%8F%E7%AC%94/%E9%9A%8F%E7%AC%94/</link>
+            <link>https://3cly.github.io/2022/12/15/%E9%9A%8F%E7%AC%94/</link>
             <category term="随笔" scheme="https://3cly.github.io/categories/%E9%9A%8F%E7%AC%94/" />
             <category term="笔记" scheme="https://3cly.github.io/tags/%E7%AC%94%E8%AE%B0/" />
             <pubDate>Thu, 15 Dec 2022 00:17:12 +0800</pubDate>
