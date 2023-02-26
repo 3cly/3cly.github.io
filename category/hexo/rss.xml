@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>skyの博客 • Posts by &#34;hexo&#34; category</title>
+        <link>https://3cly.github.io</link>
+        <description>一只菜狗的博客</description>
+        <language>zh-CN</language>
+        <pubDate>Thu, 15 Dec 2022 15:02:58 +0800</pubDate>
+        <lastBuildDate>Thu, 15 Dec 2022 15:02:58 +0800</lastBuildDate>
+        <category>笔记</category>
+        <category>二进制</category>
+        <item>
+            <guid isPermalink="true">https://3cly.github.io/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/</guid>
+            <title>博客简介</title>
+            <link>https://3cly.github.io/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/</link>
+            <category>笔记</category>
+            <pubDate>Thu, 15 Dec 2022 15:02:58 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;Welcome to sky の blog! 想学安全的二进制萌新于 12 月 14 号建立此博客&lt;br&gt;
+ QQ:987623364&lt;/p&gt;
+&lt;p&gt;邮箱：987623364@qq.com&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://3cly.github.io/2022/12/15/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/</guid>
+            <title>搭建过程</title>
+            <link>https://3cly.github.io/2022/12/15/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/</link>
+            <category>笔记</category>
+            <pubDate>Thu, 15 Dec 2022 15:02:58 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;使用-hexogithub-搭建个人免费博客&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#使用-hexogithub-搭建个人免费博客&#34;&gt;#&lt;/a&gt; &lt;strong&gt;使用 Hexo+GitHub 搭建个人免费博客&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;准备：环境搭建&lt;/p&gt;
+&lt;p&gt;Hexo 基于 Node.js，搭建过程中还需要使用 git，因此先搭建本地操作环境，安装 Node.js 和 Git。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Node.js：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9saW5rLnpoaWh1LmNvbS8/dGFyZ2V0PWh0dHBzJTNBLy9ub2RlanMub3JnL3poLWNu&#34;&gt;https://nodejs.org/zh-cn&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;Git：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9saW5rLnpoaWh1LmNvbS8/dGFyZ2V0PWh0dHBzJTNBLy9naXQtc2NtLmNvbS9kb3dubG9hZHM=&#34;&gt;https://git-scm.com/downloads&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下载 Node.js 和 Git 程序并安装，一路点 “下一步” 按默认配置完成安装。&lt;br&gt;
+&lt;img data-src=&#34;/images/11.png&#34; alt=&#34;Untitled&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/22.png&#34; alt=&#34;Untitled&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/33.png&#34; alt=&#34;Untitled&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/444.png&#34; alt=&#34;Untitled&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/555.png&#34; alt=&#34;Untitled&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/66.png&#34; alt=&#34;Untitled&#34;&gt;&lt;/p&gt;
+&lt;p&gt;finished.&lt;br&gt;
+&lt;strong&gt; 还没有绑定域名因为要 $&lt;/strong&gt;&lt;br&gt;
+QWQ&lt;br&gt;
+ 常用指令&lt;br&gt;
+ hexo clean&lt;br&gt;
+hexo g&lt;br&gt;
+hexo d&lt;br&gt;
+ 博客内容待完善&lt;br&gt;
+更新&lt;br&gt;
+换了一个图标&lt;br&gt;
+&lt;img data-src=&#34;https://pic.imgdb.cn/item/639b006eb1fccdcd369474d8.png&#34; alt=&#34;Untitled&#34;&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

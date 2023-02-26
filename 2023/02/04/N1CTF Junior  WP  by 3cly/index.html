@@ -1,0 +1,575 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="google-site-verification" content="tcK6frO9MMMjv-s9v_SHFiAvsW8YHyINmZlIiYn3a4g" />
+
+
+<link rel="alternate" type="application/rss+xml" title="skyの博客" href="https://3cly.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="skyの博客" href="https://3cly.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="skyの博客" href="https://3cly.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="笔记" />
+
+
+<link rel="canonical" href="https://3cly.github.io/2023/02/04/N1CTF%20Junior%20%20WP%20%20by%203cly/">
+
+
+
+  <title>
+N1CTF Junior  WP - 学习 |
+静かな港 = skyの博客 = 从来如此,便对么?</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">N1CTF Junior  WP
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-02-04 13:02:58">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-02-04T13:02:58+08:00">2023-02-04</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>1.9k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">静かな港</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec1f5be43e0d30e4f70a7.png"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddee1c4757feff33ba41c2.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec36fbe43e0d30e539c8e.png"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bebfefbe43e0d30e4ae83e.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec051be43e0d30e4b8150.png"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddece54757feff33b8136e.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="item" rel="index" title="分类于 学习"><span itemprop="name">学习</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://3cly.github.io/2023/02/04/N1CTF%20Junior%20%20WP%20%20by%203cly/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.png">
+    <meta itemprop="name" content="sky">
+    <meta itemprop="description" content="从来如此,便对么?, 一只菜狗的博客">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="skyの博客">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="n1ctf-junior-wp"><a class="markdownIt-Anchor" href="#n1ctf-junior-wp">#</a> N1CTF Junior  WP</h1>
+<h2 id="reserve"><a class="markdownIt-Anchor" href="#reserve">#</a> reserve</h2>
+<h3 id="checkin-rs"><a class="markdownIt-Anchor" href="#checkin-rs">#</a> checkin-rs</h3>
+<h4 id="题目分析"><a class="markdownIt-Anchor" href="#题目分析">#</a> 题目分析</h4>
+<p>拿到文件 由题目标题知是 rust 语言编写的 之前没接触过 rust 的逆向题只好硬着头皮先放进 IDA 看看<br>
+<img data-src="/images/n1.png" alt="image.png"><br>
+ 首先搜索 main 函数 找到这个带有字符串的函数就是主函数了<br>
+<img data-src="/images/n2.png" alt="image.png"><br>
+v0 先是赋值了 32 字节 又 cpy 了 14 字节 总共是 46 字节 通过动调和 lazyIDA 可提取出来<br>
+ [0x7D, 0x20, 0x23, 0x22, 0x25, 0x24, 0x68, 0x72, 0x6E, 0x56, 0x79, 0x62, 0x53, 0x79, 0x7D, 0x7A, 0x62, 0x4E, 0x7C, 0x7A, 0x7F, 0x76, 0x73, 0x7F, 0x7B, 0x46, 0x7F, 0x68, 0x6E, 0x78, 0x68, 0x7A, 0x52, 0x7E, 0x5B, 0x50, 0x45, 0x40, 0x5D, 0x4C, 0x46, 0x5C, 0x5A, 0x48, 0x49, 0x5E]<br>
+ 最后面这部分应该对解题帮助不大 就是判断输入之后的成功或失败 然后释放前面使用的内存什么的<br>
+<img data-src="/images/n3.png" alt="image.png"></p>
+<p>中间部分的前面是有关线程使用的一些判断，正常情况没有报错就不会执行<br>
+<img data-src="/images/n4.png" alt="image.png"><br>
+<img data-src="/images/n5.png" alt="image.png"><br>
+ 后面的多线程就是关键了<br>
+<img data-src="/images/n6.png" alt="image.png"><br>
+ 对这部分 我昨天动态调试了很久没有看懂 然后 hint1 放出来了 于是去 rust 官网下载了 rust 在 VScode 上编译了一个多线程 rust 程序放进 IDA 看看 要能找到线程 handler 就能找到关键<br>
+<img data-src="/images/n7.png" alt="image.png"><br>
+<img data-src="/images/n8.png" alt="image.png"> 然后查看 main 函数就发现 sub_1400027B0 是 main 函数 sub_140002EB0 就是 handler 相关的<br>
+这时准备开摆了 放出了第二个 hint 叫我们在 bcmp 函数下断点观察输入的变化 就是黑盒分析吧<br>
+<img data-src="/images/n9.png" alt="image.png"><br>
+v23 是加密后的输入<br>
+通过很多次尝试 (比如输入 46 个 1，16 个 1 后面是 2，secpunk {},secpunk {11111} 之类的)<br>
+<img data-src="/images/n10.png" alt="image.png"><br>
+ 发现输入的字符串加密后最后一个字符经过加密后是不变的<br>
+<img data-src="/images/n11.png" alt="image.png"><br>
+ 发现前面的 v26 就是输入  v25 是加密后的数据 v24 又递加<br>
+<img data-src="/images/n12.png" alt="image.png"><br>
+ 最后一个字符没变就是异或 0 于是就试了 0-45 的异或比较数据 直接得出 flag</p>
+<h4 id="脚本"><a class="markdownIt-Anchor" href="#脚本">#</a> 脚本</h4>
+<figure class="highlight python"><figcaption data-lang="python"></figcaption><table><tr><td data-num="1"></td><td><pre>flag<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">0x7D</span><span class="token punctuation">,</span> <span class="token number">0x20</span><span class="token punctuation">,</span> <span class="token number">0x23</span><span class="token punctuation">,</span> <span class="token number">0x22</span><span class="token punctuation">,</span> <span class="token number">0x25</span><span class="token punctuation">,</span> <span class="token number">0x24</span><span class="token punctuation">,</span> <span class="token number">0x68</span><span class="token punctuation">,</span> <span class="token number">0x72</span><span class="token punctuation">,</span> <span class="token number">0x6E</span><span class="token punctuation">,</span> <span class="token number">0x56</span><span class="token punctuation">,</span> <span class="token number">0x79</span><span class="token punctuation">,</span> <span class="token number">0x62</span><span class="token punctuation">,</span> <span class="token number">0x53</span><span class="token punctuation">,</span> <span class="token number">0x79</span><span class="token punctuation">,</span> <span class="token number">0x7D</span><span class="token punctuation">,</span> <span class="token number">0x7A</span><span class="token punctuation">,</span> <span class="token number">0x62</span><span class="token punctuation">,</span> <span class="token number">0x4E</span><span class="token punctuation">,</span> <span class="token number">0x7C</span><span class="token punctuation">,</span> <span class="token number">0x7A</span><span class="token punctuation">,</span> <span class="token number">0x7F</span><span class="token punctuation">,</span> <span class="token number">0x76</span><span class="token punctuation">,</span> <span class="token number">0x73</span><span class="token punctuation">,</span> <span class="token number">0x7F</span><span class="token punctuation">,</span> <span class="token number">0x7B</span><span class="token punctuation">,</span> <span class="token number">0x46</span><span class="token punctuation">,</span> <span class="token number">0x7F</span><span class="token punctuation">,</span> <span class="token number">0x68</span><span class="token punctuation">,</span> <span class="token number">0x6E</span><span class="token punctuation">,</span> <span class="token number">0x78</span><span class="token punctuation">,</span> <span class="token number">0x68</span><span class="token punctuation">,</span> <span class="token number">0x7A</span><span class="token punctuation">,</span> <span class="token number">0x52</span><span class="token punctuation">,</span> <span class="token number">0x7E</span><span class="token punctuation">,</span> <span class="token number">0x5B</span><span class="token punctuation">,</span> <span class="token number">0x50</span><span class="token punctuation">,</span> <span class="token number">0x45</span><span class="token punctuation">,</span> <span class="token number">0x40</span><span class="token punctuation">,</span> <span class="token number">0x5D</span><span class="token punctuation">,</span> <span class="token number">0x4C</span><span class="token punctuation">,</span> <span class="token number">0x46</span><span class="token punctuation">,</span> <span class="token number">0x5C</span><span class="token punctuation">,</span> <span class="token number">0x5A</span><span class="token punctuation">,</span> <span class="token number">0x48</span><span class="token punctuation">,</span> <span class="token number">0x49</span><span class="token punctuation">,</span> <span class="token number">0x5E</span><span class="token punctuation">]</span></pre></td></tr><tr><td data-num="2"></td><td><pre>kkk<span class="token operator">=</span><span class="token number">0</span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span></pre></td></tr><tr><td data-num="5"></td><td><pre>    flag<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">^</span><span class="token operator">=</span>kkk</pre></td></tr><tr><td data-num="6"></td><td><pre>    kkk<span class="token operator">=</span>kkk<span class="token operator">+</span><span class="token number">1</span></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token keyword">print</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token builtin">str</span><span class="token operator">=</span><span class="token string">''</span></pre></td></tr><tr><td data-num="9"></td><td><pre><span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span></pre></td></tr><tr><td data-num="10"></td><td><pre>    <span class="token builtin">str</span><span class="token operator">+=</span><span class="token builtin">chr</span><span class="token punctuation">(</span>flag<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="11"></td><td><pre>flag<span class="token operator">=</span><span class="token builtin">list</span><span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="12"></td><td><pre><span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">45</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token comment">#因为 lazyIDA 提取数据的原因前面异或之后是倒序后面再倒过来</span></pre></td></tr><tr><td data-num="13"></td><td><pre>    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token punctuation">(</span>flag<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>end<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="14"></td><td><pre><span class="token triple-quoted-string string">'''运行结果:</span></pre></td></tr><tr><td data-num="15"></td><td><pre>46</pre></td></tr><tr><td data-num="16"></td><td><pre>[125, 33, 33, 33, 33, 33, 110, 117, 102, 95, 115, 105, 95, 116, 115, 117,</pre></td></tr><tr><td data-num="17"></td><td><pre>114, 95, 110, 105, 107, 99, 101, 104, 99, 95, 101, 115, 114, 101, 118, 101,</pre></td></tr><tr><td data-num="18"></td><td><pre>114, 95, 121, 115, 97, 101, 123, 107, 110, 117, 112, 99, 101, 115]</pre></td></tr><tr><td data-num="19"></td><td><pre>secpunk&#123;easy_reverse_checkin_rust_is_fun!!!!!&#125;</pre></td></tr><tr><td data-num="20"></td><td><pre>Process finished with exit code 0</pre></td></tr><tr><td data-num="21"></td><td><pre>'''</pre></td></tr></table></figure><h2 id="n0th1ngg0"><a class="markdownIt-Anchor" href="#n0th1ngg0">#</a> n0th1ngG0</h2>
+<h3 id="题目分析-2"><a class="markdownIt-Anchor" href="#题目分析-2">#</a> 题目分析</h3>
+<p n1_jun10r_2023_1s_4w3s0m3>开始做的时候附件已经更新过了 直接下载的简单版本<br>
+同时题目描述说了如果认识这个算法就直接冲 推测应该是某种加密算法<br>
+ 2 个版本我直接把 windows 版放进 IDA<br>
+<img data-src="/images/n13.png" alt="image.png"><br>
+ 这里注意 go 语言逆向题 main 函数是 main_main<br>
+<img data-src="/images/n14.png" alt="image.png"><br>
+ 关键就是中间的 main_crypto_Crypt 了 这里发现了 2 段常量字符数组 一段为密钥一段为比较数据<br>
+<img data-src="/images/n15.png" alt="image.png"><br>
+<img data-src="/images/n16.png" alt="image.png"><br>
+ 点开是 2 个 WTF 函数充斥着 RC4 算法的特征 这时候还没细看 直接动态调试提取 key 试试原版 RC4 (感觉一般 RC4 不会魔改吧)<br>
+<img data-src="/images/n17.png" alt="image.png"><br>
+ 前面对 key 有个循环处理不用管 直接提取处理后的 <strong>secpunk:</strong><br>
+<img data-src="/images/n18.png" alt="image.png"><br>
+RC4 为对称加密 把比较数据转换为 hex 字符串然后 RC4 就能得到 flag<br>
+<img data-src="/images/n19.png" alt="image.png"><br>
+secpunk</p>
+<p>成功 get flag</p>
+
+      <div class="tags">
+          <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"><i class="ic i-tag"></i> 笔记</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-02-04 15:17:00" itemprop="dateModified" datetime="2023-02-04T15:17:00+08:00">2023-02-04</time>
+  </span>
+  <span id="2023/02/04/N1CTF Junior  WP  by 3cly/" class="item leancloud_visitors" data-flag-title="N1CTF Junior  WP" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>sky <i class="ic i-at"><em>@</em></i>skyの博客
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://3cly.github.io/2023/02/04/N1CTF%20Junior%20%20WP%20%20by%203cly/" title="N1CTF Junior  WP">https://3cly.github.io/2023/02/04/N1CTF Junior  WP  by 3cly/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/02/04/hgame2023%20%E9%83%A8%E5%88%86%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;63bec39fbe43e0d30e53fdec.png" title="hgame2023 部分做题记录">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 学习</span>
+  <h3>hgame2023 部分做题记录</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2023/02/26/shellcode&&vm/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;63bec32bbe43e0d30e52d956.jpg" title="shellcode&amp;&amp;vm">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 学习</span>
+  <h3>shellcode&&vm</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#n1ctf-junior-wp"><span class="toc-number">1.</span> <span class="toc-text"> N1CTF Junior  WP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#reserve"><span class="toc-number">1.1.</span> <span class="toc-text"> reserve</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#checkin-rs"><span class="toc-number">1.1.1.</span> <span class="toc-text"> checkin-rs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%88%86%E6%9E%90"><span class="toc-number">1.1.1.1.</span> <span class="toc-text"> 题目分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC"><span class="toc-number">1.1.1.2.</span> <span class="toc-text"> 脚本</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#n0th1ngg0"><span class="toc-number">1.2.</span> <span class="toc-text"> n0th1ngG0</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%88%86%E6%9E%90-2"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 题目分析</span></a></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2023/01/07/CSAPP%E3%81%AE%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2/" rel="bookmark" title="CSAPPの学習記録">CSAPPの学習記録</a></li><li class="active"><a href="/2023/02/04/N1CTF%20Junior%20%20WP%20%20by%203cly/" rel="bookmark" title="N1CTF Junior  WP">N1CTF Junior  WP</a></li><li><a href="/2023/02/04/hgame2023%20%E9%83%A8%E5%88%86%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="bookmark" title="hgame2023 部分做题记录">hgame2023 部分做题记录</a></li><li><a href="/2023/02/26/shellcode&&vm/" rel="bookmark" title="shellcode&&vm">shellcode&&vm</a></li><li><a href="/2023/02/26/VNCTF/" rel="bookmark" title="VNCTF">VNCTF</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="sky"
+      data-src="/images/avatar.png">
+  <p class="name" itemprop="name">sky</p>
+  <div class="description" itemprop="description">一只菜狗的博客</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">10</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">4</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">2</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tLzNjbHk=" title="https:&#x2F;&#x2F;github.com&#x2F;3cly"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/link/" rel="section"><i class="ic i-magic"></i>links</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2023/02/04/hgame2023%20%E9%83%A8%E5%88%86%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2023/02/26/shellcode&&vm/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Hexo/" title="分类于 Hexo">Hexo</a>
+</div>
+
+    <span><a href="/2022/12/15/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" title="搭建过程">搭建过程</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="分类于 基本ROP学习">基本ROP学习</a>
+</div>
+
+    <span><a href="/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="基本ROP学习">基本ROP学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/04/hgame2023%20%E9%83%A8%E5%88%86%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/" title="hgame2023 部分做题记录">hgame2023 部分做题记录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E9%9A%8F%E7%AC%94/" title="分类于 随笔">随笔</a>
+</div>
+
+    <span><a href="/2022/12/15/%E9%9A%8F%E7%AC%94/" title="以前的杂记">以前的杂记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="分类于 基本ROP学习">基本ROP学习</a>
+</div>
+
+    <span><a href="/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/" title="PLT表与GOT表の延迟绑定机制学习">PLT表与GOT表の延迟绑定机制学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/04/N1CTF%20Junior%20%20WP%20%20by%203cly/" title="N1CTF Junior  WP">N1CTF Junior  WP</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Hexo/" title="分类于 Hexo">Hexo</a>
+</div>
+
+    <span><a href="/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/" title="博客简介">博客简介</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/01/07/CSAPP%E3%81%AE%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2/" title="CSAPPの学習記録">CSAPPの学習記録</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/26/shellcode&&vm/" title="shellcode&amp;&amp;vm">shellcode&&vm</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/26/VNCTF/" title="VNCTF">VNCTF</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2022 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">sky @ 静かな港</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">22k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">20 分钟</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/02/04/N1CTF Junior  WP  by 3cly/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

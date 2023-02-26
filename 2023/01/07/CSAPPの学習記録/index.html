@@ -1,0 +1,598 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="google-site-verification" content="tcK6frO9MMMjv-s9v_SHFiAvsW8YHyINmZlIiYn3a4g" />
+
+
+<link rel="alternate" type="application/rss+xml" title="skyの博客" href="https://3cly.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="skyの博客" href="https://3cly.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="skyの博客" href="https://3cly.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="笔记" />
+
+
+<link rel="canonical" href="https://3cly.github.io/2023/01/07/CSAPP%E3%81%AE%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2/">
+
+
+
+  <title>
+CSAPPの学習記録 - 学习 |
+静かな港 = skyの博客 = 从来如此,便对么?</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">CSAPPの学習記録
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-01-07 00:17:12">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-01-07T00:17:12+08:00">2023-01-07</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>1.8k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">静かな港</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddeb5f4757feff33b5dfd7.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddece54757feff33b8136e.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec1f5be43e0d30e4f70a7.png"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec2b8be43e0d30e517780.png"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec1d4be43e0d30e4f1a79.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec082be43e0d30e4bcdb9.png"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="item" rel="index" title="分类于 学习"><span itemprop="name">学习</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://3cly.github.io/2023/01/07/CSAPP%E3%81%AE%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.png">
+    <meta itemprop="name" content="sky">
+    <meta itemprop="description" content="从来如此,便对么?, 一只菜狗的博客">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="skyの博客">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="第一章-计算机系统漫游"><a class="markdownIt-Anchor" href="#第一章-计算机系统漫游">#</a> 第一章 计算机系统漫游</h1>
+<h2 id="11信息就是位上下文"><a class="markdownIt-Anchor" href="#11信息就是位上下文">#</a> 1.1 信息就是位 + 上下文</h2>
+<p>1. 文件都以字节序列方式存储，只由 ASCII 字符构成称为文本文件，其他所有文件称为二进制文件</p>
+<p>2. 区分相同位串代表的不同数据对象的唯一方法是我们读到这些数据对象时的上下文，不同上下文中，同样的字节序列可能表示一个整数浮点数字符串或者机器指令</p>
+<h2 id="12程序被其他程序翻译成不同的格式"><a class="markdownIt-Anchor" href="#12程序被其他程序翻译成不同的格式">#</a> 1.2 程序被其他程序翻译成不同的格式</h2>
+<p>1. 把源程序文件 hello.c 翻译成可执行目标文件 hello 的过程有四个阶段（预处理，编译，汇编，链接） ，分别由预处理器，编译器，汇编器，链接器一同完成，他们共同构成了编译系统（看书上图片）<br>
+2. 预处理阶段：预处理器（cpp）根据 #开头的命令修改原始的 C 程序，并得新的 C 程序（以.i 为扩展名）<br>
+3. 编译阶段：编译器（cll）将 hello.i 翻译成文本文件 hello.s，包含一个汇编语言程序<br>
+ 4. 汇编阶段：汇编器（as）把 hello.s 翻译成机器语言指令，并把这些指令打包成可重定位目标程序的格式，结果保存在 hello.o（二进制文件）<br>
+5. 链接阶段：hello 调用了 printf 函数，printf 函数存在于一个名为 printf.o 的单独的预处理好的目标文件中。有链接器（ld）把 printf.o 合并到 hello.o 当中。结果得到 hello 文件</p>
+<h2 id="13-了解编译系统如何工作的好处"><a class="markdownIt-Anchor" href="#13-了解编译系统如何工作的好处">#</a> 1.3 了解编译系统如何工作的好处</h2>
+<ol>
+<li>优化程序性能</li>
+<li>理解链接时出现的错误</li>
+<li>避免安全漏洞</li>
+</ol>
+<h2 id="14-处理器读并解释存在内存中的指令"><a class="markdownIt-Anchor" href="#14-处理器读并解释存在内存中的指令">#</a> 1.4 处理器读并解释存在内存中的指令</h2>
+<h3 id="shell"><a class="markdownIt-Anchor" href="#shell">#</a> shell</h3>
+<p>hello.c 源程序已经被编译系统翻译成可执行文件 hello 并被存放在磁盘上。要想在 Unix 系统上运行该可执行文件，我们将它的文件名输入到称为 shell 的应用程序</p>
+<pre><code>linux&gt; ./hello
+hello, world
+linux&gt;
+</code></pre>
+<p>shell 是一个命令行解释器如果命令行的第一个单词不是 shell 的内置命令，那么 shell 就会假设他是个可执行文件的名字，他将加载并执行这个文件。</p>
+<h3 id="硬件"><a class="markdownIt-Anchor" href="#硬件">#</a> 硬件</h3>
+<p>1. 系统硬件组成：总线，I/O 设备，主存，处理器<br>
+ 2. 总线：贯穿整个系统的一组电子管道，携带信息字节并负责在各个部件间传递（传递信息用的）通常总线被设计成传送定长的字节块（字 word）。字中的字节数是一个基本的系统参数（32 位 4 个，64 位 8 个）<br>
+3.I/O 设备：系统与外部世界联系通道（鼠标键盘，显示器，磁盘），I/O 通过控制器（I/O 设备本身或者主印刷电路板上的芯片组）或适配器（插在主板插槽）与总线相连<br>
+ 4. 主存：临时存储设备，处理器执行程序的时候用来存放程序和数据的，有一组动态随即存取存储器（DRAM）芯片组成<br>
+ 5. 处理器：中央处理器（CPU）是解释（或执行）存储在主存中指令的引擎。其和行是一个代写哦啊为一个字的存储设备（或寄存器），称为<strong>程序计数器（PC）</strong>，在任何时候 PC 都指向主存中的某条机器指令（及含有该指令的地址）。处理器从 PC 指向的内存处读指令，解释指令中的位，然后更新 PC，使其指向下一条指令，而这些指令不一定在内存中连续<br>
+。处理器操作主要围绕主存，寄存器文件，算数 / 逻辑单元进行<br>
+ 6. 寄存器文件（register file）是一个小存储设备，由一些单个字长的寄存器组成，每个寄存器有唯一的文件。<br>
+7.** 算术 / 逻辑单元（ALU）** 计算数据和地址值</p>
+<p>CPU 在指令的要求下可能执行的操作如下</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作</th>
+<th style="text-align:center">具体</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">加载</td>
+<td style="text-align:center">从主存复制一个字节或字到寄存器，以覆盖寄存器原来的内容</td>
+</tr>
+<tr>
+<td style="text-align:center">存储</td>
+<td style="text-align:center">从寄存器复制一个字节或字到主存的某个位置，覆盖主存原来的内容</td>
+</tr>
+<tr>
+<td style="text-align:center">操作</td>
+<td style="text-align:center">把两个寄存器的内容复制到 ALU，ALU 对这两个字做算术运算，并将结果存放到一个寄存器中，以覆盖寄存器原来内容</td>
+</tr>
+<tr>
+<td style="text-align:center">跳转</td>
+<td style="text-align:center">从指令本身抽取一个字，并将这个字复制到 PC 以覆盖 PC 原来的值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="进程"><a class="markdownIt-Anchor" href="#进程">#</a> 进程</h3>
+<p>进程可以看成是操作系统对正在运行的程序的一种抽象，在一个系统中可以运行多个进程，这些进程对外表现好像是独占硬件，实际上是通过不同进程之间进程的交互执行实现的，这个过程叫上下文切换（context switch）</p>
+<h3 id="线程"><a class="markdownIt-Anchor" href="#线程">#</a> 线程</h3>
+<p>一个进程可以由多个线程组成，运行在一个上下文环境中，共享代码以及全局数据。因为共享数据，使得其比一般的进程更加高效（花在 context switch 的时间少）。</p>
+<h3 id="虚拟存储器"><a class="markdownIt-Anchor" href="#虚拟存储器">#</a> 虚拟存储器</h3>
+<p>给进程提供的一个好像自己独占主存的假象，对于进程的所使用的虚拟存储器可以分成一下几个部分：</p>
+<ul>
+<li>程序代码和数据</li>
+<li>堆，可以动态扩展或者收缩，供像 malloc 和 free 这样的 C 语言中的库进行调用</li>
+<li>共享库</li>
+<li>栈，可以动态扩展或者收缩，用于编译器的函数调用</li>
+<li>内核虚拟存储器</li>
+</ul>
+
+      <div class="tags">
+          <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"><i class="ic i-tag"></i> 笔记</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-02-04 15:17:00" itemprop="dateModified" datetime="2023-02-04T15:17:00+08:00">2023-02-04</time>
+  </span>
+  <span id="2023/01/07/CSAPPの学習記録/" class="item leancloud_visitors" data-flag-title="CSAPPの学習記録" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>sky <i class="ic i-at"><em>@</em></i>skyの博客
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://3cly.github.io/2023/01/07/CSAPP%E3%81%AE%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2/" title="CSAPPの学習記録">https://3cly.github.io/2023/01/07/CSAPPの学習記録/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;63bec082be43e0d30e4bcdb9.png" title="PLT表与GOT表の延迟绑定机制学习">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 基本ROP学习</span>
+  <h3>PLT表与GOT表の延迟绑定机制学习</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2023/02/04/hgame2023%20%E9%83%A8%E5%88%86%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;63bec36fbe43e0d30e539c8e.png" title="hgame2023 部分做题记录">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 学习</span>
+  <h3>hgame2023 部分做题记录</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8"><span class="toc-number">1.</span> <span class="toc-text"> 第一章 计算机系统漫游</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#11%E4%BF%A1%E6%81%AF%E5%B0%B1%E6%98%AF%E4%BD%8D%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="toc-number">1.1.</span> <span class="toc-text"> 1.1 信息就是位 + 上下文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12%E7%A8%8B%E5%BA%8F%E8%A2%AB%E5%85%B6%E4%BB%96%E7%A8%8B%E5%BA%8F%E7%BF%BB%E8%AF%91%E6%88%90%E4%B8%8D%E5%90%8C%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text"> 1.2 程序被其他程序翻译成不同的格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-%E4%BA%86%E8%A7%A3%E7%BC%96%E8%AF%91%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="toc-number">1.3.</span> <span class="toc-text"> 1.3 了解编译系统如何工作的好处</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-%E5%A4%84%E7%90%86%E5%99%A8%E8%AF%BB%E5%B9%B6%E8%A7%A3%E9%87%8A%E5%AD%98%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="toc-number">1.4.</span> <span class="toc-text"> 1.4 处理器读并解释存在内存中的指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#shell"><span class="toc-number">1.4.1.</span> <span class="toc-text"> shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 硬件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B"><span class="toc-number">1.4.4.</span> <span class="toc-text"> 线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">1.4.5.</span> <span class="toc-text"> 虚拟存储器</span></a></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li class="active"><a href="/2023/01/07/CSAPP%E3%81%AE%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2/" rel="bookmark" title="CSAPPの学習記録">CSAPPの学習記録</a></li><li><a href="/2023/02/04/N1CTF%20Junior%20%20WP%20%20by%203cly/" rel="bookmark" title="N1CTF Junior  WP">N1CTF Junior  WP</a></li><li><a href="/2023/02/04/hgame2023%20%E9%83%A8%E5%88%86%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="bookmark" title="hgame2023 部分做题记录">hgame2023 部分做题记录</a></li><li><a href="/2023/02/26/shellcode&&vm/" rel="bookmark" title="shellcode&&vm">shellcode&&vm</a></li><li><a href="/2023/02/26/VNCTF/" rel="bookmark" title="VNCTF">VNCTF</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="sky"
+      data-src="/images/avatar.png">
+  <p class="name" itemprop="name">sky</p>
+  <div class="description" itemprop="description">一只菜狗的博客</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">10</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">4</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">2</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tLzNjbHk=" title="https:&#x2F;&#x2F;github.com&#x2F;3cly"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/link/" rel="section"><i class="ic i-magic"></i>links</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2023/02/04/hgame2023%20%E9%83%A8%E5%88%86%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/26/shellcode&&vm/" title="shellcode&amp;&amp;vm">shellcode&&vm</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="分类于 基本ROP学习">基本ROP学习</a>
+</div>
+
+    <span><a href="/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="基本ROP学习">基本ROP学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/01/07/CSAPP%E3%81%AE%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2/" title="CSAPPの学習記録">CSAPPの学習記録</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/04/hgame2023%20%E9%83%A8%E5%88%86%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/" title="hgame2023 部分做题记录">hgame2023 部分做题记录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Hexo/" title="分类于 Hexo">Hexo</a>
+</div>
+
+    <span><a href="/2022/12/15/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" title="搭建过程">搭建过程</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/04/N1CTF%20Junior%20%20WP%20%20by%203cly/" title="N1CTF Junior  WP">N1CTF Junior  WP</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/26/VNCTF/" title="VNCTF">VNCTF</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E9%9A%8F%E7%AC%94/" title="分类于 随笔">随笔</a>
+</div>
+
+    <span><a href="/2022/12/15/%E9%9A%8F%E7%AC%94/" title="以前的杂记">以前的杂记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="分类于 基本ROP学习">基本ROP学习</a>
+</div>
+
+    <span><a href="/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/" title="PLT表与GOT表の延迟绑定机制学习">PLT表与GOT表の延迟绑定机制学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Hexo/" title="分类于 Hexo">Hexo</a>
+</div>
+
+    <span><a href="/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/" title="博客简介">博客简介</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2022 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">sky @ 静かな港</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">22k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">20 分钟</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/01/07/CSAPPの学習記録/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
