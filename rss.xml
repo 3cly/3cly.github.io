@@ -17,7 +17,7 @@
             <pubDate>Sun, 26 Mar 2023 14:38:21 +0800</pubDate>
             <description><![CDATA[ &lt;h1 id=&#34;cmake-01-basic&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#cmake-01-basic&#34;&gt;#&lt;/a&gt; cmake 01-basic&lt;/h1&gt;
 &lt;h2 id=&#34;什么是cmake&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#什么是cmake&#34;&gt;#&lt;/a&gt; 什么是 cmake&lt;/h2&gt;
-&lt;img data-src=&#34;\source\images\image-20230320003127778.png&#34; alt=&#34;image-20230320003127778&#34; style=&#34;zoom: 67%;&#34;&gt;
+&lt;img data-src=&#34;\images\image-20230320003127778.png&#34; alt=&#34;image-20230320003127778&#34; style=&#34;zoom: 67%;&#34;&gt;
 &lt;p&gt;之前在 linux 虚拟机上安装各种工具或者编译文件时候常用到 cmake, 那么什么是 cmake 呢？&lt;/p&gt;
 &lt;p&gt;CMake 是一个跨平台的安装（编译）工具，可以用简单的语句来描述所有平台的安装 (编译过程)。他能够输出各种各样的 makefile 或者 project 文件，CMake 的组态档取名为 CMakeLists.txt。也就是在 CMakeLists.txt 这个文件中写 cmake 代码。接下来就系统的学习一下 cmake 的语法&lt;/p&gt;
 &lt;h2 id=&#34;一hello-cmake&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#一hello-cmake&#34;&gt;#&lt;/a&gt; (一) hello-cmake&lt;/h2&gt;
