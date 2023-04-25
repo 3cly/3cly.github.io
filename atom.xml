@@ -3,9 +3,43 @@
     <id>https://3cly.github.io</id>
     <title>skyの博客</title>
     <link href="https://3cly.github.io" />
-    <updated>2023-04-16T12:50:29.000Z</updated>
+    <updated>2023-04-25T13:44:31.000Z</updated>
     <category term="笔记" />
     <category term="二进制" />
+    <entry>
+        <id>https://3cly.github.io/2023/04/25/pixel-4a-root/</id>
+        <title>pixel 4a root</title>
+        <link rel="alternate" href="https://3cly.github.io/2023/04/25/pixel-4a-root/"/>
+        <content type="html">&lt;h1 id=&#34;pixel-4a-root&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#pixel-4a-root&#34;&gt;#&lt;/a&gt; pixel 4a root&lt;/h1&gt;
+&lt;p&gt;安卓手机型号:pixel 4a&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720230424202332.png&#34; alt=&#34;QQ图片20230424202332&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;电脑&lt;/strong&gt;先下载 SDK 平台工具 (&lt;strong&gt;保证有 adb 和 fastboot&lt;/strong&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;手机&lt;/strong&gt;在重启的时候在黑屏的瞬间按住音量键的减小键几秒钟，直到屏幕变成这种状态，USB 连接至电脑&lt;/p&gt;
+&lt;p&gt;在电脑运行&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;fastboot flashing unlock
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img data-src=&#34;/images/IMG_3302.JPG&#34; alt=&#34;IMG_3302&#34;&gt;
+&lt;p&gt;调节选项 选择 unlock 再按电源键确认&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/IMG_3300.JPG&#34; alt=&#34;IMG_3300&#34;&gt;&lt;/p&gt;
+&lt;p&gt;在 github 上下载一个 Magisk.apk 在安卓手机上安装&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720230424205338.png&#34; alt=&#34;QQ图片20230424205338&#34;&gt;&lt;/p&gt;
+&lt;p&gt;在安卓谷歌官网找一个&lt;strong&gt;和你手机版本相同的镜像&lt;/strong&gt; zip, 解压后找出 boot.img 文件 push 给手机&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720230424205913.png&#34; alt=&#34;QQ图片20230424205913&#34;&gt;&lt;/p&gt;
+&lt;p&gt;利用 Magisk 修复镜像&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/IMG_3301.JPG&#34; alt=&#34;IMG_3301&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720230424210621.png&#34; alt=&#34;QQ图片20230424210621&#34;&gt;&lt;/p&gt;
+&lt;p&gt;修复完后他会在相同目录保存修复后的 img 给它 pull 回电脑&lt;/p&gt;
+&lt;h5 id=&#34;出现的问题及解决&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#出现的问题及解决&#34;&gt;#&lt;/a&gt; 出现的问题及解决&lt;/h5&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720230424211231.png&#34; alt=&#34;QQ图片20230424211231&#34;&gt;&lt;/p&gt;
+&lt;p&gt;破防之 fastboot 下载谷歌 USB 驱动后还是没搞懂&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720230424211506.png&#34; alt=&#34;QQ图片20230424211506&#34;&gt; 又在网上搜到说是版本问题之又下了两个版本还是不行最后&lt;img data-src=&#34;/images/image-20230424223839731.png&#34; alt=&#34;image-20230424223839731&#34;&gt;&lt;/p&gt;
+&lt;p&gt;又突然可以了 (估计是我之前没有 bootloader…)&lt;/p&gt;
+&lt;h5 id=&#34;成功&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#成功&#34;&gt;#&lt;/a&gt; 成功！&lt;/h5&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/image-20230425212930029.png&#34; alt=&#34;image-20230425212930029&#34;&gt;&lt;/p&gt;
+</content>
+        <category term="笔记" />
+        <updated>2023-04-25T13:44:31.000Z</updated>
+    </entry>
     <entry>
         <id>https://3cly.github.io/2023/04/16/Angr%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
         <title>Angr符号执行学习笔记</title>

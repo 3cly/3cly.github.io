@@ -5,6 +5,16 @@
     "home_page_url": "https://3cly.github.io",
     "items": [
         {
+            "id": "https://3cly.github.io/2023/04/25/pixel-4a-root/",
+            "url": "https://3cly.github.io/2023/04/25/pixel-4a-root/",
+            "title": "pixel 4a root",
+            "date_published": "2023-04-25T13:44:31.000Z",
+            "content_html": "<h1 id=\"pixel-4a-root\"><a class=\"markdownIt-Anchor\" href=\"#pixel-4a-root\">#</a> pixel 4a root</h1>\n<p>安卓手机型号:pixel 4a</p>\n<p><img data-src=\"/images/QQ%E5%9B%BE%E7%89%8720230424202332.png\" alt=\"QQ图片20230424202332\"></p>\n<p><strong>电脑</strong>先下载 SDK 平台工具 (<strong>保证有 adb 和 fastboot</strong>)</p>\n<p><strong>手机</strong>在重启的时候在黑屏的瞬间按住音量键的减小键几秒钟，直到屏幕变成这种状态，USB 连接至电脑</p>\n<p>在电脑运行</p>\n<pre><code>fastboot flashing unlock\n</code></pre>\n<img data-src=\"/images/IMG_3302.JPG\" alt=\"IMG_3302\">\n<p>调节选项 选择 unlock 再按电源键确认</p>\n<p><img data-src=\"/images/IMG_3300.JPG\" alt=\"IMG_3300\"></p>\n<p>在 github 上下载一个 Magisk.apk 在安卓手机上安装</p>\n<p><img data-src=\"/images/QQ%E5%9B%BE%E7%89%8720230424205338.png\" alt=\"QQ图片20230424205338\"></p>\n<p>在安卓谷歌官网找一个<strong>和你手机版本相同的镜像</strong> zip, 解压后找出 boot.img 文件 push 给手机</p>\n<p><img data-src=\"/images/QQ%E5%9B%BE%E7%89%8720230424205913.png\" alt=\"QQ图片20230424205913\"></p>\n<p>利用 Magisk 修复镜像</p>\n<p><img data-src=\"/images/IMG_3301.JPG\" alt=\"IMG_3301\"></p>\n<p><img data-src=\"/images/QQ%E5%9B%BE%E7%89%8720230424210621.png\" alt=\"QQ图片20230424210621\"></p>\n<p>修复完后他会在相同目录保存修复后的 img 给它 pull 回电脑</p>\n<h5 id=\"出现的问题及解决\"><a class=\"markdownIt-Anchor\" href=\"#出现的问题及解决\">#</a> 出现的问题及解决</h5>\n<p><img data-src=\"/images/QQ%E5%9B%BE%E7%89%8720230424211231.png\" alt=\"QQ图片20230424211231\"></p>\n<p>破防之 fastboot 下载谷歌 USB 驱动后还是没搞懂</p>\n<p><img data-src=\"/images/QQ%E5%9B%BE%E7%89%8720230424211506.png\" alt=\"QQ图片20230424211506\"> 又在网上搜到说是版本问题之又下了两个版本还是不行最后<img data-src=\"/images/image-20230424223839731.png\" alt=\"image-20230424223839731\"></p>\n<p>又突然可以了 (估计是我之前没有 bootloader…)</p>\n<h5 id=\"成功\"><a class=\"markdownIt-Anchor\" href=\"#成功\">#</a> 成功！</h5>\n<p><img data-src=\"/images/image-20230425212930029.png\" alt=\"image-20230425212930029\"></p>\n",
+            "tags": [
+                "笔记"
+            ]
+        },
+        {
             "id": "https://3cly.github.io/2023/04/16/Angr%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/",
             "url": "https://3cly.github.io/2023/04/16/Angr%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/",
             "title": "Angr符号执行学习笔记",
