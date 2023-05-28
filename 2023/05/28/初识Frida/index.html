@@ -118,12 +118,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddece54757feff33b8136e.jpg"></li>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/640da918f144a010074b42d6.jpg"></li>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/640da806f144a01007495afd.jpg"></li>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec051be43e0d30e4b8150.png"></li>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/640da8e2f144a010074ada1e.jpg"></li>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec082be43e0d30e4bcdb9.png"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec1d4be43e0d30e4f1a79.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec39fbe43e0d30e53fdec.png"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddee1c4757feff33ba41c2.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec32bbe43e0d30e52d956.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/640da27bf144a010073fc581.png"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/640da934f144a010074b72ea.jpg"></li>
         </ul>
       </div>
     </header>
@@ -178,12 +178,7 @@
 <h3 id="真机测试"><a class="markdownIt-Anchor" href="#真机测试">#</a> 真机测试</h3>
 <p><img data-src="/images/image-20230425233608122.png" alt="image-20230425233608122"></p>
 <h3 id="搭建frida开发环境"><a class="markdownIt-Anchor" href="#搭建frida开发环境">#</a> 搭建 frida 开发环境</h3>
-<pre><code> git clone git://github.com/oleavr/frida-agent-example.git
- cd frida-agent-example/
- npm install
- frida -U -f com.example.android --no-pause -l _agent.js 这里我直接VScode了
-</code></pre>
-<h3 id="frida常用命令"><a class="markdownIt-Anchor" href="#frida常用命令">#</a> frida 常用命令</h3>
+<figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre>git clone git<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>oleavr<span class="token operator">/</span>frida<span class="token operator">-</span>agent<span class="token operator">-</span>example<span class="token punctuation">.</span>git</pre></td></tr><tr><td data-num="2"></td><td><pre> cd frida<span class="token operator">-</span>agent<span class="token operator">-</span>example<span class="token operator">/</span></pre></td></tr><tr><td data-num="3"></td><td><pre> npm install</pre></td></tr><tr><td data-num="4"></td><td><pre> frida <span class="token operator">-</span><span class="token constant">U</span> <span class="token operator">-</span>f com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>android <span class="token operator">--</span>no<span class="token operator">-</span>pause <span class="token operator">-</span>l _agent<span class="token punctuation">.</span>js 这里我直接VScode了</pre></td></tr></table></figure><h3 id="frida常用命令"><a class="markdownIt-Anchor" href="#frida常用命令">#</a> frida 常用命令</h3>
 <pre><code>frida-ls-devices # 列出所有设备
 
 frida-ps -U # 列出usb设备的进程
@@ -223,28 +218,7 @@ frida -U -l exploit.js &quot;XXXX&quot;
 </code></pre>
 <p><img data-src="/images/image-20230428165101481.png" alt="image-20230428165101481"></p>
 <p>JS 脚本:</p>
-<pre><code>Java.perform (() =&gt; &#123;
-  // 选择类
-  const MainActivity = Java.use ('com.example.seccon2015.rock_paper_scissors.MainActivity');
-  // 选择onClick方法
-  const onClick = MainActivity.onClick;
-  // hook onClick
-  onClick.implementation = function (v) &#123;
-        // 函数被调用的时候打印一条消息
-    send ('onClick');
-    //调用原始的onClick方法
-    onClick.call (this, v);
-    // 调用完之后修改m,n,cnt的值
-    this.m.value = 0;
-    this.n.value = 1;
-    this.cnt.value = 999;
-        // frida控制台打印结果
-        // hook结束
-    console.log ('Done:' , JSON.stringify (this.cnt));
-  &#125;;
-&#125;);
-</code></pre>
-<p><img data-src="/images/IMG_3353.JPG" alt="IMG_3353"></p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre>Java<span class="token punctuation">.</span><span class="token function">perform</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>  <span class="token comment">// 选择类</span></pre></td></tr><tr><td data-num="3"></td><td><pre>  <span class="token keyword">const</span> MainActivity <span class="token operator">=</span> Java<span class="token punctuation">.</span><span class="token function">use</span> <span class="token punctuation">(</span><span class="token string">'com.example.seccon2015.rock_paper_scissors.MainActivity'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>  <span class="token comment">// 选择 onClick 方法</span></pre></td></tr><tr><td data-num="5"></td><td><pre>  <span class="token keyword">const</span> onClick <span class="token operator">=</span> MainActivity<span class="token punctuation">.</span>onClick<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>  <span class="token comment">// hook onClick</span></pre></td></tr><tr><td data-num="7"></td><td><pre>  onClick<span class="token punctuation">.</span><span class="token function-variable function">implementation</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">v</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>        <span class="token comment">// 函数被调用的时候打印一条消息</span></pre></td></tr><tr><td data-num="9"></td><td><pre>    <span class="token function">send</span> <span class="token punctuation">(</span><span class="token string">'onClick'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>    <span class="token comment">// 调用原始的 onClick 方法</span></pre></td></tr><tr><td data-num="11"></td><td><pre>    <span class="token function">onClick</span><span class="token punctuation">.</span><span class="token function">call</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> v<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>    <span class="token comment">// 调用完之后修改 m,n,cnt 的值</span></pre></td></tr><tr><td data-num="13"></td><td><pre>    <span class="token keyword">this</span><span class="token punctuation">.</span>m<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>    <span class="token keyword">this</span><span class="token punctuation">.</span>n<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>    <span class="token keyword">this</span><span class="token punctuation">.</span>cnt<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token number">999</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>        <span class="token comment">//frida 控制台打印结果</span></pre></td></tr><tr><td data-num="17"></td><td><pre>        <span class="token comment">//hook 结束</span></pre></td></tr><tr><td data-num="18"></td><td><pre>    console<span class="token punctuation">.</span><span class="token function">log</span> <span class="token punctuation">(</span><span class="token string">'Done:'</span> <span class="token punctuation">,</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>cnt<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="19"></td><td><pre>  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="20"></td><td><pre><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr></table></figure><p><img data-src="/images/IMG_3353.JPG" alt="IMG_3353"></p>
 <h4 id="whyshouldipay"><a class="markdownIt-Anchor" href="#whyshouldipay">#</a> WhyShouldIPay</h4>
 <p><img data-src="/images/E2951965E57EE62ECEAE38BF90CA3C74.png" alt="E2951965E57EE62ECEAE38BF90CA3C74"></p>
 <p>PREMIUM CONETNT 内容需要输入 License 验证后才能看</p>
@@ -262,7 +236,7 @@ frida -U -l exploit.js &quot;XXXX&quot;
 <p>安卓手机版本太高 搞了我 10 个小时 焯！</p>
 <p><img data-src="/images/image-20230428115227442.png" alt="image-20230428115227442"></p>
 <p>心态爆炸之又重新换成安卓 10 又 ROOT 之终于成功了</p>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
       <div class="tags">
           <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"><i class="ic i-tag"></i> 笔记</a>
       </div>
@@ -276,7 +250,7 @@ frida -U -l exploit.js &quot;XXXX&quot;
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2023-05-28 09:48:27" itemprop="dateModified" datetime="2023-05-28T09:48:27+08:00">2023-05-28</time>
+    <time title="修改时间：2023-05-28 10:44:45" itemprop="dateModified" datetime="2023-05-28T10:44:45+08:00">2023-05-28</time>
   </span>
   <span id="2023/05/28/初识Frida/" class="item leancloud_visitors" data-flag-title="初识Frida" title="阅读次数">
       <span class="icon">
@@ -316,7 +290,7 @@ frida -U -l exploit.js &quot;XXXX&quot;
     <div class="item left">
       
 
-  <a href="/2023/04/25/pixel-4a-root/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;640da89ef144a010074a6468.jpg" title="pixel 4a root">
+  <a href="/2023/04/25/pixel-4a-root/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;63bec1f5be43e0d30e4f70a7.png" title="pixel 4a root">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> 学习</span>
   <h3>pixel 4a root</h3>
@@ -326,7 +300,7 @@ frida -U -l exploit.js &quot;XXXX&quot;
     <div class="item right">
       
 
-  <a href="/2023/05/28/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%B8%8E%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;640da838f144a0100749b193.jpg" title="区块链技术与研究进展">
+  <a href="/2023/05/28/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%B8%8E%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;63bec31dbe43e0d30e52a4d4.webp" title="区块链技术与研究进展">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> 学习</span>
   <h3>区块链技术与研究进展</h3>
@@ -449,77 +423,7 @@ frida -U -l exploit.js &quot;XXXX&quot;
 <a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
 </div>
 
-    <span><a href="/2023/04/02/%E5%87%A0%E9%81%93RE%E9%A2%98/" title="几道RE题">几道RE题</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
-</div>
-
-    <span><a href="/2023/03/19/JAVA%E5%AD%A6%E4%B9%A0/" title="JAVA学习">JAVA学习</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="分类于 基本ROP学习">基本ROP学习</a>
-</div>
-
-    <span><a href="/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="基本ROP学习">基本ROP学习</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
-</div>
-
-    <span><a href="/2023/02/04/hgame2023%20%E9%83%A8%E5%88%86%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/" title="hgame2023 部分做题记录">hgame2023 部分做题记录</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
-</div>
-
-    <span><a href="/2023/04/25/pixel-4a-root/" title="pixel 4a root">pixel 4a root</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="分类于 基本ROP学习">基本ROP学习</a>
-</div>
-
-    <span><a href="/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/" title="PLT表与GOT表の延迟绑定机制学习">PLT表与GOT表の延迟绑定机制学习</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Hexo/" title="分类于 Hexo">Hexo</a>
-</div>
-
-    <span><a href="/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/" title="博客简介">博客简介</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
-</div>
-
-    <span><a href="/2023/03/19/Write-Virtual-Machine/" title="Write Virtual Machine">Write Virtual Machine</a></span>
+    <span><a href="/2023/05/28/%E5%88%9D%E8%AF%86Frida/" title="初识Frida">初识Frida</a></span>
   </li>
 
       
@@ -539,7 +443,77 @@ frida -U -l exploit.js &quot;XXXX&quot;
 <a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
 </div>
 
-    <span><a href="/2023/05/28/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%B8%8E%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/" title="区块链技术与研究进展">区块链技术与研究进展</a></span>
+    <span><a href="/2023/03/19/Write-Virtual-Machine/" title="Write Virtual Machine">Write Virtual Machine</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Hexo/" title="分类于 Hexo">Hexo</a>
+</div>
+
+    <span><a href="/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/" title="博客简介">博客简介</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/03/26/CMake/" title="&#x3D;CMake&#x3D;">=CMake=</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/04/hgame2023%20%E9%83%A8%E5%88%86%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/" title="hgame2023 部分做题记录">hgame2023 部分做题记录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/26/VNCTF/" title="VNCTF">VNCTF</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/03/19/JAVA%E5%AD%A6%E4%B9%A0/" title="JAVA学习">JAVA学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E9%9A%8F%E7%AC%94/" title="分类于 随笔">随笔</a>
+</div>
+
+    <span><a href="/2022/12/15/%E9%9A%8F%E7%AC%94/" title="以前的杂记">以前的杂记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="分类于 基本ROP学习">基本ROP学习</a>
+</div>
+
+    <span><a href="/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="基本ROP学习">基本ROP学习</a></span>
   </li>
 
   </ul>

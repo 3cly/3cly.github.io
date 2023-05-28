@@ -13,7 +13,7 @@
         <content type="html">&lt;p&gt;Welcome to sky の blog! 想学安全的二进制萌新于 12 月 14 号建立此博客&lt;br&gt;
  QQ:987623364&lt;/p&gt;
 &lt;p&gt;邮箱：987623364@qq.com&lt;/p&gt;
-</content>
+&lt;link rel=&#34;stylesheet&#34; href=&#34;/css/spoiler.css&#34; type=&#34;text/css&#34;&gt;&lt;script src=&#34;/js/spoiler.js&#34; type=&#34;text/javascript&#34; async&gt;&lt;/script&gt;</content>
         <category term="笔记" />
         <updated>2022-12-15T07:02:58.000Z</updated>
     </entry>
@@ -46,7 +46,7 @@ hexo d&lt;br&gt;
 更新&lt;br&gt;
 换了一个图标&lt;br&gt;
 &lt;img data-src=&#34;https://pic.imgdb.cn/item/639b006eb1fccdcd369474d8.png&#34; alt=&#34;Untitled&#34;&gt;&lt;/p&gt;
-</content>
+&lt;link rel=&#34;stylesheet&#34; href=&#34;/css/spoiler.css&#34; type=&#34;text/css&#34;&gt;&lt;script src=&#34;/js/spoiler.js&#34; type=&#34;text/javascript&#34; async&gt;&lt;/script&gt;</content>
         <category term="笔记" />
         <updated>2022-12-15T07:02:58.000Z</updated>
     </entry>

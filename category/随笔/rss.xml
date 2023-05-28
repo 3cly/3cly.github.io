@@ -48,7 +48,7 @@
 &lt;img data-src=&#34;https://pic.imgdb.cn/item/639ae551b1fccdcd3667e70c.png&#34; alt=&#34;Untitled&#34;&gt;&lt;/p&gt;
 &lt;h1 id=&#34;smc&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#smc&#34;&gt;#&lt;/a&gt; SMC&lt;/h1&gt;
 &lt;p&gt;SMC（Self-Modifying  Code）（自解码），可以在一段代码执行前对它进行修改。常常利用这个特性，把代码以加密的形式保存在可自行文件中，然后在程序执行的时候进行动态解析。这样我们在采用静态分析时，看到的都是加密的内容，从而阻断了静态调试的可能性。&lt;/p&gt;
- ]]></description>
+&lt;link rel=&#34;stylesheet&#34; href=&#34;/css/spoiler.css&#34; type=&#34;text/css&#34;&gt;&lt;script src=&#34;/js/spoiler.js&#34; type=&#34;text/javascript&#34; async&gt;&lt;/script&gt; ]]></description>
         </item>
     </channel>
 </rss>
