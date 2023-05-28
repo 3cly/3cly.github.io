@@ -1,0 +1,574 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="google-site-verification" content="tcK6frO9MMMjv-s9v_SHFiAvsW8YHyINmZlIiYn3a4g" />
+
+
+<link rel="alternate" type="application/rss+xml" title="skyの博客" href="https://3cly.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="skyの博客" href="https://3cly.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="skyの博客" href="https://3cly.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="笔记" />
+
+
+<link rel="canonical" href="https://3cly.github.io/2023/05/28/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%B8%8E%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/">
+
+
+
+  <title>
+区块链技术与研究进展 - 学习 |
+静かな港 = skyの博客 = 从来如此,便对么?</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">区块链技术与研究进展
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-28 08:20:24">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-28T08:20:24+08:00">2023-05-28</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>2.5k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">静かな港</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/640da918f144a010074b42d6.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec151be43e0d30e4da569.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/640da85ef144a0100749f168.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec31dbe43e0d30e52a4d4.webp"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddece54757feff33b8136e.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddec204757feff33b70401.png"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="item" rel="index" title="分类于 学习"><span itemprop="name">学习</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://3cly.github.io/2023/05/28/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%B8%8E%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.png">
+    <meta itemprop="name" content="sky">
+    <meta itemprop="description" content="从来如此,便对么?, 一只菜狗的博客">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="skyの博客">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="区块链技术与研究进展"><a class="markdownIt-Anchor" href="#区块链技术与研究进展">#</a> 区块链技术与研究进展</h1>
+<p><strong>区块链智能合约的优点</strong>：去中心化 多方验证 难以篡改</p>
+<h2 id="solidity语言"><a class="markdownIt-Anchor" href="#solidity语言">#</a> <strong>Solidity 语言</strong></h2>
+<p>Solidity 是一种用于实现智能合约的面向对象的高级语言。Solidity 语法接近于 JavaScript，且是目前较为成熟、流行的智能合约语言</p>
+<h3 id="特性"><a class="markdownIt-Anchor" href="#特性">#</a> 特性</h3>
+<p>Solidity 在初期设计时的目标是为了编写以太坊上的智能合约，因此有部分语法与以太坊的工作原理是高度耦合的。Solidity 中具有一些特殊类型（如 address、event 等）Solidity 中具有一些特殊的关键字（如 payable、now 等）Solidity 需要结合以太坊智能合约的特性在编写过程中对变量进行具体存储位置的定义</p>
+<p>在线编译器：<span class="exturl" data-url="aHR0cDovL3JlbWl4LmV0aGVyZXVtLm9yZy8lRTQlQjglQUQlRTYlOTYlODclRTYlOTYlODclRTYlQTElQTMlRUYlQkMlOUFodHRwczovL3NvbGlkaXR5LWNuLnJlYWR0aGVkb2NzLmlv">http://remix.ethereum.org/ 中文文档：https://solidity-cn.readthedocs.io</span></p>
+<h3 id="基础语法"><a class="markdownIt-Anchor" href="#基础语法">#</a> 基础语法</h3>
+<h4 id="常用类型"><a class="markdownIt-Anchor" href="#常用类型">#</a> 常用类型</h4>
+<p><strong>布尔类型</strong>由 bool 声明，与传统编程语言类似，可取 true 或者 false。</p>
+<p><strong>整型</strong>由 int 声明有符号的整型变量，由 uint 声明无符号的整型变量，可取整数。声明变量时加上数字表示变量的位数，如 int8 表示 8 位长度的有符号整型变量，位数可取 8、16、……、256。未声明变量位数时，编译器在编译时将默认其为最长位数，即将 int 编译为 int256。</p>
+<p><strong>地址类型</strong>由 address 声明，指以太坊账户的地址类型，与以太坊账户长度相同，该类型实际为存储一个 20 字节的值。地址类型的变量将自带多个成员变量，可通过多个成员变量函数进行账号余额获取、跨账号的转账、调用等操作。</p>
+<p><strong>地址类型</strong>成员函数 balance：获取该地址余额，如<address>.balance (uint256)；transfer：向该地址转账，失败则抛出异常，如<address>.transfer (uint256 amount)；send：向该地址转账，失败则返回 false，如<address>.send (uint256 amount)；call/callcode/delegatecall：向该地址发出相应的底层合约调用消息，如<address>.call(…)</address></address></address></address></p>
+<p><strong>映射</strong>由 mapping (键类型 =&gt; 值类型) 声明键类型不可以是：映射、变长数组、合约、枚举以及结构体在映射对应的以太坊状态树底层存储中，实际上并不存储键的值，而是存储键的 keccak256 哈希值，从而便于减小存储体积的同时查询实际的值。与数组不同的是，映射没有长度。</p>
+<p><strong>结构体</strong>由 struct 声明，可将多个基本变量组合为一个结构</p>
+<p><strong>指定变量的访问</strong></p>
+<p>在声明变量时，在类型名后，可以指定变量为 public 或 private 变量是否可以被合约的外部调用获取查询</p>
+<p><strong>指定变量的存储位置</strong></p>
+<p>在声明变量时，在类型名后，可以指定变量的存储位置为 storage 或 memory 变量保存在存储或是内存中。同样变量的不同存储位置涉及 Gas 计费的不同。一般情况下，各个变量有默认的存储位置，当编译器无法默认识别时，会提示开发者进行修改。</p>
+<h5 id="例子"><a class="markdownIt-Anchor" href="#例子">#</a> 例子</h5>
+<figure class="highlight solidity"><figcaption data-lang="Solidity (Ethereum)"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">// SPDX-License-Identifier: MIT</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">pragma</span> <span class="token keyword">solidity</span> <span class="token number">0.6</span><span class="token number">.0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">contract</span> <span class="token class-name">Test1</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>    <span class="token keyword">struct</span> <span class="token class-name">myStruct</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>        <span class="token builtin">bool</span> myBool<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>        <span class="token builtin">uint</span> myUint<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>        <span class="token builtin">address</span> myAddress<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>        <span class="token builtin">string</span> myString<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>    myStruct<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token keyword">public</span> myArray<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>    <span class="token keyword">mapping</span> <span class="token punctuation">(</span><span class="token builtin">uint</span><span class="token operator">=></span><span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token keyword">public</span> myMapping<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">public</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>        myStruct <span class="token keyword">memory</span> myElement <span class="token operator">=</span> <span class="token function">myStruct</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">,</span><span class="token string">"Hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>        myArray<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>myElement<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>        myMapping<span class="token punctuation">[</span><span class="token number">10086</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token string">"World"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="18"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h6 id="测试"><a class="markdownIt-Anchor" href="#测试">#</a> 测试</h6>
+<p><img data-src="/images/image-20230527132344158.png" alt="image-20230527132344158"></p>
+<h4 id="函数类型"><a class="markdownIt-Anchor" href="#函数类型">#</a> 函数类型</h4>
+<p>函数的声明：在 Solidity 中，函数通过以下形式进行声明：</p>
+<p public|private|internal|external>function (参数)</p>
+<p>[pure|constant|view|payable] [returns (返回值)]</p>
+<p>[] 中的选项为可选的函数类型描述。</p>
+<h4 id="特殊变量"><a class="markdownIt-Anchor" href="#特殊变量">#</a> 特殊变量</h4>
+<p><strong>特殊变量的由来</strong>以太坊虚拟机提供了获取部分区块链信息的操作码，在 Solidity 中，相对应地，也预设了一些特殊变量和函数在 Remix 编译器中可尝试得到各个变量的返回值</p>
+<p><strong>常用特殊变量</strong></p>
+<p>block.blockhash (区块号参数)：近 256 个区块哈希；</p>
+<p>block.coinbase: 合约交易所处区块的矿工地址；</p>
+<p>block.difficulty: 合约交易所处区块的挖矿难度；</p>
+<p>block.gaslimit: 合约交易所处区块的 gasLimit；</p>
+<p>block.number: 合约交易所处区块的高度；</p>
+<p>block.timestamp: 合约交易所处区块的时间戳；</p>
+<h4 id="事件日志"><a class="markdownIt-Anchor" href="#事件日志">#</a> 事件日志</h4>
+<p><strong>以太坊事件树</strong></p>
+<p>以太坊采用了事件日志进行记录，有别于状态树，事件树是单向输出、不可被合约读取的事件树为上层应用提供了高效的查询方式，使得上层应用能够观察特定合约的特定动作的发生及其内容</p>
+<h4 id="错误处理"><a class="markdownIt-Anchor" href="#错误处理">#</a> 错误处理</h4>
+<p><strong>背景</strong></p>
+<p>与传统计算机程序类似，以太坊智能合约的运行过程中，也可能出现由开发者定义的异常或错误，例如发起交易的地址不具有调用该函数的权限等。因此，需要对合约运行中的交易进行处理。</p>
+<p><strong>以太坊错误处理</strong></p>
+<p>在以太坊智能合约中，一般而言，交易在发生异常后，其交易修改的所有状态都将被回滚、都是无效的。</p>
+<p><strong>低级调用函数产生异常</strong></p>
+<p>通过 Solidity 提供的低级调用函数（call、delegatecall、callcode）进行合约子调用时若产生异常将返回 false，从而不会将子调用之外修改的状态回滚。</p>
+<p><strong>以太坊底层实现</strong></p>
+<p>以太坊通过记录状态根进行状态回滚，在发生异常时回到交易执行前的状态根、且不记录日志。</p>
+<p><strong>Solidity 错误处理函数</strong></p>
+<p>assert (条件参数)</p>
+<p>如果条件参数为 false，则使当前交易没有效果，并消耗交易剩余的 gas。</p>
+<p>require (条件参数，[消息参数])</p>
+<p>如果条件参数为 false，则撤销状态更改，并且，如果还传入了消息参数，则提供一个错误消息。</p>
+<p>revert ([消息参数])</p>
+<p>终止运行并撤销状态更改，如果还传入了消息参数，则提供一个错误消息。</p>
+<h3 id="私有链搭建"><a class="markdownIt-Anchor" href="#私有链搭建">#</a> 私有链搭建</h3>
+<p>复习考试 等几天再补上</p>
+<h3 id="现在水龙头难搞测试币都领不到力"><a class="markdownIt-Anchor" href="#现在水龙头难搞测试币都领不到力">#</a> 现在水龙头难搞，测试币都领不到力</h3>
+<p><img data-src="/images/image-20230523154742681.png" alt="image-20230523154742681"></p>
+
+      <div class="tags">
+          <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"><i class="ic i-tag"></i> 笔记</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-05-28 09:48:27" itemprop="dateModified" datetime="2023-05-28T09:48:27+08:00">2023-05-28</time>
+  </span>
+  <span id="2023/05/28/区块链技术与研究进展/" class="item leancloud_visitors" data-flag-title="区块链技术与研究进展" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>sky <i class="ic i-at"><em>@</em></i>skyの博客
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://3cly.github.io/2023/05/28/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%B8%8E%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/" title="区块链技术与研究进展">https://3cly.github.io/2023/05/28/区块链技术与研究进展/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/05/28/%E5%88%9D%E8%AF%86Frida/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;63bec36fbe43e0d30e539c8e.png" title="初识Frida">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 学习</span>
+  <h3>初识Frida</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%B8%8E%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95"><span class="toc-number">1.</span> <span class="toc-text"> 区块链技术与研究进展</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#solidity%E8%AF%AD%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text"> Solidity 语言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%80%A7"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 基础语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.2.1.</span> <span class="toc-text"> 常用类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-number">1.1.2.1.1.</span> <span class="toc-text"> 例子</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-number">1.1.2.1.1.1.</span> <span class="toc-text"> 测试</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.2.2.</span> <span class="toc-text"> 函数类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%8F%98%E9%87%8F"><span class="toc-number">1.1.2.3.</span> <span class="toc-text"> 特殊变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E6%97%A5%E5%BF%97"><span class="toc-number">1.1.2.4.</span> <span class="toc-text"> 事件日志</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-number">1.1.2.5.</span> <span class="toc-text"> 错误处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%81%E6%9C%89%E9%93%BE%E6%90%AD%E5%BB%BA"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 私有链搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E5%9C%A8%E6%B0%B4%E9%BE%99%E5%A4%B4%E9%9A%BE%E6%90%9E%E6%B5%8B%E8%AF%95%E5%B8%81%E9%83%BD%E9%A2%86%E4%B8%8D%E5%88%B0%E5%8A%9B"><span class="toc-number">1.1.4.</span> <span class="toc-text"> 现在水龙头难搞，测试币都领不到力</span></a></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2023/01/07/CSAPP%E3%81%AE%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2/" rel="bookmark" title="CSAPPの学習記録">CSAPPの学習記録</a></li><li><a href="/2023/02/04/N1CTF%20Junior%20%20WP%20%20by%203cly/" rel="bookmark" title="N1CTF Junior  WP">N1CTF Junior  WP</a></li><li><a href="/2023/02/04/hgame2023%20%E9%83%A8%E5%88%86%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="bookmark" title="hgame2023 部分做题记录">hgame2023 部分做题记录</a></li><li><a href="/2023/02/26/shellcode&&vm/" rel="bookmark" title="shellcode&&vm">shellcode&&vm</a></li><li><a href="/2023/02/26/VNCTF/" rel="bookmark" title="VNCTF">VNCTF</a></li><li><a href="/2023/03/19/JAVA%E5%AD%A6%E4%B9%A0/" rel="bookmark" title="JAVA学习">JAVA学习</a></li><li><a href="/2023/03/19/Write-Virtual-Machine/" rel="bookmark" title="Write Virtual Machine">Write Virtual Machine</a></li><li><a href="/2023/03/26/CMake/" rel="bookmark" title="=CMake=">=CMake=</a></li><li><a href="/2023/04/02/%E5%87%A0%E9%81%93RE%E9%A2%98/" rel="bookmark" title="几道RE题">几道RE题</a></li><li><a href="/2023/04/16/Angr%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="bookmark" title="Angr符号执行学习笔记">Angr符号执行学习笔记</a></li><li><a href="/2023/04/25/pixel-4a-root/" rel="bookmark" title="pixel 4a root">pixel 4a root</a></li><li><a href="/2023/05/28/%E5%88%9D%E8%AF%86Frida/" rel="bookmark" title="初识Frida">初识Frida</a></li><li class="active"><a href="/2023/05/28/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%B8%8E%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/" rel="bookmark" title="区块链技术与研究进展">区块链技术与研究进展</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="sky"
+      data-src="/images/avatar.png">
+  <p class="name" itemprop="name">sky</p>
+  <div class="description" itemprop="description">一只菜狗的博客</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">18</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">4</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">2</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tLzNjbHk=" title="https:&#x2F;&#x2F;github.com&#x2F;3cly"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/link/" rel="section"><i class="ic i-magic"></i>links</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/04/16/Angr%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Angr符号执行学习笔记">Angr符号执行学习笔记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/01/07/CSAPP%E3%81%AE%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2/" title="CSAPPの学習記録">CSAPPの学習記録</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/26/shellcode&&vm/" title="shellcode&amp;&amp;vm">shellcode&&vm</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/05/28/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%B8%8E%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/" title="区块链技术与研究进展">区块链技术与研究进展</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/04/02/%E5%87%A0%E9%81%93RE%E9%A2%98/" title="几道RE题">几道RE题</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="分类于 基本ROP学习">基本ROP学习</a>
+</div>
+
+    <span><a href="/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="基本ROP学习">基本ROP学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/03/26/CMake/" title="&#x3D;CMake&#x3D;">=CMake=</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="分类于 基本ROP学习">基本ROP学习</a>
+</div>
+
+    <span><a href="/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/" title="PLT表与GOT表の延迟绑定机制学习">PLT表与GOT表の延迟绑定机制学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/04/hgame2023%20%E9%83%A8%E5%88%86%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/" title="hgame2023 部分做题记录">hgame2023 部分做题记录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Hexo/" title="分类于 Hexo">Hexo</a>
+</div>
+
+    <span><a href="/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/" title="博客简介">博客简介</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2022 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">sky @ 静かな港</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">81k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:13</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/05/28/区块链技术与研究进展/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
