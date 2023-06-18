@@ -1,0 +1,561 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="google-site-verification" content="tcK6frO9MMMjv-s9v_SHFiAvsW8YHyINmZlIiYn3a4g" />
+
+
+<link rel="alternate" type="application/rss+xml" title="skyの博客" href="https://3cly.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="skyの博客" href="https://3cly.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="skyの博客" href="https://3cly.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="笔记" />
+
+
+<link rel="canonical" href="https://3cly.github.io/2023/06/18/DSACTF%E9%80%86%E5%90%91%E4%B8%93%E9%A1%B9/">
+
+
+
+  <title>
+DSACTF逆向专项 - 学习 |
+静かな港 = skyの博客 = 从来如此,便对么?</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">DSACTF逆向专项
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-06-18 15:29:46">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-06-18T15:29:46+08:00">2023-06-18</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>2.2k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">静かな港</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec32bbe43e0d30e52d956.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec151be43e0d30e4da569.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec082be43e0d30e4bcdb9.png"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec0c5be43e0d30e4c3f6f.png"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec1f5be43e0d30e4f70a7.png"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddecc64757feff33b7e519.png"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="item" rel="index" title="分类于 学习"><span itemprop="name">学习</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://3cly.github.io/2023/06/18/DSACTF%E9%80%86%E5%90%91%E4%B8%93%E9%A1%B9/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.png">
+    <meta itemprop="name" content="sky">
+    <meta itemprop="description" content="从来如此,便对么?, 一只菜狗的博客">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="skyの博客">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="dsactf逆向专项"><a class="markdownIt-Anchor" href="#dsactf逆向专项">#</a> DSACTF 逆向专项</h1>
+<h2 id="careful"><a class="markdownIt-Anchor" href="#careful">#</a> careful</h2>
+<p>纯纯的签到</p>
+<p>题目给出了一个恶意样本，请分析出样本请求服务器的域名 (flag 的形式为 DASCTF {md5 (域名)}) 其中 md5 值都是小写</p>
+<p><img data-src="/images/image-20230604094259190.png" alt="image-20230604094259190"></p>
+<p>第一眼看感觉像是比较数据什么的</p>
+<p>直接 gpt 分析得出 (其实也不用分析，只是可以了解一下)</p>
+<p>这段代码是一个用于远程控制的程序，其主要功能是通过网络连接到指定目标主机并执行接收到的命令。</p>
+<ol>
+<li>WSAStartup (0x202u, &amp;WSAData) 初始化套接字库，如果失败则返回 0。</li>
+<li>socket (2, 1, 6) 创建一个套接字，使用 IPv4 和 TCP 协议，如果失败则输出错误信息并返回 0。</li>
+<li>设置连接目标主机的 IP 地址和端口号等参数。</li>
+<li>connect ((SOCKET) s, &amp;v12, 16) 建立与目标主机的连接，如果成功则输出连接成功的信息。</li>
+<li>然后进入一个无限循环，不断地接收从目标主机发送过来的命令，并执行这些命令。</li>
+<li>在循环内部，每次接收到消息之后，使用 CreateProcessA 函数创建一个新的进程，并在其中执行接收到的命令。</li>
+<li>使用 WaitForSingleObject 函数等待新进程执行完毕。</li>
+<li>如果 connect 函数返回失败，则输出连接错误的信息并返回 1。</li>
+</ol>
+<p>flag 直接下断点调试得 不说了 看图都懂了</p>
+<p><img data-src="/images/image-20230604131531558.png" alt="image-20230604131531558"></p>
+<p><img data-src="/images/image-20230604132908731.png" alt="image-20230604132908731"></p>
+<p><img data-src="/images/image-20230604132607210.png" alt="image-20230604132607210"></p>
+<p><img data-src="/images/image-20230604132526463.png" alt="image-20230604132526463"></p>
+<p>小学生都会的动调调试，</p>
+<p>域名：Just_An_APIH00k11.com</p>
+<p f18566f93963f72f463fdfa2d163c37c>DSACTF</p>
+<h2 id="babyre"><a class="markdownIt-Anchor" href="#babyre">#</a> babyre</h2>
+<p>其实不难 只是我太久没做题了 (狡辩)</p>
+<p>shift+F12 发现成功字符跳到比较</p>
+<p><img data-src="/images/image-20230604142008084.png" alt="image-20230604142008084"></p>
+<p>前面是加密</p>
+<p><img data-src="/images/image-20230604141602766.png" alt="image-20230604141602766"></p>
+<p>2000 的异或数组</p>
+<p>然后<strong>交叉引用</strong>发现<img data-src="/images/image-20230604201729150.png" alt="image-20230604201729150"><strong>isdebuggerpresent</strong></p>
+<p>直接在数组里改回来就行 然后我选择 dump 出来这个加密部分</p>
+<p><img data-src="/images/QQ%E5%9B%BE%E7%89%8720230604214606.png" alt="QQ图片20230604214606"></p>
+<p>再放入 IDA</p>
+<p><img data-src="/images/image-20230604202155486.png" alt="image-20230604202155486"></p>
+<p>正确的函数</p>
+<p><img data-src="/images/image-20230604202220435.png" alt="image-20230604202220435"></p>
+<p><img data-src="/images/image-20230604205047698.png" alt="image-20230604205047698"></p>
+<p>魔改了 2 部分</p>
+<p><img data-src="/images/image-20230604205905954.png" alt="image-20230604205905954"></p>
+<p>紫砂了 眼睛都看花了 最后写的解密脚本如下</p>
+<figure class="highlight c"><figcaption data-lang="c"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token keyword">void</span> <span class="token function">rc4</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span> <span class="token operator">*</span>key<span class="token punctuation">,</span> <span class="token keyword">unsigned</span> <span class="token keyword">long</span> keylen<span class="token punctuation">,</span> <span class="token keyword">unsigned</span> <span class="token keyword">char</span> <span class="token operator">*</span>data<span class="token punctuation">,</span> <span class="token keyword">unsigned</span> <span class="token keyword">long</span> datalen<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token keyword">unsigned</span> <span class="token keyword">char</span> s<span class="token punctuation">[</span><span class="token number">256</span><span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>    <span class="token keyword">unsigned</span> <span class="token keyword">int</span> i<span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span>keylenl<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre></pre></td></tr><tr><td data-num="7"></td><td><pre>    <span class="token comment">// 初始化 S 盒</span></pre></td></tr><tr><td data-num="8"></td><td><pre>    <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">256</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>        s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="11"></td><td><pre></pre></td></tr><tr><td data-num="12"></td><td><pre>    <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">256</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>		 x <span class="token operator">=</span> s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>        j <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>j<span class="token operator">+</span> x  <span class="token operator">+</span> key<span class="token punctuation">[</span> keylenl<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">256</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>        <span class="token comment">// 交换 S [i] 和 S [j]</span></pre></td></tr><tr><td data-num="16"></td><td><pre>       </pre></td></tr><tr><td data-num="17"></td><td><pre>        s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> s<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>        s<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> x<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="19"></td><td><pre>		<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">++</span>keylenl <span class="token operator">>=</span> <span class="token number">10</span><span class="token punctuation">)</span> </pre></td></tr><tr><td data-num="20"></td><td><pre>		keylenl <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="21"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="22"></td><td><pre></pre></td></tr><tr><td data-num="23"></td><td><pre>    i <span class="token operator">=</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="24"></td><td><pre>    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span> n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> n <span class="token operator">&lt;</span> datalen<span class="token punctuation">;</span> n<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="25"></td><td><pre>        i <span class="token operator">=</span> <span class="token punctuation">(</span>i <span class="token operator">+</span> j<span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">256</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="26"></td><td><pre>        j <span class="token operator">=</span> <span class="token punctuation">(</span>j <span class="token operator">+</span> s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">256</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="27"></td><td><pre>        <span class="token comment">// 交换 S [i] 和 S [j]</span></pre></td></tr><tr><td data-num="28"></td><td><pre>        x <span class="token operator">=</span> s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="29"></td><td><pre>        s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> s<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="30"></td><td><pre>        s<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> x<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="31"></td><td><pre>		data<span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token operator">-=</span>n<span class="token operator">%</span><span class="token number">13</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="32"></td><td><pre>        data<span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token operator">^=</span> s<span class="token punctuation">[</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">+</span>j <span class="token operator">+</span> s<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">256</span><span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="33"></td><td><pre>		</pre></td></tr><tr><td data-num="34"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="35"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="36"></td><td><pre></pre></td></tr><tr><td data-num="37"></td><td><pre><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="38"></td><td><pre>    <span class="token keyword">unsigned</span> <span class="token keyword">char</span> key<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">93</span><span class="token punctuation">,</span><span class="token number">66</span><span class="token punctuation">,</span><span class="token number">98</span><span class="token punctuation">,</span><span class="token number">41</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">54</span><span class="token punctuation">,</span><span class="token number">71</span><span class="token punctuation">,</span><span class="token number">65</span><span class="token punctuation">,</span><span class="token number">21</span><span class="token punctuation">,</span><span class="token number">54</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="39"></td><td><pre>    <span class="token keyword">unsigned</span> <span class="token keyword">long</span> keylen <span class="token operator">=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token punctuation">;</span> <span class="token comment">// 减去末尾的 '\0'</span></pre></td></tr><tr><td data-num="40"></td><td><pre>    <span class="token keyword">unsigned</span> <span class="token keyword">char</span> data<span class="token punctuation">[</span><span class="token number">44</span><span class="token punctuation">]</span> <span class="token punctuation">;</span></pre></td></tr><tr><td data-num="41"></td><td><pre>	data<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">9</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="42"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">46</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="43"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">52</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="44"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">16</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="45"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">114</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="46"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">49</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="47"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">94</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="48"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="49"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">69</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="50"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">20</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="51"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">79</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="52"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">43</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="53"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">12</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">112</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="54"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">13</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">120</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="55"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">14</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">120</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="56"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">15</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">19</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="57"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">16</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">70</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="58"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">17</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">56</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="59"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">18</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">37</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="60"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">19</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">38</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="61"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">108</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="62"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">21</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">67</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="63"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">22</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">44</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="64"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">23</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="65"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">24</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">119</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="66"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">25</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">14</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="67"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">26</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">49</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="68"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">27</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">86</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="69"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">28</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">120</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="70"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">29</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">58</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="71"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">30</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">49</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="72"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">31</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">46</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="73"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">73</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="74"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">90</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="75"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">34</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">63</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="76"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">35</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">66</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="77"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">36</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">80</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="78"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">37</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">12</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="79"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">38</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">72</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="80"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">39</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">55</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="81"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">40</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">11</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="82"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">41</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">44</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="83"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">42</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">11</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="84"></td><td><pre>  data<span class="token punctuation">[</span><span class="token number">43</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">88</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="85"></td><td><pre>    <span class="token keyword">unsigned</span> <span class="token keyword">long</span> datalen <span class="token operator">=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token punctuation">;</span> <span class="token comment">// 减去末尾的 '\0'</span></pre></td></tr><tr><td data-num="86"></td><td><pre></pre></td></tr><tr><td data-num="87"></td><td><pre>    <span class="token function">rc4</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> keylen<span class="token punctuation">,</span> data<span class="token punctuation">,</span> datalen<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="88"></td><td><pre></pre></td></tr><tr><td data-num="89"></td><td><pre>    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"加密后："</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="90"></td><td><pre>    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> datalen<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="91"></td><td><pre>        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%02X "</span><span class="token punctuation">,</span> data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="92"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="93"></td><td><pre></pre></td></tr><tr><td data-num="94"></td><td><pre>    <span class="token comment">//rc4(key, keylen, data, datalen);</span></pre></td></tr><tr><td data-num="95"></td><td><pre></pre></td></tr><tr><td data-num="96"></td><td><pre>    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n解密后：%s"</span><span class="token punctuation">,</span> data<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="97"></td><td><pre>    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="98"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p>最后觉得下次 其实可直接复制 IDA 的 TAT</p>
+<p>DASCTF {03446c2c-dff7-11ed-9285-54e1ad98d649} 泪目</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      <div class="tags">
+          <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"><i class="ic i-tag"></i> 笔记</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-06-18 15:45:16" itemprop="dateModified" datetime="2023-06-18T15:45:16+08:00">2023-06-18</time>
+  </span>
+  <span id="2023/06/18/DSACTF逆向专项/" class="item leancloud_visitors" data-flag-title="DSACTF逆向专项" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>sky <i class="ic i-at"><em>@</em></i>skyの博客
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://3cly.github.io/2023/06/18/DSACTF%E9%80%86%E5%90%91%E4%B8%93%E9%A1%B9/" title="DSACTF逆向专项">https://3cly.github.io/2023/06/18/DSACTF逆向专项/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/06/18/%E7%A0%B4%E8%A7%A3010Editor/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;640da27bf144a010073fc581.png" title="破解010Editor">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 学习</span>
+  <h3>破解010Editor</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#dsactf%E9%80%86%E5%90%91%E4%B8%93%E9%A1%B9"><span class="toc-number">1.</span> <span class="toc-text"> DSACTF 逆向专项</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#careful"><span class="toc-number">1.1.</span> <span class="toc-text"> careful</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#babyre"><span class="toc-number">1.2.</span> <span class="toc-text"> babyre</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2023/01/07/CSAPP%E3%81%AE%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2/" rel="bookmark" title="CSAPPの学習記録">CSAPPの学習記録</a></li><li><a href="/2023/02/04/N1CTF%20Junior%20%20WP%20%20by%203cly/" rel="bookmark" title="N1CTF Junior  WP">N1CTF Junior  WP</a></li><li><a href="/2023/02/04/hgame2023%20%E9%83%A8%E5%88%86%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="bookmark" title="hgame2023 部分做题记录">hgame2023 部分做题记录</a></li><li><a href="/2023/02/26/shellcode&&vm/" rel="bookmark" title="shellcode&&vm">shellcode&&vm</a></li><li><a href="/2023/02/26/VNCTF/" rel="bookmark" title="VNCTF">VNCTF</a></li><li><a href="/2023/03/19/JAVA%E5%AD%A6%E4%B9%A0/" rel="bookmark" title="JAVA学习">JAVA学习</a></li><li><a href="/2023/03/19/Write-Virtual-Machine/" rel="bookmark" title="Write Virtual Machine">Write Virtual Machine</a></li><li><a href="/2023/03/26/CMake/" rel="bookmark" title="=CMake=">=CMake=</a></li><li><a href="/2023/04/02/%E5%87%A0%E9%81%93RE%E9%A2%98/" rel="bookmark" title="几道RE题">几道RE题</a></li><li><a href="/2023/04/16/Angr%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="bookmark" title="Angr符号执行学习笔记">Angr符号执行学习笔记</a></li><li><a href="/2023/04/25/pixel-4a-root/" rel="bookmark" title="pixel 4a root">pixel 4a root</a></li><li><a href="/2023/05/28/%E5%88%9D%E8%AF%86Frida/" rel="bookmark" title="初识Frida">初识Frida</a></li><li><a href="/2023/05/28/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%B8%8E%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/" rel="bookmark" title="区块链技术与研究进展">区块链技术与研究进展</a></li><li><a href="/2023/06/18/%E7%A0%B4%E8%A7%A3010Editor/" rel="bookmark" title="破解010Editor">破解010Editor</a></li><li class="active"><a href="/2023/06/18/DSACTF%E9%80%86%E5%90%91%E4%B8%93%E9%A1%B9/" rel="bookmark" title="DSACTF逆向专项">DSACTF逆向专项</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="sky"
+      data-src="/images/avatar.png">
+  <p class="name" itemprop="name">sky</p>
+  <div class="description" itemprop="description">一只菜狗的博客</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">20</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">4</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">2</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tLzNjbHk=" title="https:&#x2F;&#x2F;github.com&#x2F;3cly"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/link/" rel="section"><i class="ic i-magic"></i>links</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/03/19/JAVA%E5%AD%A6%E4%B9%A0/" title="JAVA学习">JAVA学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Hexo/" title="分类于 Hexo">Hexo</a>
+</div>
+
+    <span><a href="/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/" title="博客简介">博客简介</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/04/16/Angr%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Angr符号执行学习笔记">Angr符号执行学习笔记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/06/18/%E7%A0%B4%E8%A7%A3010Editor/" title="破解010Editor">破解010Editor</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Hexo/" title="分类于 Hexo">Hexo</a>
+</div>
+
+    <span><a href="/2022/12/15/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" title="搭建过程">搭建过程</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/03/19/Write-Virtual-Machine/" title="Write Virtual Machine">Write Virtual Machine</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/04/N1CTF%20Junior%20%20WP%20%20by%203cly/" title="N1CTF Junior  WP">N1CTF Junior  WP</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/26/VNCTF/" title="VNCTF">VNCTF</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/26/shellcode&&vm/" title="shellcode&amp;&amp;vm">shellcode&&vm</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/03/26/CMake/" title="&#x3D;CMake&#x3D;">=CMake=</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2022 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">sky @ 静かな港</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">83k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:15</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/06/18/DSACTF逆向专项/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
