@@ -92,12 +92,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/640da89ef144a010074a6468.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec082be43e0d30e4bcdb9.png"></li>
           <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec0c5be43e0d30e4c3f6f.png"></li>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec1e8be43e0d30e4f58f9.png"></li>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddec3f4757feff33b730c1.jpg"></li>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddec204757feff33b70401.png"></li>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/640da934f144a010074b72ea.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/640da97bf144a010074bf4e4.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec32bbe43e0d30e52d956.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec051be43e0d30e4b8150.png"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddeb5f4757feff33b5dfd7.jpg"></li>
         </ul>
       </div>
     </header>
@@ -134,12 +134,12 @@
             <li><a title="Angr符号执行学习笔记" href="/2023/04/16/Angr%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Angr符号执行学习笔记</a></li>
             <li><a title="CSAPPの学習記録" href="/2023/01/07/CSAPP%E3%81%AE%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2/">CSAPPの学習記録</a></li>
             <li><a title="DSACTF逆向专项" href="/2023/06/18/DSACTF%E9%80%86%E5%90%91%E4%B8%93%E9%A1%B9/">DSACTF逆向专项</a></li>
+            <li><a title="Google CTF 2023" href="/2023/07/03/Google-CTF-2023/">Google CTF 2023</a></li>
             <li><a title="JAVA学习" href="/2023/03/19/JAVA%E5%AD%A6%E4%B9%A0/">JAVA学习</a></li>
-            <li><a title="N1CTF Junior  WP" href="/2023/02/04/N1CTF%20Junior%20%20WP%20%20by%203cly/">N1CTF Junior  WP</a></li>
         </ul>
         <div class="meta footer">
           <span>
-            <i class="ic i-file"></i>15 篇文章
+            <i class="ic i-file"></i>17 篇文章
           </span>
         </div>
         <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" title="学习" class="btn">more...</a>
@@ -218,7 +218,119 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/06/18/DSACTF%E9%80%86%E5%90%91%E4%B8%93%E9%A1%B9/" itemprop="url" title="DSACTF逆向专项"><img data-src="https://pic.imgdb.cn/item/63bec051be43e0d30e4b8150.png"></a>
+    <a href="/2023/07/03/UIUCTF2023/" itemprop="url" title="UIUCTF2023"><img data-src="https://pic.imgdb.cn/item/63ddebc54757feff33b67d1a.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-07-03 15:51:49">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-07-03T15:51:49+08:00">2023-07-03</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>1.4k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2023/07/03/UIUCTF2023/" itemprop="url" title="UIUCTF2023">UIUCTF2023</a></h3>
+    <div class="excerpt">
+        # UIUCTF
+做了一道题就摆烂了 (第二天考试) Win95 的主题挺有特色
+# VMWHERE1
+
+给了两个文件一个 chal 是虚拟机程序 一个 program 是二进制文件 就是需要用虚拟机载入的程序
+# chal
+
+IDA7.7 打开虚拟机程序，逻辑很清晰 while 循环和 switch-case 其中每一个 case 对应一个操作
+可以用 x86 汇编指令近似理解
+
+case 0: 返回指令（ret）
+case 1: 加法指令（add）
+case 2: 减法指令（sub）
+case 3: 位与指令（and）
+case 4: 位或指令（or）
+case 5:...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" title="学习"><i class="ic i-flag"></i>学习</a>
+      </span>
+    </div>
+    <a href="/2023/07/03/UIUCTF2023/" itemprop="url" title="UIUCTF2023" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/07/03/Google-CTF-2023/" itemprop="url" title="Google CTF 2023"><img data-src="https://pic.imgdb.cn/item/63bfb189be43e0d30ea978bb.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-07-03 15:51:13">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-07-03T15:51:13+08:00">2023-07-03</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>1k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2023/07/03/Google-CTF-2023/" itemprop="url" title="Google CTF 2023">Google CTF 2023</a></h3>
+    <div class="excerpt">
+        # Google CTF 2023
+# ZerMatt
+给的是混淆后的 lua 的源码 vscode 中 按 shift+alt+f 可格式化
+下载 lua5.3 运行一下
+
+luaide 没调起
+失败和成功字符串都要经过 v7 函数之后再打印出来 v7 就是一个异或
+
+可疑的 v21 打印就是 flag
+
+CTF&amp;#123;At_least_it_was_not_a_bytecode_base_sandbox_escape&amp;#125;# Old School
+
+这个函数是验证密码的组成:
+k = 0; m = 0; while ( input[k] ) &amp;#123;...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" title="学习"><i class="ic i-flag"></i>学习</a>
+      </span>
+    </div>
+    <a href="/2023/07/03/Google-CTF-2023/" itemprop="url" title="Google CTF 2023" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/06/18/DSACTF%E9%80%86%E5%90%91%E4%B8%93%E9%A1%B9/" itemprop="url" title="DSACTF逆向专项"><img data-src="https://pic.imgdb.cn/item/64a27d201ddac507ccc4c367.jpg"></a>
   </div>
   <div class="info">
     
@@ -270,7 +382,7 @@ socket (2, 1, 6) 创建一个套接字，使用 IPv4 和 TCP...
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/06/18/%E7%A0%B4%E8%A7%A3010Editor/" itemprop="url" title="破解010Editor"><img data-src="https://pic.imgdb.cn/item/63bec2b8be43e0d30e517780.png"></a>
+    <a href="/2023/06/18/%E7%A0%B4%E8%A7%A3010Editor/" itemprop="url" title="破解010Editor"><img data-src="https://pic.imgdb.cn/item/64a27da01ddac507ccc59a09.jpg"></a>
   </div>
   <div class="info">
     
@@ -331,7 +443,7 @@ v26==219 是关键 那关键就是函数 sub_140008693
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/05/28/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%B8%8E%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/" itemprop="url" title="区块链技术与研究进展"><img data-src="https://pic.imgdb.cn/item/63bec1d4be43e0d30e4f1a79.jpg"></a>
+    <a href="/2023/05/28/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%B8%8E%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/" itemprop="url" title="区块链技术与研究进展"><img data-src="https://pic.imgdb.cn/item/63ddee494757feff33ba8057.jpg"></a>
   </div>
   <div class="info">
     
@@ -378,7 +490,7 @@ Solidity 在初期设计时的目标是为了编写以太坊上的智能合约�
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/05/28/%E5%88%9D%E8%AF%86Frida/" itemprop="url" title="初识Frida"><img data-src="https://pic.imgdb.cn/item/63bec32bbe43e0d30e52d956.jpg"></a>
+    <a href="/2023/05/28/%E5%88%9D%E8%AF%86Frida/" itemprop="url" title="初识Frida"><img data-src="https://pic.imgdb.cn/item/63ddee1c4757feff33ba41c2.jpg"></a>
   </div>
   <div class="info">
     
@@ -429,7 +541,7 @@ git clone git://github.com/oleavr/frida-agent-example.git cd frida-agent-example
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/04/25/pixel-4a-root/" itemprop="url" title="pixel 4a root"><img data-src="https://pic.imgdb.cn/item/63ddee494757feff33ba8057.jpg"></a>
+    <a href="/2023/04/25/pixel-4a-root/" itemprop="url" title="pixel 4a root"><img data-src="https://pic.imgdb.cn/item/63bec2b8be43e0d30e517780.png"></a>
   </div>
   <div class="info">
     
@@ -487,7 +599,7 @@ fastboot flashing unlock
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/04/16/Angr%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" title="Angr符号执行学习笔记"><img data-src="https://pic.imgdb.cn/item/640da8e2f144a010074ada1e.jpg"></a>
+    <a href="/2023/04/16/Angr%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" title="Angr符号执行学习笔记"><img data-src="https://pic.imgdb.cn/item/64a27d991ddac507ccc58c07.jpg"></a>
   </div>
   <div class="info">
     
@@ -533,7 +645,7 @@ angr 提供了一个 Python...
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/04/02/%E5%87%A0%E9%81%93RE%E9%A2%98/" itemprop="url" title="几道RE题"><img data-src="https://pic.imgdb.cn/item/63bec082be43e0d30e4bcdb9.png"></a>
+    <a href="/2023/04/02/%E5%87%A0%E9%81%93RE%E9%A2%98/" itemprop="url" title="几道RE题"><img data-src="https://pic.imgdb.cn/item/63bec1e8be43e0d30e4f58f9.png"></a>
   </div>
   <div class="info">
     
@@ -586,7 +698,7 @@ from z3 import *a1 = [BitVec(&#39;x%d&#39; % i, 32) for i in...
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/03/26/CMake/" itemprop="url" title="&#x3D;CMake&#x3D;"><img data-src="https://pic.imgdb.cn/item/63bfb189be43e0d30ea978bb.jpg"></a>
+    <a href="/2023/03/26/CMake/" itemprop="url" title="&#x3D;CMake&#x3D;"><img data-src="https://pic.imgdb.cn/item/63ddece54757feff33b8136e.jpg"></a>
   </div>
   <div class="info">
     
@@ -632,109 +744,6 @@ CMake 是一个跨平台的安装（编译）工具，可以用简单的语句�
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2023/03/19/JAVA%E5%AD%A6%E4%B9%A0/" itemprop="url" title="JAVA学习"><img data-src="https://pic.imgdb.cn/item/63bec39fbe43e0d30e53fdec.png"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2023-03-19 11:15:55">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2023-03-19T11:15:55+08:00">2023-03-19</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>2.2k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>2 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2023/03/19/JAVA%E5%AD%A6%E4%B9%A0/" itemprop="url" title="JAVA学习">JAVA学习</a></h3>
-    <div class="excerpt">
-        # JAVA
-[^Java 是一种面向对象的编程语言，它支持类和对象的概念。类是一种用户定义的数据类型，它包含了数据域和方法。对象是类的一个实例，它可以操作类中定义的方法和数据。]:
-个人在学习 JAVA 过程中的一些总结
-# 一些 JAVA 与 C 的区别
-Java 和 C 语言有以下几个区别：
-
-Java 是一种面向对象的编程语言，而 C 语言是一种过程式编程语言。
-Java 有垃圾回收机制，而 C 语言需要手动管理内存。
-Java 可以跨平台运行，而 C 语言通常需要编译成特定的机器码才能运行。
-Java 支持继承、封装和多态等面向对象编程的概念，而 C 语言不支持这些概念。
-Java...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" title="学习"><i class="ic i-flag"></i>学习</a>
-      </span>
-    </div>
-    <a href="/2023/03/19/JAVA%E5%AD%A6%E4%B9%A0/" itemprop="url" title="JAVA学习" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2023/03/19/Write-Virtual-Machine/" itemprop="url" title="Write Virtual Machine"><img data-src="https://pic.imgdb.cn/item/640da934f144a010074b72ea.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2023-03-19 11:15:55">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2023-03-19T11:15:55+08:00">2023-03-19</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>7.4k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>7 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2023/03/19/Write-Virtual-Machine/" itemprop="url" title="Write Virtual Machine">Write Virtual Machine</a></h3>
-    <div class="excerpt">
-        # 编写自己的虚拟机
-# 什么是虚拟机
-
-# 虚拟机的硬件组件的模拟
-# 内存空间
-虚拟机中模拟内存硬件的作用是为了在一个完全隔离的环境中运行一个完整的计算机系统
-# 寄存器
-一个寄存器就是 CPU 上一个能够存储单个数据的槽。寄存器就像 CPU 的 “工作台”。CPU 要对一段数据进行处理，必须先将数据放到某个寄存器中。但因为寄存器的数量很少，因此在任意时刻只能有很少的数据加载到寄存器。计算机的解决办法是：首先将数据从内存加载到寄存器，然后将计算结果放到其他寄存器，最后将最终结果 再写回内存。
-# 指令集
-指令是告诉 CPU...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" title="学习"><i class="ic i-flag"></i>学习</a>
-      </span>
-    </div>
-    <a href="/2023/03/19/Write-Virtual-Machine/" itemprop="url" title="Write Virtual Machine" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -742,7 +751,7 @@ Java...
   
   <nav class="pagination">
     <div class="inner">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="ic i-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="ic i-angle-right" aria-label="下一页"></i></a>
     </div>
   </nav>
 
@@ -770,7 +779,7 @@ Java...
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">20</span>
+        <span class="count">22</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -851,17 +860,7 @@ Java...
 <a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
 </div>
 
-    <span><a href="/2023/03/26/CMake/" title="&#x3D;CMake&#x3D;">=CMake=</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="分类于 基本ROP学习">基本ROP学习</a>
-</div>
-
-    <span><a href="/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/" title="PLT表与GOT表の延迟绑定机制学习">PLT表与GOT表の延迟绑定机制学习</a></span>
+    <span><a href="/2023/05/28/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%B8%8E%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/" title="区块链技术与研究进展">区块链技术与研究进展</a></span>
   </li>
 
       
@@ -871,7 +870,37 @@ Java...
 <a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
 </div>
 
-    <span><a href="/2023/02/26/shellcode&&vm/" title="shellcode&amp;&amp;vm">shellcode&&vm</a></span>
+    <span><a href="/2023/04/16/Angr%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Angr符号执行学习笔记">Angr符号执行学习笔记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/03/19/Write-Virtual-Machine/" title="Write Virtual Machine">Write Virtual Machine</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/04/N1CTF%20Junior%20%20WP%20%20by%203cly/" title="N1CTF Junior  WP">N1CTF Junior  WP</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="分类于 基本ROP学习">基本ROP学习</a>
+</div>
+
+    <span><a href="/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="基本ROP学习">基本ROP学习</a></span>
   </li>
 
       
@@ -891,17 +920,7 @@ Java...
 <a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
 </div>
 
-    <span><a href="/2023/04/25/pixel-4a-root/" title="pixel 4a root">pixel 4a root</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="分类于 基本ROP学习">基本ROP学习</a>
-</div>
-
-    <span><a href="/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="基本ROP学习">基本ROP学习</a></span>
+    <span><a href="/2023/06/18/DSACTF%E9%80%86%E5%90%91%E4%B8%93%E9%A1%B9/" title="DSACTF逆向专项">DSACTF逆向专项</a></span>
   </li>
 
       
@@ -911,7 +930,7 @@ Java...
 <a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
 </div>
 
-    <span><a href="/2023/01/07/CSAPP%E3%81%AE%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2/" title="CSAPPの学習記録">CSAPPの学習記録</a></span>
+    <span><a href="/2023/07/03/UIUCTF2023/" title="UIUCTF2023">UIUCTF2023</a></span>
   </li>
 
       
@@ -921,7 +940,7 @@ Java...
 <a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
 </div>
 
-    <span><a href="/2023/05/28/%E5%88%9D%E8%AF%86Frida/" title="初识Frida">初识Frida</a></span>
+    <span><a href="/2023/04/02/%E5%87%A0%E9%81%93RE%E9%A2%98/" title="几道RE题">几道RE题</a></span>
   </li>
 
       
@@ -931,17 +950,7 @@ Java...
 <a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
 </div>
 
-    <span><a href="/2023/03/19/Write-Virtual-Machine/" title="Write Virtual Machine">Write Virtual Machine</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Hexo/" title="分类于 Hexo">Hexo</a>
-</div>
-
-    <span><a href="/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/" title="博客简介">博客简介</a></span>
+    <span><a href="/2023/06/18/%E7%A0%B4%E8%A7%A3010Editor/" title="破解010Editor">破解010Editor</a></span>
   </li>
 
   </ul>
@@ -966,13 +975,13 @@ Java...
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">83k 字</span>
+    <span title="站点总字数">85k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:15</span>
+    <span title="站点阅读时长">1:18</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
