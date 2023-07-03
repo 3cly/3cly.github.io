@@ -51,9 +51,9 @@
 &lt;p&gt;&lt;img data-src=&#34;/images/image-20230701152849383.png&#34; alt=&#34;image-20230701152849383&#34;&gt;&lt;/p&gt;
 &lt;p&gt;于是我们的目标就是让他通过验证就行了 而每一位的验证逻辑都一样 分析第一位就行了&lt;/p&gt;
 &lt;p&gt;这里我写了前三位的示例&lt;/p&gt;
-&lt;p&gt;(password[0]&amp;gt;&amp;gt;4)&lt;sup&gt;password[0]&lt;/sup&gt;0x72^0x00==0 password[0]=’u’&lt;/p&gt;
-&lt;p&gt;(password[1]&amp;gt;&amp;gt;4)&lt;sup&gt;password[1]&lt;/sup&gt;0x72^0x1d==0  password[1]= ‘i’&lt;/p&gt;
-&lt;p&gt;(password[2]&amp;gt;&amp;gt;4)&lt;sup&gt;password[2]&lt;/sup&gt;0x1d^0x6f==0   password[2]=’u’&lt;/p&gt;
+&lt;p&gt;(password[0]&amp;gt;&amp;gt;4) ^ password[0]&lt;sup&gt;0x72&lt;/sup&gt;0x00==0  password[0]=’u’&lt;/p&gt;
+&lt;p&gt;(password[1]&amp;gt;&amp;gt;4) ^ password[1]&lt;sup&gt;0x72&lt;/sup&gt;0x1d==0  password[1]= ‘i’&lt;/p&gt;
+&lt;p&gt;(password[2]&amp;gt;&amp;gt;4) ^ password[2]&lt;sup&gt;0x1d&lt;/sup&gt;0x6f==0   password[2]=’u’&lt;/p&gt;
 &lt;p&gt;…&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;(password[i]&amp;gt;&amp;gt;4)&lt;sup&gt;password[i]&lt;/sup&gt;0xXX^0xXX==0&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;08 0F 0A 04 07 05 05 0F 0A XX 05 0C 00 03 0D 的验证逻辑就是这样，其中除了第一位的第一个 0xXX 的值为 0x00 后面的 0xXX 的值都是 push 进去的值和前一次验证时 push 的值&lt;/p&gt;
@@ -1321,6 +1321,17 @@ linux&amp;gt;
         <updated>2023-01-06T16:17:12.000Z</updated>
     </entry>
     <entry>
+        <id>https://3cly.github.io/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/</id>
+        <title>博客简介</title>
+        <link rel="alternate" href="https://3cly.github.io/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/"/>
+        <content type="html">&lt;p&gt;Welcome to sky の blog! 想学安全的二进制萌新于 12 月 14 号建立此博客&lt;br&gt;
+ QQ:987623364&lt;/p&gt;
+&lt;p&gt;邮箱：987623364@qq.com&lt;/p&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;/css/spoiler.css&#34; type=&#34;text/css&#34;&gt;&lt;script src=&#34;/js/spoiler.js&#34; type=&#34;text/javascript&#34; async&gt;&lt;/script&gt;</content>
+        <category term="笔记" />
+        <updated>2022-12-15T07:02:58.000Z</updated>
+    </entry>
+    <entry>
         <id>https://3cly.github.io/2022/12/15/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/</id>
         <title>搭建过程</title>
         <link rel="alternate" href="https://3cly.github.io/2022/12/15/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/"/>
@@ -1349,17 +1360,6 @@ hexo d&lt;br&gt;
 更新&lt;br&gt;
 换了一个图标&lt;br&gt;
 &lt;img data-src=&#34;https://pic.imgdb.cn/item/639b006eb1fccdcd369474d8.png&#34; alt=&#34;Untitled&#34;&gt;&lt;/p&gt;
-&lt;link rel=&#34;stylesheet&#34; href=&#34;/css/spoiler.css&#34; type=&#34;text/css&#34;&gt;&lt;script src=&#34;/js/spoiler.js&#34; type=&#34;text/javascript&#34; async&gt;&lt;/script&gt;</content>
-        <category term="笔记" />
-        <updated>2022-12-15T07:02:58.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://3cly.github.io/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/</id>
-        <title>博客简介</title>
-        <link rel="alternate" href="https://3cly.github.io/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/"/>
-        <content type="html">&lt;p&gt;Welcome to sky の blog! 想学安全的二进制萌新于 12 月 14 号建立此博客&lt;br&gt;
- QQ:987623364&lt;/p&gt;
-&lt;p&gt;邮箱：987623364@qq.com&lt;/p&gt;
 &lt;link rel=&#34;stylesheet&#34; href=&#34;/css/spoiler.css&#34; type=&#34;text/css&#34;&gt;&lt;script src=&#34;/js/spoiler.js&#34; type=&#34;text/javascript&#34; async&gt;&lt;/script&gt;</content>
         <category term="笔记" />
         <updated>2022-12-15T07:02:58.000Z</updated>
