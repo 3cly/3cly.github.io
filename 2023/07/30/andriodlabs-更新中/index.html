@@ -77,7 +77,7 @@ andriodlabs_更新中 - 学习 |
       <i class="ic i-pen"></i>
     </span>
     <span class="text">本文字数</span>
-    <span>1.8k</span>
+    <span>4.7k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -85,7 +85,7 @@ andriodlabs_更新中 - 学习 |
       <i class="ic i-clock"></i>
     </span>
     <span class="text">阅读时长</span>
-    <span>2 分钟</span>
+    <span>4 分钟</span>
   </span>
 </div>
 
@@ -118,12 +118,12 @@ andriodlabs_更新中 - 学习 |
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec051be43e0d30e4b8150.png"></li>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec31dbe43e0d30e52a4d4.webp"></li>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/64a27da01ddac507ccc59a09.jpg"></li>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddec3f4757feff33b730c1.jpg"></li>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/640da97bf144a010074bf4e4.jpg"></li>
-          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec32bbe43e0d30e52d956.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/64a27d971ddac507ccc58902.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/640da934f144a010074b72ea.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddee494757feff33ba8057.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/64a27d381ddac507ccc4e778.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/640da7baf144a0100748d15b.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddec204757feff33b70401.png"></li>
         </ul>
       </div>
     </header>
@@ -173,6 +173,7 @@ andriodlabs_更新中 - 学习 |
 <p>之前手贱又更新到安卓 13 了 又需要重新刷一次机 心累</p>
 <p><img data-src="/images/image-20230712124358034.png" alt="image-20230712124358034"></p>
 <p>记住 frida-server 在 /data/local/tmp/</p>
+<p>有关 jar 包:<span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC84MjMyMDQ5Mg==">https://zhuanlan.zhihu.com/p/82320492</span></p>
 <h2 id="安卓架构"><a class="markdownIt-Anchor" href="#安卓架构">#</a> 安卓架构</h2>
 <p>Android 是一个开源的，基于 Linux 的移动设备操作系统</p>
 <p>应用程序组件是一个 Android 应用程序的基本构建块。这些组件由应用清单文件松耦合的组织。AndroidManifest.xml 描述了应用程序的每个组件，以及他们如何交互。</p>
@@ -225,7 +226,7 @@ andriodlabs_更新中 - 学习 |
 <p>从汇编代码到十六进制数据 (二进制文件) 就叫做汇编</p>
 <p>arm32 每个指令 4 字节</p>
 <p>ARM 是 RISC (精简指令集) 架构的</p>
-<p><img data-src="C:%5CUsers%5C98762%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20230713144140075.png" alt="image-20230713144140075"></p>
+<p><img data-src="/images/image-20230713144140075.png" alt="image-20230713144140075"></p>
 <p><img data-src="/images/image-20230713144404690.png" alt="image-20230713144404690"></p>
 <p>CPSR 程序状态寄存器</p>
 <p><img data-src="/images/image-20230714195334674.png" alt="image-20230714195334674"></p>
@@ -278,6 +279,288 @@ andriodlabs_更新中 - 学习 |
 <p><strong>基本上字符串都是在 arsc 里，建议一键汉化，然后再润色。<br>
 少量没汉化到的字符串参考视频中的方法定位去逐个汉化。</strong></p>
 <p>注意签名校验</p>
+<h2 id="jni静态注册与动态注册"><a class="markdownIt-Anchor" href="#jni静态注册与动态注册">#</a> JNI 静态注册与动态注册</h2>
+<p>1、按照 JNI 规范的命名规则进行查找，这种方式叫静态注册。(包名 - 类名 - 方法名 - 方法参数)<br>
+ 2、调用 JNI 提供的 <code>RegisterNatives</code>  函数，将本地函数注册到 JVM 中，这种方式叫动态注册。</p>
+<h2 id="hook相关"><a class="markdownIt-Anchor" href="#hook相关">#</a> HOOK 相关</h2>
+<h4 id="动静态hook"><a class="markdownIt-Anchor" href="#动静态hook">#</a> 动静态 hook</h4>
+<p>动态函数：需要得到其实例（$new 或 Java.choose）, 如果是 Java.choose 则在 onMatch 进行具体操作；<br>
+静态函数：直接用 Java.use 出来的类来调用具体的静态函数即可。</p>
+<p>frida 日常使用可参考 http://www.juziss.cn/2020/11/14/Frida% E6%97% A5% E5% B8% B8% E4% BD% BF% E7%94% A8% E6%80% BB% E7% BB%93/</p>
+<p><strong>有空做 lab8-lab11</strong></p>
+<h2 id="什么是jvm-dalvik-art"><a class="markdownIt-Anchor" href="#什么是jvm-dalvik-art">#</a> 什么是 JVM、Dalvik、ART</h2>
+<p>JVM 是 JAVA 虚拟机，运行 JAVA 字节码程序<br>
+ Dalvik 是 Google 专门为 Android 设计的一个虚拟机，Dalvik 有专属的文件执行格式 dex (Dalvik executable)<br>
+ Art (Android Runtime) 相当于 Dalvik 的升级版，本质与 Dalvik 无异</p>
+<h2 id="smali及其语法"><a class="markdownIt-Anchor" href="#smali及其语法">#</a> smali 及其语法</h2>
+<p>寄存器采用 v 和 p 来命名，v 表示本地寄存器 (局部变量)，p 表示参数寄存器</p>
+<p>smali 是 Dalvik 的寄存器语言，smali 代码是 dex 反编译而来的。</p>
+<p>关键字</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.class</td>
+<td>类名</td>
+</tr>
+<tr>
+<td>.super</td>
+<td>父类名，继承的上级类名名称</td>
+</tr>
+<tr>
+<td>.source</td>
+<td>源名</td>
+</tr>
+<tr>
+<td>.field</td>
+<td>变量</td>
+</tr>
+<tr>
+<td>.method</td>
+<td>方法名</td>
+</tr>
+<tr>
+<td>.register</td>
+<td>寄存器</td>
+</tr>
+<tr>
+<td>.end method</td>
+<td>方法名的结束</td>
+</tr>
+<tr>
+<td>public</td>
+<td>公有</td>
+</tr>
+<tr>
+<td>protected</td>
+<td>半公开，只有同一家人才能用</td>
+</tr>
+<tr>
+<td>private</td>
+<td>私有，只能自己使用</td>
+</tr>
+<tr>
+<td>.parameter</td>
+<td>方法参数</td>
+</tr>
+<tr>
+<td>.prologue</td>
+<td>方法开始</td>
+</tr>
+<tr>
+<td>.line xxx</td>
+<td>位于第 xxx 行</td>
+</tr>
+</tbody>
+</table>
+<p>数据类型对应</p>
+<table>
+<thead>
+<tr>
+<th>smali 类型</th>
+<th>java 类型</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>V</td>
+<td>void</td>
+<td>无返回值</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>boolean</td>
+<td>布尔值类型，返回 0 或 1</td>
+</tr>
+<tr>
+<td>B</td>
+<td>byte</td>
+<td>字节类型，返回字节</td>
+</tr>
+<tr>
+<td>S</td>
+<td>short</td>
+<td>短整数类型，返回数字</td>
+</tr>
+<tr>
+<td>C</td>
+<td>char</td>
+<td>字符类型，返回字符</td>
+</tr>
+<tr>
+<td>I</td>
+<td>int</td>
+<td>整数类型，返回数字</td>
+</tr>
+<tr>
+<td>J</td>
+<td>long （64 位 需要 2 个寄存器存储）</td>
+<td>长整数类型，返回数字</td>
+</tr>
+<tr>
+<td>F</td>
+<td>float</td>
+<td>单浮点类型，返回数字</td>
+</tr>
+<tr>
+<td>D</td>
+<td>double （64 位 需要 2 个寄存器存储）</td>
+<td>双浮点类型，返回数字</td>
+</tr>
+<tr>
+<td>string</td>
+<td>String</td>
+<td>文本类型，返回字符串</td>
+</tr>
+<tr>
+<td>Lxxx/xxx/xxx</td>
+<td>object</td>
+<td>对象类型，返回对象</td>
+</tr>
+</tbody>
+</table>
+<p>常用指令</p>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>const</td>
+<td>重写整数属性，真假属性内容，只能是数字类型</td>
+</tr>
+<tr>
+<td>const-string</td>
+<td>重写字符串内容</td>
+</tr>
+<tr>
+<td>const-wide</td>
+<td>重写长整数类型，多用于修改到期时间。</td>
+</tr>
+<tr>
+<td>return</td>
+<td>返回指令</td>
+</tr>
+<tr>
+<td>if-eq</td>
+<td>全称 equal (a=b)，比较寄存器 ab 内容，相同则跳</td>
+</tr>
+<tr>
+<td>if-ne</td>
+<td>全称 not equal (a!=b)，ab 内容不相同则跳</td>
+</tr>
+<tr>
+<td>if-eqz</td>
+<td>全称 equal zero (a=0)，z 即是 0 的标记，a 等于 0 则跳</td>
+</tr>
+<tr>
+<td>if-nez</td>
+<td>全称 not equal zero (a!=0)，a 不等于 0 则跳</td>
+</tr>
+<tr>
+<td>if-ge</td>
+<td>全称 greater equal (a&gt;=b)，a 大于或等于则跳</td>
+</tr>
+<tr>
+<td>if-le</td>
+<td>全称 little equal (a&lt;=b)，a 小于或等于则跳</td>
+</tr>
+<tr>
+<td>goto</td>
+<td>强制跳到指定位置</td>
+</tr>
+<tr>
+<td>switch</td>
+<td>分支跳转，一般会有多个分支线，并根据指令跳转到适当位置</td>
+</tr>
+<tr>
+<td>iget</td>
+<td>获取寄存器数据</td>
+</tr>
+</tbody>
+</table>
+<p>其余指令可用语法工具查询</p>
+<p>定位方法：搜索弹窗关键字 (MT,jadx)、抓取按钮 id (开发者助手)</p>
+<p>静态分析工具:jadx</p>
+<p>修改工具：MT 管理器</p>
+<h2 id="activity生命周期"><a class="markdownIt-Anchor" href="#activity生命周期">#</a> Activity 生命周期</h2>
+<table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>onCreate()</td>
+<td>一个 Activity 启动后第一个被调用的函数，常用来在此方法中进行 Activity 的一些初始化操作。例如创建 View，绑定数据，注册监听，加载参数等。</td>
+</tr>
+<tr>
+<td>onStart()</td>
+<td>当 Activity 显示在屏幕上时，此方法被调用但此时还无法进行与用户的交互操作。</td>
+</tr>
+<tr>
+<td>onResume()</td>
+<td>这个方法在 onStart () 之后调用，也就是在 Activity 准备好与用户进行交互的时候调用，此时的 Activity 一定位于 Activity 栈顶，处于运行状态。</td>
+</tr>
+<tr>
+<td>onPause()</td>
+<td>这个方法是在系统准备去启动或者恢复另外一个 Activity 的时候调用，通常在这个方法中执行一些释放资源的方法，以及保存一些关键数据。</td>
+</tr>
+<tr>
+<td>onStop()</td>
+<td>这个方法是在 Activity 完全不可见的时候调用的。</td>
+</tr>
+<tr>
+<td>onDestroy()</td>
+<td>这个方法在 Activity 销毁之前调用，之后 Activity 的状态为销毁状态。</td>
+</tr>
+<tr>
+<td>onRestart()</td>
+<td>当 Activity 从停止 stop 状态恢进入 start 状态时调用状态。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="动态调试步骤"><a class="markdownIt-Anchor" href="#动态调试步骤">#</a> 动态调试步骤</h2>
+<h3 id="1修改debug权限"><a class="markdownIt-Anchor" href="#1修改debug权限">#</a> 1. 修改 debug 权限</h3>
+<p>方法一：在 AndroidManifest.xml 里添加可调试权限</p>
+<figure class="highlight xml"><figcaption data-lang="XML"></figcaption><table><tr><td data-num="1"></td><td><pre>复制代码 隐藏代码</pre></td></tr><tr><td data-num="2"></td><td><pre>android:debuggable="true"</pre></td></tr></table></figure><p>方法二：XappDebug 模块 hook 对应的 app</p>
+<p>项目地址</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1BhbGF0aXMvWEFwcERlYnVn">XappDebug</span></p>
+<h3 id="2端口转发以及开启adb权限"><a class="markdownIt-Anchor" href="#2端口转发以及开启adb权限">#</a> 2. 端口转发以及开启 adb 权限</h3>
+<h3 id="3下段点"><a class="markdownIt-Anchor" href="#3下段点">#</a> 3. 下段点</h3>
+<p>ctrl+b 下断点</p>
+<h3 id="4debug模式启动"><a class="markdownIt-Anchor" href="#4debug模式启动">#</a> 4.debug 模式启动</h3>
+<pre><code class="language-avrasm"> 复制代码 隐藏代码
+adb shell am start -D -n com.zj.wuaipojie/.ui.MainActivity
+</code></pre>
+<p>adb shell am start -D -n<br>
+adb shell am start -D -n 包名 / 类名<br>
+ am start -n 表示启动一个 activity<br>
+am start -D 表示将应用设置为可调试模式</p>
+<h3 id="5jeb附加调试进程"><a class="markdownIt-Anchor" href="#5jeb附加调试进程">#</a> 5.Jeb 附加调试进程</h3>
+<p>快捷键：<br>
+R 运行到光标处</p>
+<h2 id="log插桩"><a class="markdownIt-Anchor" href="#log插桩">#</a> Log 插桩</h2>
+<p>定义：Log 插桩指的是反编译 APK 文件时，在对应的 smali 文件里，添加相应的 smali 代码，将程序中的关键信息，以 log 日志的形式进行输出。</p>
+<p>调用命令</p>
+<figure class="highlight smali"><figcaption data-lang="smali"></figcaption><table><tr><td data-num="1"></td><td><pre>invoke-static <span class="token punctuation">&#123;</span>对应寄存器<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token class-name"><span class="token builtin">L</span><span class="token namespace">com<span class="token punctuation">/</span>mtools<span class="token punctuation">/</span></span><span class="token class-name">LogUtils</span></span><span class="token punctuation">;</span><span class="token operator">-></span><span class="token function">v</span><span class="token punctuation">(</span><span class="token class-name"><span class="token builtin">L</span><span class="token namespace">java<span class="token punctuation">/</span>lang<span class="token punctuation">/</span></span><span class="token class-name">Object</span></span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token builtin">V</span></pre></td></tr></table></figure><h2 id="签名校验"><a class="markdownIt-Anchor" href="#签名校验">#</a> 签名校验</h2>
+<p>如何判断是否有签名校验？<br>
+不做任何修改，直接签名安装，应用闪退则说明大概率有签名校验</p>
+<figure class="highlight lua"><figcaption data-lang="lua"></figcaption><table><tr><td data-num="1"></td><td><pre>kill<span class="token operator">/</span>killProcess<span class="token comment">-----kill/KillProcess () 可以杀死当前应用活动的进程，这一操作将会把所有该进程内的资源（包括线程全部清理掉）. 当然，由于 ActivityManager 时刻监听着进程，一旦发现进程被非正常 Kill，它将会试图去重启这个进程。这就是为什么，有时候当我们试图这样去结束掉应用时，发现它又自动重新启动的原因.</span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre>system<span class="token punctuation">.</span>exit<span class="token comment">----- 杀死了整个进程，这时候活动所占的资源也会被释放。</span></pre></td></tr><tr><td data-num="4"></td><td><pre></pre></td></tr><tr><td data-num="5"></td><td><pre>finish<span class="token comment">---------- 仅仅针对 Activity，当调用 finish () 时，只是将活动推向后台，并没有立即释放内存，活动的资源并没有被清理</span></pre></td></tr><tr><td data-num="6"></td><td><pre> 所谓三角校验，就是so检测dex，动态加载的<span class="token function">dex</span><span class="token punctuation">(</span>在软件运行时会解压释放一段dex文件，检测完后就删除<span class="token punctuation">)</span>检测so，dex检测动态加载的dex</pre></td></tr></table></figure><h2 id="签名校验对抗"><a class="markdownIt-Anchor" href="#签名校验对抗">#</a> 签名校验对抗</h2>
+<p>方法一：核心破解插件，不签名安装应用<br>
+方法二：一键过签名工具，例如 MT、NP、ARMPro、CNFIX、Modex 的去除签名校验功能<br>
+方法三：具体分析签名校验逻辑 (手撕签名校验)</p>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
       <div class="tags">
           <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"><i class="ic i-tag"></i> 笔记</a>
@@ -292,7 +575,7 @@ andriodlabs_更新中 - 学习 |
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2023-07-30 23:36:33" itemprop="dateModified" datetime="2023-07-30T23:36:33+08:00">2023-07-30</time>
+    <time title="修改时间：2023-09-08 15:39:00" itemprop="dateModified" datetime="2023-09-08T15:39:00+08:00">2023-09-08</time>
   </span>
   <span id="2023/07/30/andriodlabs-更新中/" class="item leancloud_visitors" data-flag-title="andriodlabs_更新中" title="阅读次数">
       <span class="icon">
@@ -332,7 +615,7 @@ andriodlabs_更新中 - 学习 |
     <div class="item left">
       
 
-  <a href="/2023/07/20/HWSCTF-WP/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;63ddece54757feff33b8136e.jpg" title="HWSCTF_WP">
+  <a href="/2023/07/20/HWSCTF-WP/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;640da7eaf144a010074929bf.jpg" title="HWSCTF_WP">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> 学习</span>
   <h3>HWSCTF_WP</h3>
@@ -340,6 +623,14 @@ andriodlabs_更新中 - 学习 |
 
     </div>
     <div class="item right">
+      
+
+  <a href="/2023/09/08/%E6%9B%B4%E6%96%B0%E5%90%8E%E6%9F%90%E7%94%B5%E8%A7%86%E9%A2%91APP%E5%8E%BB%E5%B9%BF%E5%91%8A%E7%A0%B4%E8%A7%A3/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;64a27cfd1ddac507ccc4869c.jpg" title="更新后某电视频APP去广告破解">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 学习</span>
+  <h3>更新后某电视频APP去广告破解</h3>
+  </a>
+
     </div>
 </div>
 
@@ -356,11 +647,11 @@ andriodlabs_更新中 - 学习 |
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#andriodlabs"><span class="toc-number">1.</span> <span class="toc-text"> andriodlabs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%8D%93%E6%9E%B6%E6%9E%84"><span class="toc-number">1.1.</span> <span class="toc-text"> 安卓架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lab1"><span class="toc-number">1.2.</span> <span class="toc-text"> lab1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#arm%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.3.</span> <span class="toc-text"> ARM 汇编学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#apk%E7%BB%93%E6%9E%84"><span class="toc-number">1.4.</span> <span class="toc-text"> apk 结构</span></a></li></ol></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#andriodlabs"><span class="toc-number">1.</span> <span class="toc-text"> andriodlabs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%8D%93%E6%9E%B6%E6%9E%84"><span class="toc-number">1.1.</span> <span class="toc-text"> 安卓架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lab1"><span class="toc-number">1.2.</span> <span class="toc-text"> lab1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#arm%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.3.</span> <span class="toc-text"> ARM 汇编学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#apk%E7%BB%93%E6%9E%84"><span class="toc-number">1.4.</span> <span class="toc-text"> apk 结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jni%E9%9D%99%E6%80%81%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C"><span class="toc-number">1.5.</span> <span class="toc-text"> JNI 静态注册与动态注册</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hook%E7%9B%B8%E5%85%B3"><span class="toc-number">1.6.</span> <span class="toc-text"> HOOK 相关</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E9%9D%99%E6%80%81hook"><span class="toc-number">1.6.0.1.</span> <span class="toc-text"> 动静态 hook</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFjvm-dalvik-art"><span class="toc-number">1.7.</span> <span class="toc-text"> 什么是 JVM、Dalvik、ART</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#smali%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95"><span class="toc-number">1.8.</span> <span class="toc-text"> smali 及其语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.9.</span> <span class="toc-text"> Activity 生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.10.</span> <span class="toc-text"> 动态调试步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E4%BF%AE%E6%94%B9debug%E6%9D%83%E9%99%90"><span class="toc-number">1.10.1.</span> <span class="toc-text"> 1. 修改 debug 权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%BB%A5%E5%8F%8A%E5%BC%80%E5%90%AFadb%E6%9D%83%E9%99%90"><span class="toc-number">1.10.2.</span> <span class="toc-text"> 2. 端口转发以及开启 adb 权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E4%B8%8B%E6%AE%B5%E7%82%B9"><span class="toc-number">1.10.3.</span> <span class="toc-text"> 3. 下段点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4debug%E6%A8%A1%E5%BC%8F%E5%90%AF%E5%8A%A8"><span class="toc-number">1.10.4.</span> <span class="toc-text"> 4.debug 模式启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5jeb%E9%99%84%E5%8A%A0%E8%B0%83%E8%AF%95%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.10.5.</span> <span class="toc-text"> 5.Jeb 附加调试进程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#log%E6%8F%92%E6%A1%A9"><span class="toc-number">1.11.</span> <span class="toc-text"> Log 插桩</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C"><span class="toc-number">1.12.</span> <span class="toc-text"> 签名校验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C%E5%AF%B9%E6%8A%97"><span class="toc-number">1.13.</span> <span class="toc-text"> 签名校验对抗</span></a></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
-          <li><a href="/2023/01/07/CSAPP%E3%81%AE%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2/" rel="bookmark" title="CSAPPの学習記録">CSAPPの学習記録</a></li><li><a href="/2023/02/04/N1CTF%20Junior%20%20WP%20%20by%203cly/" rel="bookmark" title="N1CTF Junior  WP">N1CTF Junior  WP</a></li><li><a href="/2023/02/04/hgame2023%20%E9%83%A8%E5%88%86%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="bookmark" title="hgame2023 部分做题记录">hgame2023 部分做题记录</a></li><li><a href="/2023/02/26/shellcode&&vm/" rel="bookmark" title="shellcode&&vm">shellcode&&vm</a></li><li><a href="/2023/02/26/VNCTF/" rel="bookmark" title="VNCTF">VNCTF</a></li><li><a href="/2023/03/19/JAVA%E5%AD%A6%E4%B9%A0/" rel="bookmark" title="JAVA学习">JAVA学习</a></li><li><a href="/2023/03/19/Write-Virtual-Machine/" rel="bookmark" title="Write Virtual Machine">Write Virtual Machine</a></li><li><a href="/2023/03/26/CMake/" rel="bookmark" title="=CMake=">=CMake=</a></li><li><a href="/2023/04/02/%E5%87%A0%E9%81%93RE%E9%A2%98/" rel="bookmark" title="几道RE题">几道RE题</a></li><li><a href="/2023/04/16/Angr%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="bookmark" title="Angr符号执行学习笔记">Angr符号执行学习笔记</a></li><li><a href="/2023/04/25/pixel-4a-root/" rel="bookmark" title="pixel 4a root">pixel 4a root</a></li><li><a href="/2023/05/28/%E5%88%9D%E8%AF%86Frida/" rel="bookmark" title="初识Frida">初识Frida</a></li><li><a href="/2023/05/28/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%B8%8E%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/" rel="bookmark" title="区块链技术与研究进展">区块链技术与研究进展</a></li><li><a href="/2023/06/18/%E7%A0%B4%E8%A7%A3010Editor/" rel="bookmark" title="破解010Editor">破解010Editor</a></li><li><a href="/2023/06/18/DSACTF%E9%80%86%E5%90%91%E4%B8%93%E9%A1%B9/" rel="bookmark" title="DSACTF逆向专项">DSACTF逆向专项</a></li><li><a href="/2023/07/03/Google-CTF-2023/" rel="bookmark" title="Google CTF 2023">Google CTF 2023</a></li><li><a href="/2023/07/03/UIUCTF2023/" rel="bookmark" title="UIUCTF2023">UIUCTF2023</a></li><li><a href="/2023/07/15/ollvm%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="bookmark" title="ollvm环境配置">ollvm环境配置</a></li><li><a href="/2023/07/20/HWSCTF-WP/" rel="bookmark" title="HWSCTF_WP">HWSCTF_WP</a></li><li class="active"><a href="/2023/07/30/andriodlabs-%E6%9B%B4%E6%96%B0%E4%B8%AD/" rel="bookmark" title="andriodlabs_更新中">andriodlabs_更新中</a></li>
+          <li><a href="/2023/01/07/CSAPP%E3%81%AE%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2/" rel="bookmark" title="CSAPPの学習記録">CSAPPの学習記録</a></li><li><a href="/2023/02/04/N1CTF%20Junior%20%20WP%20%20by%203cly/" rel="bookmark" title="N1CTF Junior  WP">N1CTF Junior  WP</a></li><li><a href="/2023/02/04/hgame2023%20%E9%83%A8%E5%88%86%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="bookmark" title="hgame2023 部分做题记录">hgame2023 部分做题记录</a></li><li><a href="/2023/02/26/shellcode&&vm/" rel="bookmark" title="shellcode&&vm">shellcode&&vm</a></li><li><a href="/2023/02/26/VNCTF/" rel="bookmark" title="VNCTF">VNCTF</a></li><li><a href="/2023/03/19/JAVA%E5%AD%A6%E4%B9%A0/" rel="bookmark" title="JAVA学习">JAVA学习</a></li><li><a href="/2023/03/19/Write-Virtual-Machine/" rel="bookmark" title="Write Virtual Machine">Write Virtual Machine</a></li><li><a href="/2023/03/26/CMake/" rel="bookmark" title="=CMake=">=CMake=</a></li><li><a href="/2023/04/02/%E5%87%A0%E9%81%93RE%E9%A2%98/" rel="bookmark" title="几道RE题">几道RE题</a></li><li><a href="/2023/04/16/Angr%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="bookmark" title="Angr符号执行学习笔记">Angr符号执行学习笔记</a></li><li><a href="/2023/04/25/pixel-4a-root/" rel="bookmark" title="pixel 4a root">pixel 4a root</a></li><li><a href="/2023/05/28/%E5%88%9D%E8%AF%86Frida/" rel="bookmark" title="初识Frida">初识Frida</a></li><li><a href="/2023/05/28/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%B8%8E%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/" rel="bookmark" title="区块链技术与研究进展">区块链技术与研究进展</a></li><li><a href="/2023/06/18/%E7%A0%B4%E8%A7%A3010Editor/" rel="bookmark" title="破解010Editor">破解010Editor</a></li><li><a href="/2023/06/18/DSACTF%E9%80%86%E5%90%91%E4%B8%93%E9%A1%B9/" rel="bookmark" title="DSACTF逆向专项">DSACTF逆向专项</a></li><li><a href="/2023/07/03/Google-CTF-2023/" rel="bookmark" title="Google CTF 2023">Google CTF 2023</a></li><li><a href="/2023/07/03/UIUCTF2023/" rel="bookmark" title="UIUCTF2023">UIUCTF2023</a></li><li><a href="/2023/07/15/ollvm%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="bookmark" title="ollvm环境配置">ollvm环境配置</a></li><li><a href="/2023/07/20/HWSCTF-WP/" rel="bookmark" title="HWSCTF_WP">HWSCTF_WP</a></li><li class="active"><a href="/2023/07/30/andriodlabs-%E6%9B%B4%E6%96%B0%E4%B8%AD/" rel="bookmark" title="andriodlabs_更新中">andriodlabs_更新中</a></li><li><a href="/2023/09/08/%E6%9B%B4%E6%96%B0%E5%90%8E%E6%9F%90%E7%94%B5%E8%A7%86%E9%A2%91APP%E5%8E%BB%E5%B9%BF%E5%91%8A%E7%A0%B4%E8%A7%A3/" rel="bookmark" title="更新后某电视频APP去广告破解">更新后某电视频APP去广告破解</a></li><li><a href="/2023/09/08/Xposed%E5%AD%A6%E4%B9%A0/" rel="bookmark" title="Xposed学习">Xposed学习</a></li>
         </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
@@ -374,7 +665,7 @@ andriodlabs_更新中 - 学习 |
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">25</span>
+        <span class="count">27</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -427,10 +718,12 @@ andriodlabs_更新中 - 学习 |
 
   <ul id="quick">
     <li class="prev pjax">
+        <a href="/2023/07/20/HWSCTF-WP/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
+        <a href="/2023/09/08/%E6%9B%B4%E6%96%B0%E5%90%8E%E6%9F%90%E7%94%B5%E8%A7%86%E9%A2%91APP%E5%8E%BB%E5%B9%BF%E5%91%8A%E7%A0%B4%E8%A7%A3/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -452,10 +745,20 @@ andriodlabs_更新中 - 学习 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+<a href="/categories/Hexo/" title="分类于 Hexo">Hexo</a>
 </div>
 
-    <span><a href="/2023/06/18/%E7%A0%B4%E8%A7%A3010Editor/" title="破解010Editor">破解010Editor</a></span>
+    <span><a href="/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/" title="博客简介">博客简介</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E9%9A%8F%E7%AC%94/" title="分类于 随笔">随笔</a>
+</div>
+
+    <span><a href="/2022/12/15/%E9%9A%8F%E7%AC%94/" title="以前的杂记">以前的杂记</a></span>
   </li>
 
       
@@ -466,6 +769,16 @@ andriodlabs_更新中 - 学习 |
 </div>
 
     <span><a href="/2023/07/20/HWSCTF-WP/" title="HWSCTF_WP">HWSCTF_WP</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/07/15/ollvm%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="ollvm环境配置">ollvm环境配置</a></span>
   </li>
 
       
@@ -485,7 +798,7 @@ andriodlabs_更新中 - 学习 |
 <a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
 </div>
 
-    <span><a href="/2023/03/26/CMake/" title="&#x3D;CMake&#x3D;">=CMake=</a></span>
+    <span><a href="/2023/07/03/Google-CTF-2023/" title="Google CTF 2023">Google CTF 2023</a></span>
   </li>
 
       
@@ -495,7 +808,7 @@ andriodlabs_更新中 - 学习 |
 <a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
 </div>
 
-    <span><a href="/2023/04/02/%E5%87%A0%E9%81%93RE%E9%A2%98/" title="几道RE题">几道RE题</a></span>
+    <span><a href="/2023/02/26/shellcode&&vm/" title="shellcode&amp;&amp;vm">shellcode&&vm</a></span>
   </li>
 
       
@@ -505,7 +818,7 @@ andriodlabs_更新中 - 学习 |
 <a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
 </div>
 
-    <span><a href="/2023/07/30/andriodlabs-%E6%9B%B4%E6%96%B0%E4%B8%AD/" title="andriodlabs_更新中">andriodlabs_更新中</a></span>
+    <span><a href="/2023/01/07/CSAPP%E3%81%AE%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2/" title="CSAPPの学習記録">CSAPPの学習記録</a></span>
   </li>
 
       
@@ -522,30 +835,10 @@ andriodlabs_更新中 - 学习 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Hexo/" title="分类于 Hexo">Hexo</a>
-</div>
-
-    <span><a href="/2022/12/15/%E5%8D%9A%E5%AE%A2%E7%AE%80%E4%BB%8B/" title="博客简介">博客简介</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
 <a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
 </div>
 
-    <span><a href="/2023/05/28/%E5%88%9D%E8%AF%86Frida/" title="初识Frida">初识Frida</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="分类于 基本ROP学习">基本ROP学习</a>
-</div>
-
-    <span><a href="/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="基本ROP学习">基本ROP学习</a></span>
+    <span><a href="/2023/04/25/pixel-4a-root/" title="pixel 4a root">pixel 4a root</a></span>
   </li>
 
   </ul>
@@ -570,13 +863,13 @@ andriodlabs_更新中 - 学习 |
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">106k 字</span>
+    <span title="站点总字数">116k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:37</span>
+    <span title="站点阅读时长">1:45</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
