@@ -1,21 +1,16 @@
 <?xml version="1.0"?>
-<rss version="2.0">
-    <channel>
-        <title>skyの博客 • Posts by &#34;基本rop学习&#34; category</title>
-        <link>https://3cly.github.io</link>
-        <description>一只菜狗的博客</description>
-        <language>zh-CN</language>
-        <pubDate>Fri, 30 Dec 2022 21:42:08 +0800</pubDate>
-        <lastBuildDate>Fri, 30 Dec 2022 21:42:08 +0800</lastBuildDate>
-        <category>笔记</category>
-        <category>二进制</category>
-        <item>
-            <guid isPermalink="true">https://3cly.github.io/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/</guid>
-            <title>PLT表与GOT表の延迟绑定机制学习</title>
-            <link>https://3cly.github.io/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/</link>
-            <category>二进制</category>
-            <pubDate>Fri, 30 Dec 2022 21:42:08 +0800</pubDate>
-            <description><![CDATA[ &lt;h1 id=&#34;plt表与got表-延迟绑定机制学习&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#plt表与got表-延迟绑定机制学习&#34;&gt;#&lt;/a&gt; PLT 表与 GOT 表 | 延迟绑定机制学习&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://3cly.github.io</id>
+    <title>3clyの博客 • Posts by &#34;pwnの学习&#34; category</title>
+    <link href="https://3cly.github.io" />
+    <updated>2022-12-30T13:42:08.000Z</updated>
+    <category term="笔记" />
+    <category term="二进制" />
+    <entry>
+        <id>https://3cly.github.io/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/</id>
+        <title>PLT表与GOT表の延迟绑定机制学习</title>
+        <link rel="alternate" href="https://3cly.github.io/2022/12/30/%E2%80%9CPLT%E8%A1%A8%E4%B8%8EGOT%E8%A1%A8%E3%81%AE%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E2%80%9D/"/>
+        <content type="html">&lt;h1 id=&#34;plt表与got表-延迟绑定机制学习&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#plt表与got表-延迟绑定机制学习&#34;&gt;#&lt;/a&gt; PLT 表与 GOT 表 | 延迟绑定机制学习&lt;/h1&gt;
 &lt;h2 id=&#34;前置知识&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#前置知识&#34;&gt;#&lt;/a&gt; 前置知识&lt;/h2&gt;
 &lt;h3 id=&#34;符号及符号表&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#符号及符号表&#34;&gt;#&lt;/a&gt; 符号及符号表&lt;/h3&gt;
 &lt;p&gt;在编程语言中，不可避免的要定义全局变量，函数.&lt;br&gt;
@@ -93,15 +88,15 @@
 &lt;p&gt;&lt;img data-src=&#34;/images/1580739542097-a6d2738b-9a08-4b5f-acd8-d5f2c4d77278.jpeg&#34; alt=&#34;image.jpeg&#34;&gt;&lt;/p&gt;
 &lt;p&gt;之后再次调用:&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;/images/1580739570228-64997692-8003-4c10-acf2-2c8d91095e3c.jpeg&#34; alt=&#34;image.jpeg&#34;&gt;&lt;/p&gt;
-&lt;link rel=&#34;stylesheet&#34; href=&#34;/css/spoiler.css&#34; type=&#34;text/css&#34;&gt;&lt;script src=&#34;/js/spoiler.js&#34; type=&#34;text/javascript&#34; async&gt;&lt;/script&gt; ]]></description>
-        </item>
-        <item>
-            <guid isPermalink="true">https://3cly.github.io/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/</guid>
-            <title>基本ROP学习</title>
-            <link>https://3cly.github.io/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/</link>
-            <category>二进制</category>
-            <pubDate>Thu, 15 Dec 2022 21:12:06 +0800</pubDate>
-            <description><![CDATA[ &lt;p&gt;用 p64 () 发送数据时，是发送的字节流，也就是比特流（二进制流）。&lt;/p&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;/css/spoiler.css&#34; type=&#34;text/css&#34;&gt;&lt;script src=&#34;/js/spoiler.js&#34; type=&#34;text/javascript&#34; async&gt;&lt;/script&gt;</content>
+        <category term="二进制" />
+        <updated>2022-12-30T13:42:08.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://3cly.github.io/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/</id>
+        <title>基本ROP学习</title>
+        <link rel="alternate" href="https://3cly.github.io/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/"/>
+        <content type="html">&lt;p&gt;用 p64 () 发送数据时，是发送的字节流，也就是比特流（二进制流）。&lt;/p&gt;
 &lt;h1 id=&#34;基本-rop学习&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#基本-rop学习&#34;&gt;#&lt;/a&gt; 基本 ROP 学习&lt;/h1&gt;
 &lt;p&gt;背景：NX 保护的开启 (No-eXecute, 不可执行保护）&lt;/p&gt;
 &lt;p&gt;核心思想：栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。&lt;/p&gt;
@@ -189,7 +184,8 @@
 &lt;p&gt;运行一下 成功本地 get shell&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221227161008.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;/images/QQ%E5%9B%BE%E7%89%8720221211175742.gif&#34; alt=&#34;image.gif&#34;&gt;&lt;/p&gt;
-&lt;link rel=&#34;stylesheet&#34; href=&#34;/css/spoiler.css&#34; type=&#34;text/css&#34;&gt;&lt;script src=&#34;/js/spoiler.js&#34; type=&#34;text/javascript&#34; async&gt;&lt;/script&gt; ]]></description>
-        </item>
-    </channel>
-</rss>
+&lt;link rel=&#34;stylesheet&#34; href=&#34;/css/spoiler.css&#34; type=&#34;text/css&#34;&gt;&lt;script src=&#34;/js/spoiler.js&#34; type=&#34;text/javascript&#34; async&gt;&lt;/script&gt;</content>
+        <category term="二进制" />
+        <updated>2022-12-15T13:12:06.000Z</updated>
+    </entry>
+</feed>
