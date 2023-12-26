@@ -1,0 +1,640 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="google-site-verification" content="tcK6frO9MMMjv-s9v_SHFiAvsW8YHyINmZlIiYn3a4g" />
+
+
+<link rel="alternate" type="application/rss+xml" title="3clyの博客" href="https://3cly.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="3clyの博客" href="https://3cly.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="3clyの博客" href="https://3cly.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="笔记" />
+
+
+<link rel="canonical" href="https://3cly.github.io/2023/12/26/llvmpass%E5%AD%A6%E4%B9%A0%E5%8F%8A%E6%8C%87%E4%BB%A4%E6%9B%BF%E6%8D%A2/">
+
+
+
+  <title>
+llvmpass学习及指令替换 - 学习 |
+静かな港 = 3clyの博客 = 从来如此,便对么?</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">llvmpass学习及指令替换
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-12-26 15:39:33">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-12-26T15:39:33+08:00">2023-12-26</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>8.4k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>8 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">静かな港</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/640da27bf144a010073fc581.png"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63bec31dbe43e0d30e52a4d4.webp"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddee494757feff33ba8057.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/63ddeb5f4757feff33b5dfd7.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/640da88af144a010074a43a4.jpg"></li>
+          <li class="item" data-background-image="https://pic.imgdb.cn/item/64a27d381ddac507ccc4e778.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="item" rel="index" title="分类于 学习"><span itemprop="name">学习</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://3cly.github.io/2023/12/26/llvmpass%E5%AD%A6%E4%B9%A0%E5%8F%8A%E6%8C%87%E4%BB%A4%E6%9B%BF%E6%8D%A2/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.png">
+    <meta itemprop="name" content="3cly">
+    <meta itemprop="description" content="从来如此,便对么?, 一只菜狗的博客">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="3clyの博客">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="llvm-pass"><a class="markdownIt-Anchor" href="#llvm-pass">#</a> LLVM Pass</h1>
+<h3 id="llvm基础随便写写"><a class="markdownIt-Anchor" href="#llvm基础随便写写">#</a> LLVM 基础 (随便写写)</h3>
+<p><strong>Compilers 编译器总体结构</strong></p>
+<ul>
+<li>
+<p>Lexical Analysis 词法分析</p>
+</li>
+<li>
+<p>Parsing 语法分析</p>
+</li>
+<li>
+<p>Semantic Analysis 语义分析 (主要)</p>
+<p><strong>---------- 前端 ----------</strong></p>
+</li>
+<li>
+<p>Optimization 优化 (主要)</p>
+<p><strong>---------- 后端 ----------</strong></p>
+</li>
+<li>
+<p>Code Generation 代码生成</p>
+</li>
+</ul>
+<p>LLVM 编译器结构如下图</p>
+<p>![image-1692164511976 (1)](/images/image-1692164511976 (1).png)</p>
+<p>优点：通用的中间表示（IR）来表示程序的结构和行为</p>
+<h3 id="环境配置"><a class="markdownIt-Anchor" href="#环境配置">#</a> 环境配置</h3>
+<p>官方教程～～～～</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sbHZtLm9yZy9kb2NzL1dyaXRpbmdBbkxMVk1QYXNzLmh0bWw=">https://llvm.org/docs/WritingAnLLVMPass.html</span></p>
+<p><s>一开始我还编译 llvm-project… 中途还遇到了 git clone 文件过大的问题… 果断放弃</s></p>
+<p><strong>Ubantu apt</strong></p>
+<h4 id="在-ubuntu-上安装-llvm-17"><a class="markdownIt-Anchor" href="#在-ubuntu-上安装-llvm-17">#</a> 在 Ubuntu 上安装 LLVM 17</h4>
+<pre><code>wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+sudo apt-add-repository &quot;deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-17 main&quot;
+sudo apt-get update
+sudo apt-get install -y llvm-17 llvm-17-dev llvm-17-tools clang-17
+</code></pre>
+<p><strong>这将安装所有必需的头文件、库和工具路径为  <code>/usr/lib/llvm-17/</code> 。</strong></p>
+<p>查找安装路径</p>
+<figure class="highlight shell"><figcaption data-lang="Bash"></figcaption><table><tr><td data-num="1"></td><td><pre>mou@mou-virtual-machine:~/桌面$ <span class="token builtin class-name">cd</span> <span class="token punctuation">..</span></pre></td></tr><tr><td data-num="2"></td><td><pre>mou@mou-virtual-machine:~$ <span class="token builtin class-name">cd</span> /usr/include</pre></td></tr><tr><td data-num="3"></td><td><pre>mou@mou-virtual-machine:/usr/include$ <span class="token function">ls</span> llvm*</pre></td></tr><tr><td data-num="4"></td><td><pre>llvm-17:</pre></td></tr><tr><td data-num="5"></td><td><pre>llvm</pre></td></tr><tr><td data-num="6"></td><td><pre></pre></td></tr><tr><td data-num="7"></td><td><pre>llvm-c-17:</pre></td></tr><tr><td data-num="8"></td><td><pre>llvm-c</pre></td></tr><tr><td data-num="9"></td><td><pre>mou@mou-virtual-machine:/usr/include$ <span class="token builtin class-name">cd</span> <span class="token punctuation">..</span></pre></td></tr><tr><td data-num="10"></td><td><pre>mou@mou-virtual-machine:/usr$ <span class="token builtin class-name">cd</span> lib</pre></td></tr><tr><td data-num="11"></td><td><pre>mou@mou-virtual-machine:/usr/lib$ <span class="token function">ls</span> llvm-17/</pre></td></tr><tr><td data-num="12"></td><td><pre>bin  build  cmake  include  lib  share</pre></td></tr><tr><td data-num="13"></td><td><pre>mou@mou-virtual-machine:/usr/lib$</pre></td></tr></table></figure><p><strong>CMake 编译相关</strong></p>
+<p><s>使用 cmake 的 find_library</s></p>
+<p>cmake 学习之前有记录 这里就不过多赘述了</p>
+<p>apt 安装的，你让他找得到 llvm 就行 ()</p>
+<p><strong>坑</strong></p>
+<p>之前我 apt 装好 llvm 也明白了安装路径就在网上随便找了 pass 代码编译 结果按照给的命令运行后没有任何回显 问了大佬才发现复制的代码是 leagct pass 不应该是 -fpass-plugin 载入插件… 于是引出了我对新版管理器的学习…</p>
+<p>12.12 在加装一个 T 固态后先已经从 VMware 转战 WSL<img data-src="/images/image-20231212203609259.png" alt="image-20231212203609259"></p>
+<h3 id="pass"><a class="markdownIt-Anchor" href="#pass">#</a> PASS</h3>
+<p><strong>LLVM Pass</strong> 框架是 LLVM 提供给用户用来干预代码优化过程的框架，编译后的 LLVM Pass 通过优化器 opt 进行加载，可以对 LLVM IR 中间代码进行分析和修改，生成新的中间代码。  在实现上，LLVM 的核心库中会给你一些 Pass 类 去继承。你需要实现它的一些方法。  最后使用 LLVM 的编译器会把它翻译得到的 IR 传入 Pass 里，给你遍历和修改。</p>
+<p>LLVM IR 实际上有三种表示：</p>
+<ol>
+<li>.ll 格式：人类可以阅读的文本。</li>
+<li>.bc 格式：适合机器存储的二进制文件。</li>
+<li>内存表示</li>
+</ol>
+<p>首先，.ll 格式和.bc 格式是如何生成并相互转换的呢？下面我列了个常用的简单指令清单：</p>
+<ul>
+<li>.c -&gt; .ll： <code>clang -emit-llvm -S a.c -o a.ll</code></li>
+<li>.c -&gt; .bc:  <code>clang -emit-llvm -c a.c -o a.bc</code></li>
+<li>.ll -&gt; .bc:  <code>llvm-as a.ll -o a.bc</code></li>
+<li>.bc -&gt; .ll:  <code>llvm-dis a.bc -o a.ll</code></li>
+<li>.bc -&gt; .s:  <code>llc a.bc -o a.s</code></li>
+</ul>
+<p>可以看到， <code>clang</code>  通过 <code>-emit-llvm</code>  参数， 使得原本要生成汇编以及机器码的指令生成了 LLVM IR 的 ll 格式和 bc 格式。 这可以理解为：对于 LLVM IR 来说，.ll 文件就相当于汇编，.bc 文件就相当于机器码。 这也是 <code>llvm-as</code>  和 <code>llvm-dis</code>  指令为什么叫 <code>as</code>  和 <code>dis</code>  的缘故。</p>
+<p>LLVM 有多种类型的 Pass 可供选择，包括：ModulePass (基于模块)、FunctionPass (基于函数)、CallGraphPass (基于调用图)、LoopPass (基于循环) 等</p>
+<p>参考学习的好👍项目:</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2JhbmFjaC1zcGFjZS9sbHZtLXR1dG9y">https://github.com/banach-space/llvm-tutor</span>  llvm-17 新版管理器</p>
+<figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre>clang-17 <span class="token parameter variable">-O1</span> -emit-llvm input.c <span class="token parameter variable">-S</span> <span class="token parameter variable">-o</span> out.ll  <span class="token comment">#得.ll 文件</span></pre></td></tr></table></figure><figure class="highlight shell"><figcaption data-lang="Bash"></figcaption><table><tr><td data-num="1"></td><td><pre>/usr/lib/llvm-17/bin/opt -load-pass-plugin ./libHelloWorld.so <span class="token parameter variable">-passes</span><span class="token operator">=</span>hello-world -disable-output out.ll</pre></td></tr></table></figure><p><img data-src="/images/image-20231123203845145.png" alt="image-20231123203845145"></p>
+<p>一个 hello world 的 <strong>FunctionPass</strong>，基于函数的 Pass 打印函数名称和参数数量</p>
+<p>后续传 github</p>
+<h3 id="llvm-ir学习略"><a class="markdownIt-Anchor" href="#llvm-ir学习略">#</a> LLVM IR 学习 (略)</h3>
+<p>LLVM IR 是一门低级编程语言 语法类似于汇编</p>
+<h3 id="cscd70"><a class="markdownIt-Anchor" href="#cscd70">#</a> CSCD70</h3>
+<p>cscd70 作业可以做做</p>
+<h3 id="自己写pass实现ollvm之指令替代"><a class="markdownIt-Anchor" href="#自己写pass实现ollvm之指令替代">#</a> 自己写 pass 实现 OLLVM 之指令替代</h3>
+<p>之前做 csapp 的 datalab 就发现算数运算存在一些恒等式，若能替换也算是一种混淆吧 后面了解 OLLVM 之后就想着自己实现一下</p>
+<p><strong>减法:a - b == (a + ~b) + 1</strong></p>
+<p><strong>加法:a + b == (((a ^ b) + 2 * (a &amp; b)) * 39 + 23) * 151 + 111</strong> (仅限 byte)</p>
+<p><em><em>异或:x^y==x-y-2</em>(x|~y)-2</em>*</p>
+<p>​        <s>1.(a|b)&amp;(<sub>a|</sub>b)</s><br>
+​        <s>2.<sub>(</sub>a&amp;<sub>b)&amp;</sub>(a&amp;b)</s><br>
+​        <s>3.(a&amp;<sub>b)|(</sub>a&amp;b)</s></p>
+<h4 id="mbasub"><a class="markdownIt-Anchor" href="#mbasub">#</a> MBASub</h4>
+<p>混合布尔算术（Mixed Boolean-Arithmetic, MBA）是一种混淆算法，这种算法由算数运算（例如 ADD、SUB、MUL）和布尔运算（例如 AND、OR、NOT）的混合使用组成。具体参考 https://bbs.kanxue.com/thread-271574.htm (线性 MBA)</p>
+<p>PASS 注册方式有两种，一是修改 PassRegistry.def 和 PassBuilder.cpp 文件，直接追加 Pass 定义进去。第二种是用插件接口进行注册，也是我使用的方式</p>
+<p><s>解析一个能跑通的 pass 的组成部分</s></p>
+<h5 id="llvmgetpassplugininfo-获取相关信息"><a class="markdownIt-Anchor" href="#llvmgetpassplugininfo-获取相关信息">#</a> llvmGetPassPluginInfo 获取相关信息</h5>
+<p>llvm 相关函数 google 一下有官网介绍</p>
+<figure class="highlight cpp"><figcaption data-lang="C++"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">//-----------------------------------------------------------------------------</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token comment">// New PM Registration 写 pass 套这个就行 </span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token comment">//-----------------------------------------------------------------------------</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">extern</span> <span class="token string">"C"</span> LLVM_ATTRIBUTE_WEAK <span class="token double-colon punctuation">::</span>llvm<span class="token double-colon punctuation">::</span>PassPluginLibraryInfo</pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token function">llvmGetPassPluginInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>  <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>LLVM_PLUGIN_API_VERSION<span class="token punctuation">,</span> <span class="token string">"mba-sub"</span><span class="token punctuation">,</span> LLVM_VERSION_STRING<span class="token punctuation">,</span><span class="token comment">//llvm 版本号环境取值，第二个是插件名字，第三个是插件版本号都是随便传</span></pre></td></tr><tr><td data-num="7"></td><td><pre>          <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span>PassBuilder <span class="token operator">&amp;</span>PB<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>   <span class="token comment">// 第四个参数比较重要，回调函数传递 PassBuilder &amp;PB 对象</span></pre></td></tr><tr><td data-num="8"></td><td><pre>            PB<span class="token punctuation">.</span><span class="token function">registerPipelineParsingCallback</span><span class="token punctuation">(</span>   </pre></td></tr><tr><td data-num="9"></td><td><pre>                <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span>StringRef Name<span class="token punctuation">,</span> FunctionPassManager <span class="token operator">&amp;</span>FPM<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="10"></td><td><pre>                   ArrayRef<span class="token operator">&lt;</span>PassBuilder<span class="token double-colon punctuation">::</span>PipelineElement<span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>                  <span class="token keyword">if</span> <span class="token punctuation">(</span>Name <span class="token operator">==</span> <span class="token string">"mba-sub"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>                    FPM<span class="token punctuation">.</span><span class="token function">addPass</span><span class="token punctuation">(</span><span class="token function">MBASub</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>                      <span class="token comment">//FPM.addPass (MBASub ()) 这行代码向函数级别 Pass 管理器 FPM 中添加了一个 MBASub Pass 的实例。在这里，MBASub () 表示创建了 MBASub 结构体的一个实例 (默认构造函数)，并将其添加到 Pass 管理器中</span></pre></td></tr><tr><td data-num="14"></td><td><pre>                    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>                  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>                  <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>                <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>          <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="19"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h5 id="passinfomixin相关"><a class="markdownIt-Anchor" href="#passinfomixin相关">#</a> PassInfoMixin 相关</h5>
+<blockquote>
+<p>All LLVM passes inherit from the CRTP mix-in  <code>PassInfoMixin&lt;PassT&gt;</code> . The pass should have a  <code>run()</code>  method which returns a  <code>PreservedAnalyses</code>  and takes in some unit of IR along with an analysis manager.</p>
+</blockquote>
+<p>PassInfoMixin 模板类简化注册过程</p>
+<p>继承了 PassInfoMixin 的类我们就可以视为是一个 Pass</p>
+<figure class="highlight cpp"><figcaption data-lang="C++"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">//mixin 的作用是当多个组件都需要相同的数据或者某些功能的话就可以把这些内容提取出来写成一个 mixin, 虽然 C++ 没有这种特性，但通过特殊技巧实现了，暂且不管</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">struct</span> <span class="token class-name">MBASub</span> <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">public</span> llvm<span class="token double-colon punctuation">::</span><span class="token class-name">PassInfoMixin</span><span class="token operator">&lt;</span><span class="token class-name">MBASub</span><span class="token operator">></span></span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>     <span class="token comment">// 定义了一个结构体 MBASub，并通过 llvm::PassInfoMixin 类来继承一些 Pass 相关的信息</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    </pre></td></tr><tr><td data-num="5"></td><td><pre>    <span class="token comment">//Pass 插件主入口点，为回调函数，会把源码的函数 IR 对象和和函数函数管理对象传递此函数</span></pre></td></tr><tr><td data-num="6"></td><td><pre>  llvm<span class="token double-colon punctuation">::</span>PreservedAnalyses <span class="token function">run</span><span class="token punctuation">(</span>llvm<span class="token double-colon punctuation">::</span>Function <span class="token operator">&amp;</span>F<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="7"></td><td><pre>                              llvm<span class="token double-colon punctuation">::</span>FunctionAnalysisManager <span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>  <span class="token keyword">bool</span> <span class="token function">runOnBasicBlock</span><span class="token punctuation">(</span>llvm<span class="token double-colon punctuation">::</span>BasicBlock <span class="token operator">&amp;</span>B<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre></pre></td></tr><tr><td data-num="10"></td><td><pre>  </pre></td></tr><tr><td data-num="11"></td><td><pre>  <span class="token keyword">static</span> <span class="token keyword">bool</span> <span class="token function">isRequired</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span><span class="token comment">//isRequired 是可选的，不实现则会是默认 false</span></pre></td></tr><tr><td data-num="12"></td><td><pre><span class="token punctuation">&#125;</span><span class="token punctuation">;</span></pre></td></tr></table></figure><p>补充 PassInfoMixin 的声明作参考</p>
+<figure class="highlight cpp"><figcaption data-lang="C++"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">/// A CRTP mix-in to automatically provide informational APIs needed for</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token comment">/// passes.</span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token comment">///</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token comment">/// This provides some boilerplate for types that are passes.</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">DerivedT</span><span class="token operator">></span> <span class="token keyword">struct</span> <span class="token class-name">PassInfoMixin</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>  <span class="token comment">/// Gets the name of the pass we are mixed into.</span></pre></td></tr><tr><td data-num="7"></td><td><pre>  <span class="token keyword">static</span> StringRef <span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>    <span class="token keyword">static_assert</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>is_base_of<span class="token operator">&lt;</span>PassInfoMixin<span class="token punctuation">,</span> DerivedT<span class="token operator">></span><span class="token double-colon punctuation">::</span>value<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="9"></td><td><pre>                  <span class="token string">"Must pass the derived type as the template argument!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>    StringRef Name <span class="token operator">=</span> <span class="token generic-function"><span class="token function">getTypeName</span><span class="token generic class-name"><span class="token operator">&lt;</span>DerivedT<span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>    Name<span class="token punctuation">.</span><span class="token function">consume_front</span><span class="token punctuation">(</span><span class="token string">"llvm::"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>    <span class="token keyword">return</span> Name<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="14"></td><td><pre> </pre></td></tr><tr><td data-num="15"></td><td><pre>  <span class="token keyword">void</span> <span class="token function">printPipeline</span><span class="token punctuation">(</span>raw_ostream <span class="token operator">&amp;</span>OS<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="16"></td><td><pre>                     function_ref<span class="token operator">&lt;</span><span class="token function">StringRef</span><span class="token punctuation">(</span>StringRef<span class="token punctuation">)</span><span class="token operator">></span> MapClassName2PassName<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>    StringRef ClassName <span class="token operator">=</span> <span class="token class-name">DerivedT</span><span class="token double-colon punctuation">::</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>    <span class="token keyword">auto</span> PassName <span class="token operator">=</span> <span class="token function">MapClassName2PassName</span><span class="token punctuation">(</span>ClassName<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="19"></td><td><pre>    OS <span class="token operator">&lt;&lt;</span> PassName<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="20"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="21"></td><td><pre><span class="token punctuation">&#125;</span><span class="token punctuation">;</span></pre></td></tr></table></figure><h5 id="replaceinstwithinst函数"><a class="markdownIt-Anchor" href="#replaceinstwithinst函数">#</a> ReplaceInstWithInst 函数</h5>
+<pre><code class="language-c++">void 	llvm::ReplaceInstWithInst (BasicBlock *BB, BasicBlock::iterator &amp;BI, Instruction *I)
+ 	Replace the instruction specified by BI with the instruction specified by I.   (将BI指定的指令替换为I指定的指令)
+</code></pre>
+<h5 id="run-method-which-returns-a-preservedanalyses实现"><a class="markdownIt-Anchor" href="#run-method-which-returns-a-preservedanalyses实现">#</a> run () method which returns a PreservedAnalyses 实现</h5>
+<figure class="highlight cpp"><figcaption data-lang="C++"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">//--------------</span></pre></td></tr><tr><td data-num="2"></td><td><pre>PreservedAnalyses <span class="token class-name">MBASub</span><span class="token double-colon punctuation">::</span><span class="token function">run</span><span class="token punctuation">(</span>llvm<span class="token double-colon punctuation">::</span>Function <span class="token operator">&amp;</span>F<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="3"></td><td><pre>                              llvm<span class="token double-colon punctuation">::</span>FunctionAnalysisManager <span class="token operator">&amp;</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token comment">//ModulePass 需要这里是 llvm::Module 和 ModuleAnalysisManager，FunctionPass 需要这里是 Function 和 FunctionAnalysisManager</span></pre></td></tr><tr><td data-num="4"></td><td><pre>  <span class="token keyword">bool</span> Changed <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"HAHAHAHAHAHAHAHAHA MyPass Loaded"</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">auto</span> <span class="token operator">&amp;</span>BB <span class="token operator">:</span> F<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>    Changed <span class="token operator">|=</span> <span class="token function">runOnBasicBlock</span><span class="token punctuation">(</span>BB<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>  <span class="token keyword">return</span> <span class="token punctuation">(</span>Changed <span class="token operator">?</span> llvm<span class="token double-colon punctuation">::</span><span class="token class-name">PreservedAnalyses</span><span class="token double-colon punctuation">::</span><span class="token function">none</span><span class="token punctuation">(</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="10"></td><td><pre>                  <span class="token operator">:</span> llvm<span class="token double-colon punctuation">::</span><span class="token class-name">PreservedAnalyses</span><span class="token double-colon punctuation">::</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//run 函数返回一个 PreservedAnalyses 结构表示哪些 Analysis Pass 的结果有变化。比如没有任何改变，可以返回 PreservedAnalyses::all () 表示保留全部分析结果；如果变化了，可以返回 PreservedAnalyses::none () 表示分析结果全部失效，需要重新计算。</span></pre></td></tr><tr><td data-num="11"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h5 id="mbasub实现"><a class="markdownIt-Anchor" href="#mbasub实现">#</a> MBASub 实现</h5>
+<figure class="highlight cpp"><figcaption data-lang="C++"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">//-----------------------------------------------------------------------------</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token comment">// MBASub 实现</span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token comment">//-----------------------------------------------------------------------------</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">bool</span> <span class="token class-name">MBASub</span><span class="token double-colon punctuation">::</span><span class="token function">runOnBasicBlock</span><span class="token punctuation">(</span>BasicBlock <span class="token operator">&amp;</span>BB<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>  <span class="token keyword">bool</span> Changed <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token comment">// 在 LLVM 中，BasicBlock（基本块）是一个基本的控制流单元，它包含一系列按照程序的控制流路径顺序排列的指令。因此，在 LLVM 中，将基本块中的指令作为迭代器的元素是很自然的选择，因为基本块实际上就是一个指令序列</span></pre></td></tr><tr><td data-num="7"></td><td><pre>  <span class="token comment">// 循环块中的所有指令。 替换指令需要迭代器</span></pre></td></tr><tr><td data-num="8"></td><td><pre>  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">auto</span> Inst <span class="token operator">=</span> BB<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> IE <span class="token operator">=</span> BB<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> Inst <span class="token operator">!=</span> IE<span class="token punctuation">;</span> <span class="token operator">++</span>Inst<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token comment">// 初始化了一个名为 Inst 的迭代器，指向基本块（BB）中的指令的起始位置</span></pre></td></tr><tr><td data-num="9"></td><td><pre>  <span class="token comment">//IE = BB.end (): 这里初始化了另一个名为 IE 的迭代器，指向基本块中指令的结束位置</span></pre></td></tr><tr><td data-num="10"></td><td><pre></pre></td></tr><tr><td data-num="11"></td><td><pre>    <span class="token comment">// 跳过非二元指令</span></pre></td></tr><tr><td data-num="12"></td><td><pre>    <span class="token keyword">auto</span> <span class="token operator">*</span>BinOp <span class="token operator">=</span> <span class="token generic-function"><span class="token function">dyn_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>BinaryOperator<span class="token operator">></span></span></span><span class="token punctuation">(</span>Inst<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// 在 LLVM 中，BinaryOperator 是表示二元操作符的一种特殊指令类型。它用于表示诸如加法、减法、乘法等二元操作的指令。BinaryOperator 继承自 Instruction 类，因此它是指令的一种</span></pre></td></tr><tr><td data-num="13"></td><td><pre>    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>BinOp<span class="token punctuation">)</span></pre></td></tr><tr><td data-num="14"></td><td><pre>      <span class="token keyword">continue</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="15"></td><td><pre></pre></td></tr><tr><td data-num="16"></td><td><pre>    <span class="token comment">/// 跳过不是减法，或者不是整数的指令</span></pre></td></tr><tr><td data-num="17"></td><td><pre>    <span class="token keyword">unsigned</span> Opcode <span class="token operator">=</span> BinOp<span class="token operator">-></span><span class="token function">getOpcode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>    <span class="token keyword">if</span> <span class="token punctuation">(</span>Opcode <span class="token operator">!=</span> Instruction<span class="token double-colon punctuation">::</span>Sub <span class="token operator">||</span> <span class="token operator">!</span>BinOp<span class="token operator">-></span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-></span><span class="token function">isIntegerTy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="19"></td><td><pre>      <span class="token keyword">continue</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="20"></td><td><pre></pre></td></tr><tr><td data-num="21"></td><td><pre>    </pre></td></tr><tr><td data-num="22"></td><td><pre>    IRBuilder<span class="token operator">&lt;</span><span class="token operator">></span> <span class="token function">Builder</span><span class="token punctuation">(</span>BinOp<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// 创建了一个 IRBuilder 对象，插入新的指令、操作数等到当前基本块所需的</span></pre></td></tr><tr><td data-num="23"></td><td><pre></pre></td></tr><tr><td data-num="24"></td><td><pre>    <span class="token comment">// Create  (a + ~b) + 1</span></pre></td></tr><tr><td data-num="25"></td><td><pre>    Instruction <span class="token operator">*</span>NewValue <span class="token operator">=</span> <span class="token class-name">BinaryOperator</span><span class="token double-colon punctuation">::</span><span class="token function">CreateAdd</span><span class="token punctuation">(</span></pre></td></tr><tr><td data-num="26"></td><td><pre>        Builder<span class="token punctuation">.</span><span class="token function">CreateAdd</span><span class="token punctuation">(</span>BinOp<span class="token operator">-></span><span class="token function">getOperand</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="27"></td><td><pre>                          Builder<span class="token punctuation">.</span><span class="token function">CreateNot</span><span class="token punctuation">(</span>BinOp<span class="token operator">-></span><span class="token function">getOperand</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="28"></td><td><pre>        <span class="token class-name">ConstantInt</span><span class="token double-colon punctuation">::</span><span class="token function">get</span><span class="token punctuation">(</span>BinOp<span class="token operator">-></span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="29"></td><td><pre></pre></td></tr><tr><td data-num="30"></td><td><pre>    </pre></td></tr><tr><td data-num="31"></td><td><pre>    <span class="token comment">// 替换！</span></pre></td></tr><tr><td data-num="32"></td><td><pre>    <span class="token function">ReplaceInstWithInst</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>BB<span class="token punctuation">,</span> Inst<span class="token punctuation">,</span> NewValue<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="33"></td><td><pre>    Changed <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="34"></td><td><pre>   </pre></td></tr><tr><td data-num="35"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="36"></td><td><pre>  <span class="token keyword">return</span> Changed<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="37"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p>附混淆效果<img data-src="/images/image-20231214170831217.png" alt="image-20231214170831217"></p>
+<h4 id="mbaadd"><a class="markdownIt-Anchor" href="#mbaadd">#</a> MBAAdd</h4>
+<p>(有点神了 这个指令替换 d810 解不了)</p>
+<p>见 github</p>
+<h4 id="xor"><a class="markdownIt-Anchor" href="#xor">#</a> XOR</h4>
+<p>[{c1: c5/2, c2: -c5/2, c3: -c5/2, c4: -c5}]<br>
+ 其中，c5 为任意非零常数</p>
+<p>得:</p>
+<p>x^y==x-y-2*(x|~y)-2</p>
+<p>MBAXor 实现</p>
+<figure class="highlight cpp"><figcaption data-lang="C++"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">//-----------------------------------------------------------------------------</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token comment">// MBAXor 实现</span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token comment">//-----------------------------------------------------------------------------</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">bool</span> <span class="token class-name">MBAXor</span><span class="token double-colon punctuation">::</span><span class="token function">runOnBasicBlock</span><span class="token punctuation">(</span>BasicBlock <span class="token operator">&amp;</span>BB<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>  <span class="token keyword">bool</span> Changed <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre></pre></td></tr><tr><td data-num="7"></td><td><pre>  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">auto</span> Inst <span class="token operator">=</span> BB<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> IE <span class="token operator">=</span> BB<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> Inst <span class="token operator">!=</span> IE<span class="token punctuation">;</span> <span class="token operator">++</span>Inst<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre></pre></td></tr><tr><td data-num="9"></td><td><pre>   </pre></td></tr><tr><td data-num="10"></td><td><pre>    <span class="token keyword">auto</span> <span class="token operator">*</span>BinOp <span class="token operator">=</span> <span class="token generic-function"><span class="token function">dyn_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>BinaryOperator<span class="token operator">></span></span></span><span class="token punctuation">(</span>Inst<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>BinOp<span class="token punctuation">)</span></pre></td></tr><tr><td data-num="12"></td><td><pre>      <span class="token keyword">continue</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="13"></td><td><pre></pre></td></tr><tr><td data-num="14"></td><td><pre>    </pre></td></tr><tr><td data-num="15"></td><td><pre>    <span class="token keyword">unsigned</span> Opcode <span class="token operator">=</span> BinOp<span class="token operator">-></span><span class="token function">getOpcode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>    <span class="token keyword">if</span> <span class="token punctuation">(</span>Opcode <span class="token operator">!=</span> Instruction<span class="token double-colon punctuation">::</span>Xor <span class="token operator">||</span> <span class="token operator">!</span>BinOp<span class="token operator">-></span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-></span><span class="token function">isIntegerTy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="17"></td><td><pre>      <span class="token keyword">continue</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="18"></td><td><pre></pre></td></tr><tr><td data-num="19"></td><td><pre>    </pre></td></tr><tr><td data-num="20"></td><td><pre>    IRBuilder<span class="token operator">&lt;</span><span class="token operator">></span> <span class="token function">Builder</span><span class="token punctuation">(</span>BinOp<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="21"></td><td><pre> <span class="token keyword">auto</span> Val2 <span class="token operator">=</span> <span class="token class-name">ConstantInt</span><span class="token double-colon punctuation">::</span><span class="token function">get</span><span class="token punctuation">(</span>BinOp<span class="token operator">-></span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="22"></td><td><pre>    <span class="token comment">// 逐步拆解  x-y-2*(x|~y)-2 可变成 x-(y+(2*(x|~y)+2))</span></pre></td></tr><tr><td data-num="23"></td><td><pre>    Instruction <span class="token operator">*</span>NewValue <span class="token operator">=</span> <span class="token class-name">BinaryOperator</span><span class="token double-colon punctuation">::</span><span class="token function">CreateSub</span><span class="token punctuation">(</span>BinOp<span class="token operator">-></span><span class="token function">getOperand</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="24"></td><td><pre>        Builder<span class="token punctuation">.</span><span class="token function">CreateAdd</span><span class="token punctuation">(</span>BinOp<span class="token operator">-></span><span class="token function">getOperand</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="25"></td><td><pre>                          Builder<span class="token punctuation">.</span><span class="token function">CreateAdd</span><span class="token punctuation">(</span></pre></td></tr><tr><td data-num="26"></td><td><pre>                              Builder<span class="token punctuation">.</span><span class="token function">CreateMul</span><span class="token punctuation">(</span>Val2<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="27"></td><td><pre>                                                Builder<span class="token punctuation">.</span><span class="token function">CreateOr</span><span class="token punctuation">(</span></pre></td></tr><tr><td data-num="28"></td><td><pre>                                                    BinOp<span class="token operator">-></span><span class="token function">getOperand</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="29"></td><td><pre>                                                    Builder<span class="token punctuation">.</span><span class="token function">CreateNot</span><span class="token punctuation">(</span></pre></td></tr><tr><td data-num="30"></td><td><pre>                                                        BinOp<span class="token operator">-></span><span class="token function">getOperand</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="31"></td><td><pre>Val2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="32"></td><td><pre></pre></td></tr><tr><td data-num="33"></td><td><pre>    </pre></td></tr><tr><td data-num="34"></td><td><pre>    <span class="token comment">// 替换！</span></pre></td></tr><tr><td data-num="35"></td><td><pre>    <span class="token function">ReplaceInstWithInst</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>BB<span class="token punctuation">,</span> Inst<span class="token punctuation">,</span> NewValue<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="36"></td><td><pre>    Changed <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="37"></td><td><pre></pre></td></tr><tr><td data-num="38"></td><td><pre></pre></td></tr><tr><td data-num="39"></td><td><pre>   </pre></td></tr><tr><td data-num="40"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="41"></td><td><pre>  <span class="token keyword">return</span> Changed<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="42"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p>test.cpp</p>
+<figure class="highlight cpp"><figcaption data-lang="C++"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">78</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>    <span class="token keyword">int</span> b <span class="token operator">=</span> <span class="token number">67</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>    <span class="token keyword">int</span> c <span class="token operator">=</span> <span class="token number">34</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>    <span class="token keyword">int</span> d <span class="token operator">=</span> <span class="token number">45</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>    <span class="token keyword">int</span> e <span class="token operator">=</span> <span class="token number">99</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre></pre></td></tr><tr><td data-num="10"></td><td><pre>    <span class="token keyword">int</span> result <span class="token operator">=</span> a <span class="token operator">^</span> b<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>    result <span class="token operator">^=</span> c<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>    result <span class="token operator">^=</span> d<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>    result <span class="token operator">^=</span> e<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>    result <span class="token operator">^=</span> e<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="15"></td><td><pre></pre></td></tr><tr><td data-num="16"></td><td><pre>    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"The result of 5 XOR operations is: %d\n"</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a: %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"b: %d\n"</span><span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="19"></td><td><pre>    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"c: %d\n"</span><span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="20"></td><td><pre>    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"d: %d\n"</span><span class="token punctuation">,</span> d<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="21"></td><td><pre>    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"e: %d\n"</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="22"></td><td><pre></pre></td></tr><tr><td data-num="23"></td><td><pre>    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="24"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p>/usr/lib/llvm-17/bin/opt -load-pass-plugin ./libMYXor.so -passes=“mba-xor” -S out.ll -o temp.ll</p>
+<p>clang-17 temp.ll -o temp# 得二进制文件</p>
+<h4 id="d810对抗相关"><a class="markdownIt-Anchor" href="#d810对抗相关">#</a> d810 对抗相关</h4>
+<p>像 mbaadd 这种针对特定 byte 数据范围的 d810 默认自带的反混淆规则没有的式子可以，但找到这种式子就考验数学能力了…</p>
+<p><img data-src="/images/image-20231225235540039.png" alt="image-20231225235540039"></p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      <div class="tags">
+          <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"><i class="ic i-tag"></i> 笔记</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-12-26 15:48:08" itemprop="dateModified" datetime="2023-12-26T15:48:08+08:00">2023-12-26</time>
+  </span>
+  <span id="2023/12/26/llvmpass学习及指令替换/" class="item leancloud_visitors" data-flag-title="llvmpass学习及指令替换" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>3cly <i class="ic i-at"><em>@</em></i>3clyの博客
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://3cly.github.io/2023/12/26/llvmpass%E5%AD%A6%E4%B9%A0%E5%8F%8A%E6%8C%87%E4%BB%A4%E6%9B%BF%E6%8D%A2/" title="llvmpass学习及指令替换">https://3cly.github.io/2023/12/26/llvmpass学习及指令替换/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/09/21/IDA%E6%93%8D%E4%BD%9C%E3%81%AE%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;63ddee494757feff33ba8057.jpg" title="IDA操作の朝花夕拾">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 学习</span>
+  <h3>IDA操作の朝花夕拾</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2023/12/26/TPCTF/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;64a27d0e1ddac507ccc4a032.jpg" title="llvmpass学习及指令替换">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 学习</span>
+  <h3>llvmpass学习及指令替换</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#llvm-pass"><span class="toc-number">1.</span> <span class="toc-text"> LLVM Pass</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#llvm%E5%9F%BA%E7%A1%80%E9%9A%8F%E4%BE%BF%E5%86%99%E5%86%99"><span class="toc-number">1.0.1.</span> <span class="toc-text"> LLVM 基础 (随便写写)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.0.2.</span> <span class="toc-text"> 环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8-ubuntu-%E4%B8%8A%E5%AE%89%E8%A3%85-llvm-17"><span class="toc-number">1.0.2.1.</span> <span class="toc-text"> 在 Ubuntu 上安装 LLVM 17</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass"><span class="toc-number">1.0.3.</span> <span class="toc-text"> PASS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#llvm-ir%E5%AD%A6%E4%B9%A0%E7%95%A5"><span class="toc-number">1.0.4.</span> <span class="toc-text"> LLVM IR 学习 (略)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cscd70"><span class="toc-number">1.0.5.</span> <span class="toc-text"> CSCD70</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%B7%B1%E5%86%99pass%E5%AE%9E%E7%8E%B0ollvm%E4%B9%8B%E6%8C%87%E4%BB%A4%E6%9B%BF%E4%BB%A3"><span class="toc-number">1.0.6.</span> <span class="toc-text"> 自己写 pass 实现 OLLVM 之指令替代</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#mbasub"><span class="toc-number">1.0.6.1.</span> <span class="toc-text"> MBASub</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#llvmgetpassplugininfo-%E8%8E%B7%E5%8F%96%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF"><span class="toc-number">1.0.6.1.1.</span> <span class="toc-text"> llvmGetPassPluginInfo 获取相关信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#passinfomixin%E7%9B%B8%E5%85%B3"><span class="toc-number">1.0.6.1.2.</span> <span class="toc-text"> PassInfoMixin 相关</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#replaceinstwithinst%E5%87%BD%E6%95%B0"><span class="toc-number">1.0.6.1.3.</span> <span class="toc-text"> ReplaceInstWithInst 函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#run-method-which-returns-a-preservedanalyses%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.0.6.1.4.</span> <span class="toc-text"> run () method which returns a PreservedAnalyses 实现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#mbasub%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.0.6.1.5.</span> <span class="toc-text"> MBASub 实现</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mbaadd"><span class="toc-number">1.0.6.2.</span> <span class="toc-text"> MBAAdd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#xor"><span class="toc-number">1.0.6.3.</span> <span class="toc-text"> XOR</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#d810%E5%AF%B9%E6%8A%97%E7%9B%B8%E5%85%B3"><span class="toc-number">1.0.6.4.</span> <span class="toc-text"> d810 对抗相关</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2023/01/07/CSAPP%E3%81%AE%E5%AD%A6%E7%BF%92%E8%A8%98%E9%8C%B2/" rel="bookmark" title="CSAPPの学習記録">CSAPPの学習記録</a></li><li><a href="/2023/02/04/N1CTF%20Junior%20%20WP%20%20by%203cly/" rel="bookmark" title="N1CTF Junior  WP">N1CTF Junior  WP</a></li><li><a href="/2023/02/04/hgame2023%20%E9%83%A8%E5%88%86%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="bookmark" title="hgame2023 部分做题记录">hgame2023 部分做题记录</a></li><li><a href="/2023/02/26/shellcode&&vm/" rel="bookmark" title="shellcode&&vm">shellcode&&vm</a></li><li><a href="/2023/02/26/VNCTF/" rel="bookmark" title="VNCTF">VNCTF</a></li><li><a href="/2023/03/19/JAVA%E5%AD%A6%E4%B9%A0/" rel="bookmark" title="JAVA学习">JAVA学习</a></li><li><a href="/2023/03/19/Write-Virtual-Machine/" rel="bookmark" title="Write Virtual Machine">Write Virtual Machine</a></li><li><a href="/2023/03/26/CMake/" rel="bookmark" title="=CMake=">=CMake=</a></li><li><a href="/2023/04/02/%E5%87%A0%E9%81%93RE%E9%A2%98/" rel="bookmark" title="几道RE题">几道RE题</a></li><li><a href="/2023/04/16/Angr%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="bookmark" title="Angr符号执行学习笔记">Angr符号执行学习笔记</a></li><li><a href="/2023/04/25/pixel-4a-root/" rel="bookmark" title="pixel 4a root">pixel 4a root</a></li><li><a href="/2023/05/28/%E5%88%9D%E8%AF%86Frida/" rel="bookmark" title="初识Frida">初识Frida</a></li><li><a href="/2023/05/28/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%B8%8E%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/" rel="bookmark" title="区块链技术与研究进展">区块链技术与研究进展</a></li><li><a href="/2023/06/18/%E7%A0%B4%E8%A7%A3010Editor/" rel="bookmark" title="破解010Editor">破解010Editor</a></li><li><a href="/2023/06/18/DSACTF%E9%80%86%E5%90%91%E4%B8%93%E9%A1%B9/" rel="bookmark" title="DSACTF逆向专项">DSACTF逆向专项</a></li><li><a href="/2023/07/03/Google-CTF-2023/" rel="bookmark" title="Google CTF 2023">Google CTF 2023</a></li><li><a href="/2023/07/03/UIUCTF2023/" rel="bookmark" title="UIUCTF2023">UIUCTF2023</a></li><li><a href="/2023/07/15/ollvm%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="bookmark" title="ollvm环境配置">ollvm环境配置</a></li><li><a href="/2023/07/20/HWSCTF-WP/" rel="bookmark" title="HWSCTF_WP">HWSCTF_WP</a></li><li><a href="/2023/07/30/andriodlabs-%E6%9B%B4%E6%96%B0%E4%B8%AD/" rel="bookmark" title="andriodlabs_更新中">andriodlabs_更新中</a></li><li><a href="/2023/09/08/%E6%9B%B4%E6%96%B0%E5%90%8E%E6%9F%90%E7%94%B5%E8%A7%86%E9%A2%91APP%E5%8E%BB%E5%B9%BF%E5%91%8A%E7%A0%B4%E8%A7%A3/" rel="bookmark" title="更新后某电视频APP去广告破解">更新后某电视频APP去广告破解</a></li><li><a href="/2023/09/08/Xposed%E5%AD%A6%E4%B9%A0/" rel="bookmark" title="Xposed学习">Xposed学习</a></li><li><a href="/2023/09/11/hitcon2023%E9%80%86%E5%90%91-The-Blade-WP/" rel="bookmark" title="hitcon2023逆向 The Blade WP">hitcon2023逆向 The Blade WP</a></li><li><a href="/2023/09/21/IDA%E6%93%8D%E4%BD%9C%E3%81%AE%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" rel="bookmark" title="IDA操作の朝花夕拾">IDA操作の朝花夕拾</a></li><li class="active"><a href="/2023/12/26/llvmpass%E5%AD%A6%E4%B9%A0%E5%8F%8A%E6%8C%87%E4%BB%A4%E6%9B%BF%E6%8D%A2/" rel="bookmark" title="llvmpass学习及指令替换">llvmpass学习及指令替换</a></li><li><a href="/2023/12/26/TPCTF/" rel="bookmark" title="llvmpass学习及指令替换">llvmpass学习及指令替换</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="3cly"
+      data-src="/images/avatar.png">
+  <p class="name" itemprop="name">3cly</p>
+  <div class="description" itemprop="description">一只菜狗的博客</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">31</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">4</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">2</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tLzNjbHk=" title="https:&#x2F;&#x2F;github.com&#x2F;3cly"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/link/" rel="section"><i class="ic i-magic"></i>links</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2023/09/21/IDA%E6%93%8D%E4%BD%9C%E3%81%AE%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2023/12/26/TPCTF/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/03/19/JAVA%E5%AD%A6%E4%B9%A0/" title="JAVA学习">JAVA学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/09/08/%E6%9B%B4%E6%96%B0%E5%90%8E%E6%9F%90%E7%94%B5%E8%A7%86%E9%A2%91APP%E5%8E%BB%E5%B9%BF%E5%91%8A%E7%A0%B4%E8%A7%A3/" title="更新后某电视频APP去广告破解">更新后某电视频APP去广告破解</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/12/26/llvmpass%E5%AD%A6%E4%B9%A0%E5%8F%8A%E6%8C%87%E4%BB%A4%E6%9B%BF%E6%8D%A2/" title="llvmpass学习及指令替换">llvmpass学习及指令替换</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/02/26/VNCTF/" title="VNCTF">VNCTF</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/09/08/Xposed%E5%AD%A6%E4%B9%A0/" title="Xposed学习">Xposed学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/07/20/HWSCTF-WP/" title="HWSCTF_WP">HWSCTF_WP</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/06/18/DSACTF%E9%80%86%E5%90%91%E4%B8%93%E9%A1%B9/" title="DSACTF逆向专项">DSACTF逆向专项</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/pwn%E3%81%AE%E5%AD%A6%E4%B9%A0/" title="分类于 pwnの学习">pwnの学习</a>
+</div>
+
+    <span><a href="/2022/12/15/%E5%9F%BA%E6%9C%ACROP%E5%AD%A6%E4%B9%A0/" title="基本ROP学习">基本ROP学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0/" title="分类于 学习">学习</a>
+</div>
+
+    <span><a href="/2023/04/16/Angr%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Angr符号执行学习笔记">Angr符号执行学习笔记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Hexo/" title="分类于 Hexo">Hexo</a>
+</div>
+
+    <span><a href="/2022/12/15/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" title="搭建过程">搭建过程</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2022 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">3cly @ 静かな港</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">150k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:16</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/12/26/llvmpass学习及指令替换/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
