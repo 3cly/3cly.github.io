@@ -88,7 +88,7 @@ python pyinstxtractor.py maze.dump#得so文件
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;LLVM 编译器结构如下图&lt;/p&gt;
-&lt;p&gt;![image-1692164511976 (1)](/images/image-1692164511976 (1).png)&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/image-1692164511976.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
 &lt;p&gt;优点：通用的中间表示（IR）来表示程序的结构和行为&lt;/p&gt;
 &lt;h3 id=&#34;环境配置&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#环境配置&#34;&gt;#&lt;/a&gt; 环境配置&lt;/h3&gt;
 &lt;p&gt;官方教程～～～～&lt;/p&gt;
